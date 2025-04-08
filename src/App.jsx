@@ -1,13 +1,12 @@
-import './App.css'
+import "./App.css";
+import Layout from "./Layout/Layout";
 
 function App() {
- 
-
   return (
-    <>
-    <h1>KJB solutions</h1>
-    </>
-  )
+    <Layout>
+      <h1>KJB solutions</h1>
+    </Layout>
+  );
 }
 
-export default App
+export default App;
