@@ -15,7 +15,7 @@ const Sidebar = ({ isOpen }) => {
 
   return (
     <div className={`sidebar ${isOpen ? 'open' : 'collapsed'}`}>
-      <div className="logo">{isOpen ? 'Reztro' : 'R'}</div>
+      <div className="logo">{isOpen ? 'Retail' : 'R'}</div>
       <ul className="nav-list">
         {navItems.map((item, index) => (
           <li key={index}>

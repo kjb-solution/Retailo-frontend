@@ -1,12 +1,8 @@
 import "./App.css";
-import Layout from "./Layout/Layout";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 function App() {
-  return (
-    <Layout>
-      <h1>KJB solutions</h1>
-    </Layout>
-  );
+  return <Dashboard />;
 }
 
 export default App;
