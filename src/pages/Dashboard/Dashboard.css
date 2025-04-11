@@ -19,8 +19,8 @@
   border-radius: 10px;
   flex: 1;
   min-width: 250px;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e5e5;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  /* border: 0.2px solid #e5e5e5; */
 }
 .card1 {
   background: #ffffff;
@@ -28,17 +28,75 @@
   border-radius: 10px;
   flex: 1;
   min-width: 250px;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  border: 1px solid #e5e5e5;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  /* border: 0.2px solid #e5e5e5; */
 }
+
+.card-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-label {
+  font-size: 20px;
+  color: #555;
+  margin: 0;
+}
+
+.card-value {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  color: #000;
+}
+
+.card-status {
+  font-size: 18px;
+  margin-top: 4px;
+  color: #555;
+}
+
+.status-green {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.card-icon {
+  background-color: #2f2f33;
+  padding: 10px;
+  border-radius: 12px;
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+}
+
 .card.large {
   /* height: 200px; */
   margin-bottom: 20px;
 }
-.card-section {
+/* .card-section {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+} */
+
+.table-card {
+  background: #ffffff;
+  border-radius: 10px;
+  min-width: 250px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  /* border: 0.2px solid #e5e5e5; */
 }
 
 .icons {
@@ -46,19 +104,50 @@
   width: 40px;
 }
 
-.revenue {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .active-card {
   display: flex;
   flex-direction: column;
 }
 
+.data-table-section {
+  padding: 8px;
+  background: white;
+  border-radius: 12px;
+}
+
+/* Badges */
+
+.badge-completed {
+  background-color: #ddf6e8;
+  color: #28c76f;
+  padding: 6px 12px;
+  border-radius: 10px;
+}
+
+.badge-pending {
+  background-color: #fff0e1;
+  color: #ffa046;
+  padding: 6px 12px;
+  border-radius: 10px;
+}
+
+.badge-cancelled {
+  background-color: #f57f83;
+  color: #ff4c51;
+  padding: 6px 12px;
+  border-radius: 10px;
+}
+
 @media (max-width: 768px) {
-    .dashboard {
-        padding: 0px;
-      }
+  .dashboard {
+    padding: 0px;
+  }
+
+  .card.large {
+    width: 100% !important;
+  }
+
+  .chart-container {
+    flex-direction: column;
+  }
 }

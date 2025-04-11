@@ -36,7 +36,21 @@ const ChartComponent = () => {
     responsive: true,
     plugins: {
       legend: { display: true },
-      title: { display: true, text: "Weekly Orders" },
+      title: {
+        display: true,
+        text: "Weekly Orders",
+        align: "start",
+        // padding: {
+        //   top: 10,
+        //   bottom: 20,
+        // },
+        font: {
+          family: "'Poppins', sans-serif",
+          size: 16,
+          weight: "600",
+        },
+        color: "#000000",
+      },
     },
     scales: {
       x: {

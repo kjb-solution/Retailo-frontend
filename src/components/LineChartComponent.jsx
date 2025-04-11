@@ -41,7 +41,17 @@ const LineChartComponent = () => {
     responsive: true,
     plugins: {
       legend: { position: "top" },
-      title: { display: true, text: "Monthly Sessions Trend" },
+      title: {
+        display: true,
+        text: "Monthly Sessions Trend",
+        align: "start",
+        font: {
+          family: "'Poppins', sans-serif",
+          size: 16,
+          weight: "600",
+        },
+        color: "#000000"
+      },
     },
     scales: {
       x: {
