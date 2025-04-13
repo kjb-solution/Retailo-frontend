@@ -1,0 +1,9 @@
+/* index.css or App.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    font-family: "Poppins", sans-serif;
+    color: #333;
+  }
