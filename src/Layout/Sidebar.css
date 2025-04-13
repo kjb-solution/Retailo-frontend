@@ -1,7 +1,7 @@
 .sidebar {
   width: 220px;
   color: #ffffff;
-  background: #35353a;
+  background: #233250;
   padding: 20px 10px;
   height: 100vh;
   position: fixed;
@@ -10,22 +10,34 @@
   transition: width 0.3s ease;
   z-index: 1000;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .sidebar.collapsed {
   width: 60px;
 }
 
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+}
+
 .logo {
   font-size: 22px;
   font-weight: bold;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   text-align: center;
+  color: #ffffff;
 }
 
 .nav-list {
   list-style: none;
   padding: 0;
+  gap: 14px;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav-list li {
@@ -33,8 +45,31 @@
   align-items: center;
   padding: 12px 10px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.2s;
   border-radius: 8px;
+  color: #ffffff;
+}
+
+.nav-list li a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-list li.active {
+  background: #ffffff;
+  color: #35353a;
+}
+
+.nav-list li.active .label,
+.nav-list li.active .icon {
+  color: #35353a;
+}
+
+.sidebar.collapsed .nav-list li a {
+  justify-content: center;
 }
 
 .nav-list li:hover {
@@ -42,14 +77,67 @@
   color: #35353a;
 }
 
+.nav-list li:hover .label,
+.nav-list li:hover .icon {
+  color: #35353a;
+}
+
 .icon {
   font-size: 20px;
   width: 30px;
   text-align: center;
+  color: #ffffff;
+  display: flex;
 }
 
 .label {
   font-size: 16px;
   margin-left: 10px;
+  white-space: nowrap;
+  color: #ffffff;
+}
+
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 10px;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* .sidebar-profile:hover {
+  background: #ffffff;
+  color: #35353a;
+} */
+
+.sidebar-profile.expanded {
+  justify-content: flex-start;
+}
+
+.sidebar-profile.collapsed {
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.sidebar-profile-img {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.sidebar-profile.collapsed .sidebar-profile-img {
+  margin: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.sidebar-profile-name {
+  font-size: 14px;
   white-space: nowrap;
 }
