@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Topnav.css";
-import { FaBars, FaHome, FaBell } from "react-icons/fa";
+import { FaBars, FaHome, FaBell, FaSearch, FaMailBulk } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const TopNav = ({ onToggleSidebar }) => {
@@ -30,13 +30,24 @@ const TopNav = ({ onToggleSidebar }) => {
 
   return (
     <div className="topnav">
-      <div className="left-controls" style={{ display: "flex" }}>
+      <div
+        className="left-controls"
+        style={{ display: "flex", alignItems: "center" }}
+      >
         <button className="toggle-btn" onClick={onToggleSidebar}>
           <FaBars />
         </button>
         <button className="dashboard-btn" onClick={handleDashboardClick}>
           <FaHome size={24} />
         </button>
+        <button className="dashboard-btn" onClick={handleDashboardClick}>
+          <FaMailBulk size={24} />
+        </button>
+
+        <div className="search-label-container">
+          <FaSearch className="search-icon" />
+          <input type="text" placeholder="Search..." />
+        </div>
       </div>
 
       <div className="profile">
