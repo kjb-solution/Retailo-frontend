@@ -1,12 +1,15 @@
 .invoice-container {
-  padding: 3px 0px 3px 8px;
+ 
+  width: 100%;
   user-select: none;
   border: 2px solid #eee;
   height: 90vh;
   overflow-y: scroll;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
 }
 .invoice-header-container {
   display: flex;
@@ -16,6 +19,14 @@
 .invoice-header {
   font-size: 20px;
 } 
+.invoice-items {
+  font-size: 11px;
+  
+  max-height: 60vh;
+  overflow-y: scroll;
+  margin: 10px;
+  overflow-x: hidden;
+}
 .invoice-items::-webkit-scrollbar {
   width: 8px;
 }
@@ -27,8 +38,19 @@
   background: var(--theme-bg-color);
   border-radius: 4px;
 }
-
-
+.invoice-table{
+  display: flex;
+  flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ width: 100%;
+ overflow-x: hidden;
+}
+.invoice-footer{
+ 
+  width: 100%;
+ 
+}
 .invoice-container::-webkit-scrollbar {
   display: none;
 }
@@ -45,7 +67,7 @@
 }
 
 .invoice-summary {
-  margin-top: 1rem;
+
   border-top: 1px solid #ccc;
   padding: 5px 10px;
 
@@ -54,7 +76,7 @@
 .summary-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 5px;
+  
 }
 
 .summary-row.total {
@@ -63,8 +85,9 @@
 }
 
 .place-order-btn {
+  font-size: large;
   width: 100%;
-  padding: 10px;
+  padding: 20px 10px;
   margin-top: 10px;
   background: var(--theme-bg-color);
   color: white;
@@ -202,11 +225,13 @@
 @media (max-width: 768px) {
   .invoice-container {
     border-radius: 8px;
-    min-height: 85vh;
-    max-height: 90vh;
+    min-height: 80vh;
+    max-height: 83vh;
     overflow-y: scroll;
+  
   }
   .invoice-items {
-    height: 45vh;
+    height: 50vh;
+    overflow-y: scroll;
   }
 }

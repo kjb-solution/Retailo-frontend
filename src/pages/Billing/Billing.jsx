@@ -2,18 +2,13 @@ import { useState, useEffect } from "react";
 import "./Billing.css";
 import { menuData } from "../../services/data.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPlus,
-  faMinus,
-  faMinimize,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Invoice from "./Invoice.jsx";
 import Cart from "./cart.jsx";
-import { useNavigate, Routes, Route } from "react-router-dom";
+import { Slide, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Billing() {
-  const [isOpenCart, setIsOpenCart] = useState(false);
   const [menu, setMenu] = useState(menuData);
   const [selectedCategory, setSelectedCategory] = useState(
     menuData[0].category
@@ -22,9 +17,9 @@ function Billing() {
   const [total, setTotal] = useState(0);
   const [subtotal, setSubtotal] = useState(0);
   const [tax, setTax] = useState(0);
-  const [showInvoice, setShowInvoice] = useState(false);
   const [activeNav, setActiveNav] = useState("category");
   const [searchTerm, setSearchTerm] = useState("");
+  const [isMobile] = useState(window.innerWidth <= 768);
 
   const clearCart = () => {
     setProducts([]);
@@ -34,6 +29,7 @@ function Billing() {
   };
 
   const handleAddProduct = (product) => {
+    toast.dismiss();
     const existingProduct = products.find((p) => p.id === product.id);
     if (existingProduct) {
       setProducts(
@@ -44,6 +40,8 @@ function Billing() {
     } else {
       setProducts([...products, { ...product, quantity: 1 }]);
     }
+
+    toast.success(`${product.name} Added`, {});
   };
 
   const updateQuantity = (productId, change) => {
@@ -91,22 +89,14 @@ function Billing() {
       <div className="mobile-nav-container element-only-sm">
         <div
           onClick={() => setActiveNav("category")}
-          style={
-            activeNav === "category"
-              ? { backgroundColor: "red" }
-              : {}
-          }
+          style={activeNav === "category" ? { backgroundColor: "red" } : {}}
           id="mobile-cart-container"
           className={`header-bar ${activeNav === "category" ? "active" : ""}`}
         >
           <p>Category</p>
         </div>
         <div
-         style={
-          activeNav === "menu"
-            ? { backgroundColor: "red" }
-            : {}
-        }
+          style={activeNav === "menu" ? { backgroundColor: "red" } : {}}
           onClick={() => setActiveNav("menu")}
           className={`header-bar menu-header-wrapper ${
             activeNav === "menu" ? "active" : ""
@@ -115,11 +105,7 @@ function Billing() {
           <p>Menu</p>
         </div>
         <div
-         style={
-          activeNav === "invoice"
-            ? { backgroundColor: "red" }
-            : {}
-        }
+          style={activeNav === "invoice" ? { backgroundColor: "red" } : {}}
           onClick={() => setActiveNav("invoice")}
           className={`header-bar billing-header ${
             activeNav === "invoice" ? "active" : ""
@@ -159,9 +145,8 @@ function Billing() {
         {activeNav === "menu" && (
           <div id="menu-display-area">
             <h1>{selectedCategory}</h1>
-            <div className="header-bar menu-header-wrapper">
-              <p className="element-only-lg">Menu</p>
-              
+            <div className="menu-header-wrapper">
+
               <div className="search-container">
                 <FontAwesomeIcon icon={faSearch} className="search-icon" />
                 <input
@@ -172,7 +157,6 @@ function Billing() {
                   className="search-input"
                 />
               </div>
-             
             </div>
             <div id="product-container">
               {filteredProducts.map((product) => (
@@ -225,7 +209,7 @@ function Billing() {
           />
         </div>
       </div>
-      <div className="element-only-lg" >
+      <div className="element-only-lg">
         <div id="billing-left-container">
           <div
             id="mobile-cart-container"
@@ -280,7 +264,7 @@ function Billing() {
               >
                 <h4 className="">{product.name}</h4>
                 {products.find((p) => p.id === product.id)?.quantity > 0 && (
-                  <span className="product-quantity">
+                  <span className="product-quantity element-only-sm">
                     X{products.find((p) => p.id === product.id)?.quantity}
                   </span>
                 )}
@@ -290,12 +274,11 @@ function Billing() {
         </div>
 
         <div id="billing-right-container" className="">
-        <div
-         
-          className={`header-bar billing-header`}
-        > <p>Billing</p>
-          <Cart totalItems={totalItems} />
-        </div>
+          <div className={`header-bar billing-header`}>
+            {" "}
+            <p>Billing</p>
+            <Cart totalItems={totalItems} />
+          </div>
           <Invoice
             items={products}
             subtotal={subtotal}
@@ -307,11 +290,16 @@ function Billing() {
             onClearCart={clearCart}
           />
         </div>
-
-      
       </div>
+      <ToastContainer
+        position={isMobile ? "bottom-center" : "top-center"}
+        autoClose={400}
+        transition={Slide}
+        hideProgressBar={true}
+        theme="light"
+        limit={1}
+      />
     </div>
   );
 }
-
 export default Billing;

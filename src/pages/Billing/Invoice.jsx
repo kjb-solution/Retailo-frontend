@@ -12,7 +12,7 @@ import {
   faPrint,
 } from "@fortawesome/free-solid-svg-icons";
 import Cart from "./cart";
-import { width } from "@fortawesome/free-solid-svg-icons/fa0";
+const isMobile = window.innerWidth < 768;
 
 const Invoice = ({
   items,
@@ -71,17 +71,17 @@ const Invoice = ({
   const columns = [
     {
       name: "Name",
-      minwidth: "150px",
+      width: isMobile ? "31%" : "30%",
       selector: (row) => row.name,
     },
     {
       name: "Rate",
-      width: "80px",
+      width: "20%",
       selector: (row) => row.price.toFixed(2),
     },
     {
       name: "Quantity",
-      width: "100px",
+      width: "21%",
       cell: (row) => (
         <div className="quantity-controller">
           <FontAwesomeIcon
@@ -100,23 +100,22 @@ const Invoice = ({
     },
     {
       name: "Total",
-      width: "90px",
+      width: "18%",
       selector: (row) => (row.price * row.quantity).toFixed(2),
     },
     {
       name: "",
-      width: "3px",
-
+      width: "2%",
       cell: (row) => (
         <FontAwesomeIcon
           icon={faTrashAlt}
+          size="lg"
           className="delete-icon"
           onClick={() => onDelete(row.id)}
         />
       ),
     },
   ];
-
   return (
     <div className={`invoice-container ${showPrintView ? "print-mode" : ""}`}>
       {notification && (
@@ -129,48 +128,60 @@ const Invoice = ({
 
       {!showPrintView && !showPopup && (
         <>
-          <DataTable
-            className="invoice-items"
-            columns={columns}
-            data={items}
-            highlightOnHover
-            fixedHeader
-            striped
-            dense
-            persistTableHead
-            noDataComponent="No items in the cart"
-            customStyles={{
-              rows: {
-                style: {
-                  fontSize: "12px",
-                },
-              },
-              head: {
-                style: {
-                  backgroundColor: "#000",
-                  fontSize: "14px",
-                  fontWeight: "bold",
-                },
-              },
-              headCells: {
-                style: {
-                  fontSize: "15px",
-                  fontWeight: "bold",
-                },
-              },
-              table: {
-                style: {
-                  "&::-webkit-scrollbar": {
-                    width: "4px",
-                  },
-                  "&::-webkit-scrollbar-track": {
-                    background: "black",
+          <div className="invoice-table">
+            <DataTable
+              className="invoice-items"
+              columns={columns}
+              data={items}
+              highlightOnHover
+              fixedHeader
+              striped
+              dense
+              persistTableHead
+              noDataComponent="No items in the cart"
+              responsive
+              customStyles={{
+                rows: {
+                  style: {
+                    fontSize: isMobile ? "11px" : "12px",
+                    overflowX: "hidden",
                   },
                 },
-              },
-            }}
-          />
-
+                head: {
+                  style: {
+                    backgroundColor: "#000",
+                    fontSize: "14px",
+                    fontWeight: "bold",
+                  },
+                },
+                headCells: {
+                  style: {
+                    fontSize: "15px",
+                    fontWeight: "bold",
+                    padding: "8px",
+                  },
+                },
+                cells: {
+                  style: {
+                    padding: "8px",
+                    wordBreak: "break-word",
+                  },
+                },
+                table: {
+                  style: {
+                    "&::-webkit-scrollbar": {
+                      width: "4px",
+                    },
+                    "&::-webkit-scrollbar-track": {
+                      background: "black",
+                    },
+                    minWidth: "100%",
+                    overflowX: "hidden",
+                  },
+                },
+              }}
+            />
+          </div>
           <div className="invoice-footer">
             <div className="invoice-summary">
               <div className="summary-row">
@@ -261,5 +272,4 @@ const Invoice = ({
     </div>
   );
 };
-
 export default Invoice;
