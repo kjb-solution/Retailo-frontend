@@ -12,6 +12,7 @@ import {
   faPrint,
 } from "@fortawesome/free-solid-svg-icons";
 import Cart from "./cart";
+import InvoicePrintView from "./InvoicePrintView";
 const isMobile = window.innerWidth < 768;
 
 const Invoice = ({
@@ -44,7 +45,7 @@ const Invoice = ({
       setNotification(true);
       setTimeout(() => {
         setNotification(false);
-      }, 2000);
+      }, 500);
       return;
     }
 
@@ -56,7 +57,7 @@ const Invoice = ({
       setShowPopup(false);
       setShowPrintView(true);
       setNotification(false);
-    }, 1000);
+    }, 100);
   };
 
   const handlePrint = () => {
@@ -232,44 +233,15 @@ const Invoice = ({
       )}
 
       {showPrintView && totalItems > 0 && (
-        <div className="print-invoice">
-          <h2 style={{ textAlign: "center" }}>POS INVOICE</h2>
-          <p style={{ textAlign: "center", marginBottom: "8px" }}>
-            <strong>QuickServe Solutions</strong>
-            <br />
-            123 Billing Lane, POS City
-            <br />
-            Phone: +91-9876543210 | GSTIN: 27ABCDE1234F1Z5
-          </p>
-          <hr />
-          <ul>
-            {items.map((item) => (
-              <li key={item.id}>
-                {item.name} x {item.quantity} @ ₹{item.price.toFixed(2)} - ₹
-                {(item.price * item.quantity).toFixed(2)}
-              </li>
-            ))}
-          </ul>
-          <hr />
-          <p>Sub Total: ₹{subtotal.toFixed(2)}</p>
-          <p>Tax: ₹{tax.toFixed(2)}</p>
-          <p>
-            <strong>Total Payment: ₹{total.toFixed(2)}</strong>
-          </p>
-          <p>Payment Method: {selectedPayment}</p>
-
-          <div className="button-row">
-            <button className="print-btn" onClick={handlePrint}>
-              <FontAwesomeIcon icon={faPrint} style={{ marginRight: "6px" }} />
-              Print Invoice
-            </button>
-            <button className="back-btn" onClick={handleBack}>
-              Back
-            </button>
-          </div>
-        </div>
+       <InvoicePrintView
+         items={items}
+         subtotal={subtotal}
+         tax={tax}
+         total={total}
+         selectedPayment={selectedPayment}
+         handleBack={handleBack}
+       />
       )}
     </div>
-  );
-};
+  );};
 export default Invoice;
