@@ -13,9 +13,7 @@ import {
   faCreditCard,
   faMoneyBillWave,
   faClock,
-  faPrint,
 } from "@fortawesome/free-solid-svg-icons";
-import Cart from "./cart";
 import InvoicePrintView from "./InvoicePrintView";
 const isMobile = window.innerWidth < 768;
 
@@ -224,7 +222,7 @@ const Invoice = ({
                 }`}
                 onClick={() => setSelectedPayment("Cash Payout")}
               >
-                <FontAwesomeIcon icon={faMoneyBillWave} /> Cash Payout
+                <FontAwesomeIcon icon={faMoneyBillWave} /> Cash
               </button>
             </div>
             <button className="place-order-btn" onClick={handleGenerateInvoice}>

@@ -137,7 +137,7 @@
 .menu-card:hover,
 .product-card:hover {
   border: 2px solid;
-  border-color: color-mix(in srgb, var(--theme-bg-color) 80%, white);
+  border-color: #1e4a64;
 }
 
 .product-card:active {
@@ -275,7 +275,7 @@
   position: absolute;
   bottom: 5px;
   right: 10px;
-  color: #fff;
+  color: black;
 }
 .element-only-lg {
   display: flex;

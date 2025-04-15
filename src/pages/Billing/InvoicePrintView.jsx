@@ -78,8 +78,6 @@ const InvoicePrintView = ({
     // 3) Open a new window and write the full HTML
     const printWindow = window.open("", "_blank", `width=${window.screen.width},height=${window.screen.height}`);
 
-
-
      printWindow.document.write(`
       <html>
         <head>
