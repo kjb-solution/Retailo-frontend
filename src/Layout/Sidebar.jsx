@@ -10,13 +10,14 @@ import {
   FaStar,
 } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
+import Logo from "../assets/logo.svg";
 
-const Sidebar = ({ isOpen }) => {
+const Sidebar = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
 
   const navItems = [
     { icon: <FaTachometerAlt />, label: "Dashboard", path: "/" },
-    { icon: <FaShoppingCart />, label: "Orders", path: "/orders" },
+    { icon: <FaShoppingCart />, label: "Master", path: "/master" },
     { icon: <FaComments />, label: "Messages", path: "/messages" },
     { icon: <FaCalendarAlt />, label: "Calendar", path: "/calendar" },
     { icon: <FaUtensils />, label: "Menu", path: "/menu" },
@@ -24,10 +25,19 @@ const Sidebar = ({ isOpen }) => {
     { icon: <FaStar />, label: "Reviews", path: "/reviews" },
   ];
 
+  const handleNavClick = () => {
+    if (window.innerWidth <= 768) {
+      setIsOpen(false);
+    }
+  };
+
   return (
     <div className={`sidebar ${isOpen ? "open" : "collapsed"}`}>
       <div className="sidebar-content">
-        <div className="logo">{isOpen ? "Retail" : "R"}</div>
+        <div className="logo">
+          <img src={Logo} alt="Logo" className="logo-icon" />
+          {isOpen && <span className="logo-text">Retail</span>}
+        </div>
 
         <div className={`sidebar-profile ${isOpen ? "expanded" : "collapsed"}`}>
           <img
@@ -45,6 +55,7 @@ const Sidebar = ({ isOpen }) => {
             <li
               key={index}
               className={location.pathname === item.path ? "active" : ""}
+              onClick={handleNavClick}
             >
               <Link to={item.path} className="nav-link">
                 <span className="icon">{item.icon}</span>

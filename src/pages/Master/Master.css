@@ -1,0 +1,66 @@
+.master-btn {
+  gap: 20px;
+  display: flex;
+}
+
+.data-table-records {
+  padding: 8px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.edit {
+  background: none;
+  color: #233250;
+  border: none;
+}
+.delete {
+  background: none;
+  color: #da4520;
+  border: none;
+}
+
+.btn-edit,
+.btn-dlt {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.btn-filter {
+  width: 120px;
+  padding: 10px;
+  color: #233250;
+  background: none;
+  border-radius: 10px;
+  border: 1px solid #233250;
+}
+
+.btn-filter:hover {
+  color: #ffffff;
+  background-color: #233250;
+}
+
+.btn-create {
+  width: 120px;
+  padding: 10px;
+  color: #ffffff;
+  background: #405172;
+  border-radius: 10px;
+  border: 1px solid #233250;
+}
+
+.btn-create:hover {
+  background-color: #233250;
+}
+
+@media (max-width: 768px) {
+  .btn-create, .btn-filter{
+    width: 80px;
+    font-size: 11px;
+  }
+}

@@ -40,7 +40,20 @@ const LineChartComponent = () => {
   const options = {
     responsive: true,
     plugins: {
-      legend: { position: "top" },
+      legend: {
+        position: "top",
+        labels: {
+          color: "#333",
+          font: {
+            size: 12,
+          },
+          usePointStyle: true,
+          pointStyle: "circle",
+          boxWidth: 8,
+          boxHeight: 8,
+          padding: 15,
+        },
+      },
       title: {
         display: true,
         text: "Monthly Sessions Trend",
@@ -50,7 +63,7 @@ const LineChartComponent = () => {
           size: 16,
           weight: "600",
         },
-        color: "#000000"
+        color: "#000000",
       },
     },
     scales: {

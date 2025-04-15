@@ -1,42 +1,28 @@
 import React from "react";
-import { Bar } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(ArcElement, Tooltip, Legend);
 
-const ChartComponent = () => {
+const DoughnutChart = () => {
   const data = {
-    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    labels: ["Design", "Development", "Marketing"],
     datasets: [
       {
-        label: "Orders",
-        data: [12, 19, 10, 5, 15, 8, 20],
-        backgroundColor: "#43a047",
-        borderRadius: 5,
+        label: "Department Workload",
+        data: [40, 30, 30],
+        backgroundColor: ["#6466f1", "#f97316", "#10b981"],
+        borderColor: "#fff",
+        borderWidth: 2,
       },
     ],
   };
 
   const options = {
     responsive: true,
+    cutout: "70%",
     plugins: {
       legend: {
-        display: true,
         position: "top",
         labels: {
           color: "#333",
@@ -62,20 +48,13 @@ const ChartComponent = () => {
         color: "#000000",
       },
     },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-      },
-    },
   };
 
   return (
-    <div className="chart">
-      <Bar data={data} options={options} />
+    <div style={{ maxWidth: 300, margin: "0 auto" }}>
+      <Doughnut data={data} options={options} />
     </div>
   );
 };
 
-export default ChartComponent;
+export default DoughnutChart;

@@ -3,7 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import Orders from "./pages/Orders/Order";
+import Master from "./pages/Master/Master";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/orders" element={<Orders />} />
+          <Route path="/master" element={<Master />} />
         </Routes>
       </Layout>
     </Router>

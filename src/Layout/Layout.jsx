@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
         <div className="sidebar-backdrop" onClick={toggleSidebar}></div>
       )}
 
-      <Sidebar isOpen={isSidebarOpen} />
+      <Sidebar isOpen={isSidebarOpen} setIsOpen={setSidebarOpen} />
       <div
         className={`main-content ${
           !isSidebarOpen && !isMobile ? "collapsed" : ""
