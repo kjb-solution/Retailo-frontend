@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./InvoicePrintView.css";
+import { Printer } from 'lucide-react';
 
 const InvoicePrintView = ({
   items,
@@ -97,45 +98,11 @@ const InvoicePrintView = ({
     printWindow.print();
     printWindow.close();
   };
-  useEffect(() => {
-    handlePrint();
-  }, []);
+ 
 
   return (
     <div>
-      {/* Buttons */}
-      <div style={{ textAlign: "center", margin: "10px 0" }}>
-        <button
-          onClick={handlePrint}
-          style={{
-            margin: "0 8px",
-            padding: "6px 12px",
-            fontSize: "14px",
-            background: "#1976d2",
-            color: "#fff",
-            border: "none",
-            borderRadius: "3px",
-            cursor: "pointer",
-          }}
-        >
-          Print
-        </button>
-        <button
-          onClick={handleBack}
-          style={{
-            margin: "0 8px",
-            padding: "6px 12px",
-            fontSize: "14px",
-            background: "#e53935",
-            color: "#fff",
-            border: "none",
-            borderRadius: "3px",
-            cursor: "pointer",
-          }}
-        >
-          Clear
-        </button>
-      </div>
+    
 
       {/* Invoice markup */}
       <div id="printable">
@@ -209,8 +176,46 @@ const InvoicePrintView = ({
 
         <footer>
           <p>KJB Solution</p>
-          <p>www.dotworld.in</p>
+          <p>www.kjbsolution.in</p>
         </footer>
+      </div>
+        {/* Buttons */}
+        <div style={{ textAlign: "center", margin: "10px 0", display: "flex", justifyContent: "center",position:"sticky",bottom:"0px", backgroundColor:"var(--theme-bg-billing-color)",padding:"15px" }}>
+        <button
+          onClick={handlePrint}
+          style={{
+            margin: "0 8px",
+            padding: "6px 12px",
+            fontSize: "14px",
+            background: "#1976d2",
+            color: "#fff",
+            border: "none",
+            borderRadius: "3px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "5px",
+          }}
+        >
+          <Printer size={15} />
+          Print
+        </button>
+        <button
+          onClick={handleBack}
+          style={{
+            margin: "0 8px",
+            padding: "6px 12px",
+            fontSize: "14px",
+            background: "#e53935",
+            color: "#fff",
+            border: "none",
+            borderRadius: "3px",
+            cursor: "pointer",
+          }}
+        >
+          Clear
+        </button>
       </div>
     </div>
   );

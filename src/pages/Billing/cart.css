@@ -1,11 +1,12 @@
 .cart-container {
   position: relative;
-  display: inline-block;
+  display: flex;
+  gap: 5px;
   padding: 10px;
   background: transparent;
   border-radius: 8px;
-
   width: fit-content;
+  margin-right: 3px;
 }
 
 .cart-icon {

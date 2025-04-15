@@ -1,5 +1,5 @@
 .invoice-container {
- 
+ background-color: var(--theme-bg-billing-color);
   width: 100%;
   user-select: none;
   border: 2px solid #eee;
@@ -10,6 +10,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  
 }
 .invoice-header-container {
   display: flex;
@@ -49,7 +50,7 @@
 .invoice-footer{
  
   width: 100%;
- 
+ padding: 15px;
 }
 .invoice-container::-webkit-scrollbar {
   display: none;
@@ -85,15 +86,22 @@
 }
 
 .place-order-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   font-size: large;
-  width: 100%;
+  width: 95%;
   padding: 20px 10px;
-  margin-top: 10px;
+  margin: 10px 20px 10px 10px;
   background: var(--theme-bg-color);
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+}
+.place-order-btn:hover {
+  background-color: color-mix(in srgb, var(--theme-bg-color) 90%, #fff 10%);
 }
 
 /* payment  */
@@ -102,6 +110,7 @@
   justify-content: space-between;
   margin-top: 1rem;
   gap: 0.5rem;
+  padding: 0px 10px;
 }
 
 .payment-button {

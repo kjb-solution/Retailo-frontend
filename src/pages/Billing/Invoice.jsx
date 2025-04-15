@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import "./Invoice.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Printer } from 'lucide-react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
   faPlus,
   faMinus,
@@ -28,10 +32,7 @@ const Invoice = ({
   const [showPopup, setShowPopup] = useState(false);
   const [showPrintView, setShowPrintView] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("UPI");
-  const [notification, setNotification] = useState(false);
-  const [notificationMessage, setNotificationMessage] = useState(
-    "Please add items to generate invoice"
-  );
+
 
   useEffect(() => {
     if (showPrintView && totalItems === 0) {
@@ -41,25 +42,19 @@ const Invoice = ({
 
   const handleGenerateInvoice = () => {
     if (totalItems === 0) {
-      setNotificationMessage("Please add items to generate invoice");
-      setNotification(true);
-      setTimeout(() => {
-        setNotification(false);
-      }, 500);
+      toast.error("Please add items to generate invoice");
       return;
     }
+  
 
-    setNotificationMessage("Generating POS invoice...");
-    setNotification(true);
     setShowPopup(true);
-
+  
     setTimeout(() => {
       setShowPopup(false);
       setShowPrintView(true);
-      setNotification(false);
     }, 100);
   };
-
+  
   const handlePrint = () => {
     window.print();
   };
@@ -72,17 +67,21 @@ const Invoice = ({
   const columns = [
     {
       name: "Name",
-      width: isMobile ? "31%" : "30%",
+      width:isMobile ? "35%" : "35%",
+     
       selector: (row) => row.name,
     },
     {
       name: "Rate",
-      width: "20%",
+      width: "15%",
+      width:isMobile ? "17%" : "15%",
+     
       selector: (row) => row.price.toFixed(2),
     },
     {
       name: "Quantity",
-      width: "21%",
+      width: "25%",
+      width:isMobile ? "20%" : "25%",
       cell: (row) => (
         <div className="quantity-controller">
           <FontAwesomeIcon
@@ -101,12 +100,18 @@ const Invoice = ({
     },
     {
       name: "Total",
-      width: "18%",
+      width: "15%",
+      width:isMobile ? "16%" : "15%",
       selector: (row) => (row.price * row.quantity).toFixed(2),
     },
     {
       name: "",
-      width: "2%",
+      width:isMobile ? "3px" : "5%",
+      style: {
+        display: "flex",
+        justifyContent: "flex-start", // shift it slightly to the left
+        paddingRight: "8px",          // optional: control spacing from right edge
+      },
       cell: (row) => (
         <FontAwesomeIcon
           icon={faTrashAlt}
@@ -117,21 +122,17 @@ const Invoice = ({
       ),
     },
   ];
+  
   return (
+    <>
     <div className={`invoice-container ${showPrintView ? "print-mode" : ""}`}>
-      {notification && (
-        <div className="order-placed">{notificationMessage}</div>
-      )}
-
-      {showPopup && (
-        <div className="popup-notification">Generating POS invoice...</div>
-      )}
-
+     
+   
       {!showPrintView && !showPopup && (
         <>
           <div className="invoice-table">
             <DataTable
-              className="invoice-items"
+              className=""
               columns={columns}
               data={items}
               highlightOnHover
@@ -144,39 +145,40 @@ const Invoice = ({
               customStyles={{
                 rows: {
                   style: {
-                    fontSize: isMobile ? "11px" : "12px",
+                    fontSize: isMobile ? "10px" : "12px",
                     overflowX: "hidden",
                   },
                 },
                 head: {
                   style: {
                     backgroundColor: "#000",
-                    fontSize: "14px",
+                    fontSize: isMobile ? "5px" : "14px",
                     fontWeight: "bold",
                   },
                 },
                 headCells: {
                   style: {
-                    fontSize: "15px",
+                    fontSize: isMobile ? "12px" : "14px",
                     fontWeight: "bold",
                     padding: "8px",
                   },
                 },
                 cells: {
                   style: {
-                    padding: "8px",
+                    fontSize: "12px",
+                    padding: isMobile ? "5px" : "10px",
                     wordBreak: "break-word",
                   },
                 },
                 table: {
                   style: {
                     "&::-webkit-scrollbar": {
-                      width: "4px",
+                     
                     },
                     "&::-webkit-scrollbar-track": {
                       background: "black",
                     },
-                    minWidth: "100%",
+                  
                     overflowX: "hidden",
                   },
                 },
@@ -226,7 +228,7 @@ const Invoice = ({
               </button>
             </div>
             <button className="place-order-btn" onClick={handleGenerateInvoice}>
-              Generate Invoice
+            <Printer /> Place Order
             </button>
           </div>
         </>
@@ -242,6 +244,9 @@ const Invoice = ({
          handleBack={handleBack}
        />
       )}
+
     </div>
+     
+    </>
   );};
 export default Invoice;
