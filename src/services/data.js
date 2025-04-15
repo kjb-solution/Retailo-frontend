@@ -14,7 +14,7 @@ export const menuData = [
   {
     category: "Lunch Items",
     products: [
-      { id: 4, name: "Mysore masala dosa", price: 1000.70 },
+      { id: 4, name: "Mysore masala dosa", price: 30.70 },
       { id: 5, name: "Curd Rice", price: 40.0 },
       { id: 6, name: "Biriyani", price: 120.0 },
       { id: 35, name: "Dal Makhani", price: 80.0 },

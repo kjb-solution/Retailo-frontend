@@ -1,18 +1,21 @@
 .header-bar {
   background-color: var(--theme-bg-color);
   color: #fff;
-  padding: 1px 10px;
+  /* padding: 1px 10px; */
   font-size: smaller;
 }
 #billing-container {
   display: flex;
   row-gap: 20px;
   width: 100%;
+
+  overflow: hidden;
 }
 
 #billing-left-container {
   background-color: var(--theme-bg-category-color);
   width: 20%;
+/* margin-right: 5px; */
 }
 .billing-header {
   display: flex;
@@ -21,7 +24,7 @@
   color: #fff;
 }
 #menu-display-area {
-  width: 51%;
+  width: 55%;
   overflow-x: hidden;
   background-color: var(--theme-bg-menu-color);
 }
@@ -51,18 +54,24 @@
 }
 .search-container {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+ margin: 0px  20px 0px 10px;
 }
 .search-container input {
   border-radius: 5px;
-  min-height: 35px;
-  min-width: 290px;
+  width: 100%;
+  padding: 10px 10px 10px 25px;
+  border: none;
+  margin: 0px 5px;
 }
 .search-icon {
   position: absolute;
-  right: 5px;
-  top: 8px;
-  color: #000000;
-  font-size: 22px;
+  left: 10px;
+  top: 10px;
+  color: #909090;
+  font-size: 15px;
 }
 .menu-category-container {
   display: flex;
@@ -70,7 +79,7 @@
   justify-content: start;
   align-items: center;
   gap: 10px;
-  min-width: 230px;
+  min-width: 240px;
   grid-auto-flow: row;
   margin-top: 10px;
   max-height: 90vh;
@@ -84,7 +93,7 @@
 }
 
 .menu-category-container::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: transparent;
 }
 .menu-category-container::-webkit-scrollbar-thumb {
   background: var(--theme-bg-color);
@@ -103,9 +112,9 @@
   border: 2px solid #fff;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #fff;
+  background-color: #1e4a64;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-
+  color: #fff;
  
 }
 .menu-card-header,
@@ -115,8 +124,8 @@
 }
 .menu-card-header,
 .product-card {
-  color: var(--theme-text-color);
-  font-size: large;
+  color: #fff;
+  font-size: medium;
 }
 .product-card {
   text-align: center;
@@ -128,7 +137,7 @@
 .menu-card:hover,
 .product-card:hover {
   border: 2px solid;
-  border-color: color-mix(in srgb, var(--theme-bg-color) 80%, white);
+  border-color: #1e4a64;
 }
 
 .product-card:active {
@@ -137,7 +146,7 @@
   color: #fff;
 }
 .active-menu {
-  background-color: color-mix(in srgb, var(--theme-bg-color) 80%, white);
+  background-color: #154d53;
   color: var(--theme-text-color);
 }
 .active-menu .menu-card-header,
@@ -153,7 +162,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 15px;
-  max-height: 90vh;
+  max-height: 82vh;
   max-width: 100%;
   overflow-y: scroll;
   grid-auto-flow: row;
@@ -164,7 +173,7 @@
 }
 
 #product-container::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: transparent;
 }
 #product-container::-webkit-scrollbar-thumb {
   background: var(--theme-bg-color);
@@ -175,14 +184,15 @@
   user-select: none;
   min-height: 40px;
   max-height: 60px;
-  padding: 10px;
+  padding: 7px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   border: 2px solid #fff;
+  color: black;
   border-radius: 5px;
   cursor: pointer;
-  background-color: #fff;
+  background-color: var(--theme-menu-bg-color);
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 14.5px;
 }
@@ -265,13 +275,19 @@
   position: absolute;
   bottom: 5px;
   right: 10px;
-  color: #8b8b8ba8;
+  color: black;
 }
 .element-only-lg {
   display: flex;
-  row-gap: 20px;
   width: 100%;
 
+}
+.header-lg {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: medium;
+  padding: 0px 10px  ;
 }
 
 /* --------- Responsive Styles --------- */
@@ -283,7 +299,7 @@
   #billing-container {
     display: flex;
     flex-direction: column;
-    gap: 0px;
+    gap: 3px;
   }
   .mobile-nav-container {
     display: flex;
@@ -291,10 +307,11 @@
   .header-bar {
     user-select: none;
     width: 100%;
-    height: 40px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+   
   }
   .element-only-lg {
     display: none;
@@ -308,20 +325,21 @@
     height: 90vh;
   }
   .search-container {
-   padding: 0px 10px;
+   padding: 0px 5px;
   }
   .search-container input {
     border-radius: 5px;
-    min-height: 30px;
-    min-width: 85vw;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 80vw;
+    padding: 10px 10px 10px 30px;
+    border: none;
+    margin: 0px;
   }
   .search-icon {
-   
-    right: 20px;
-    top: 7px;
-    color: #000000;
-    font-size: 20px;
+    position: absolute;
+    left:15px;
+    top: 10px;
+    color: #909090;
+    font-size: 15px;
   }
 
   #billing-right-container {

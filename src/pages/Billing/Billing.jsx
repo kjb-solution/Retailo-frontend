@@ -89,14 +89,22 @@ function Billing() {
       <div className="mobile-nav-container element-only-sm">
         <div
           onClick={() => setActiveNav("category")}
-          style={activeNav === "category" ? { backgroundColor: "red" } : {}}
-          id="mobile-cart-container"
+          style={{
+            
+            ...(activeNav === "category"
+              ? { backgroundColor: "red" }
+              : {})
+          }}          id="mobile-cart-container"
           className={`header-bar ${activeNav === "category" ? "active" : ""}`}
         >
           <p>Category</p>
         </div>
         <div
-          style={activeNav === "menu" ? { backgroundColor: "red" } : {}}
+          style={{
+            borderRight: "1px solid #ccc",
+            borderLeft: "1px solid #ccc",
+            ...(activeNav === "menu" ? { backgroundColor: "red" } : {})
+          }}
           onClick={() => setActiveNav("menu")}
           className={`header-bar menu-header-wrapper ${
             activeNav === "menu" ? "active" : ""
@@ -146,7 +154,6 @@ function Billing() {
           <div id="menu-display-area">
             <h1>{selectedCategory}</h1>
             <div className="menu-header-wrapper">
-
               <div className="search-container">
                 <FontAwesomeIcon icon={faSearch} className="search-icon" />
                 <input
@@ -214,8 +221,9 @@ function Billing() {
           <div
             id="mobile-cart-container"
             className="header-bar element-only-lg"
+            style={{ backgroundColor: "#1e4a64" }}
           >
-            <p>Category</p>
+            <p className="header-lg">Category</p>
           </div>
           <div className="menu-category-container">
             {menu.map((item, index) => (
@@ -236,24 +244,21 @@ function Billing() {
         </div>
 
         <div id="menu-display-area">
-          <div className="header-bar menu-header-wrapper">
-            <p className="element-only-lg">Menu</p>
-            <div className="search-container">
-              <FontAwesomeIcon icon={faSearch} className="search-icon" />
-              <input
-                type="text"
-                placeholder="Search menu items..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="search-input"
-              />
-            </div>
-            <div
-              className="element-only-sm"
-              onClick={() => setActiveNav("invoice")}
-            >
-              <Cart totalItems={totalItems} />
-            </div>
+          <div
+            className="header-bar menu-header-wrapper"
+            style={{ backgroundColor: "#1e4a64"  }}
+          >
+            <p className="header-lg">Menu</p>
+          </div>
+          <div className="search-container">
+            <FontAwesomeIcon icon={faSearch} className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search menu items..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input"
+            />
           </div>
           <div id="product-container">
             {filteredProducts.map((product) => (
@@ -262,7 +267,7 @@ function Billing() {
                 key={product.id}
                 onClick={() => handleAddProduct(product)}
               >
-                <h4 className="">{product.name}</h4>
+                <p className="">{product.name}</p>
                 {products.find((p) => p.id === product.id)?.quantity > 0 && (
                   <span className="product-quantity element-only-sm">
                     X{products.find((p) => p.id === product.id)?.quantity}
@@ -274,9 +279,12 @@ function Billing() {
         </div>
 
         <div id="billing-right-container" className="">
-          <div className={`header-bar billing-header`}>
+          <div
+            className={`header-bar billing-header `}
+            // style={{ backgroundColor: "black" }}
+          >
             {" "}
-            <p>Billing</p>
+            <p className="header-lg">Billing</p>
             <Cart totalItems={totalItems} />
           </div>
           <Invoice
