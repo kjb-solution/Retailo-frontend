@@ -102,7 +102,6 @@ const fullData = [
     pRate: 0.0,
   },
 ];
-
 const MasterPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [showFilterModal, setShowFilterModal] = useState(false);

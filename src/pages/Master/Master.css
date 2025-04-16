@@ -59,7 +59,8 @@
 }
 
 @media (max-width: 768px) {
-  .btn-create, .btn-filter{
+  .btn-create,
+  .btn-filter {
     width: 80px;
     font-size: 11px;
   }

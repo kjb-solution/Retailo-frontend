@@ -108,9 +108,7 @@ const CreateItemForm = ({ show, handleClose }) => {
                   <Field
                     name="onlineRate"
                     className={`form-control ${
-                      touched.onlineRate && errors.onlineRate
-                        ? "is-invalid"
-                        : ""
+                      touched.onlineRate && errors.onlineRate ? "is-invalid" : ""
                     }`}
                   />
                 </Col>
@@ -125,9 +123,7 @@ const CreateItemForm = ({ show, handleClose }) => {
                   <Field
                     name="estimateTime"
                     className={`form-control ${
-                      touched.estimateTime && errors.estimateTime
-                        ? "is-invalid"
-                        : ""
+                      touched.estimateTime && errors.estimateTime ? "is-invalid" : ""
                     }`}
                   />
                 </Col>

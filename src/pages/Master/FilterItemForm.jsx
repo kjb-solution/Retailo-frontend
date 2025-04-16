@@ -5,6 +5,9 @@ import { Formik } from "formik";
 const FilterItemForm = ({ show, handleClose, onFilter }) => {
   return (
     <Modal show={show} onHide={handleClose} centered>
+      <Modal.Header closeButton>
+        <Modal.Title>Filter Items</Modal.Title>
+      </Modal.Header>
       <Modal.Body>
         <Formik
           initialValues={{

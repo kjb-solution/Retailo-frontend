@@ -8,6 +8,7 @@ import {
   FaUtensils,
   FaBoxes,
   FaStar,
+  FaFileInvoice
 } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "../assets/logo.svg";
@@ -18,7 +19,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   const navItems = [
     { icon: <FaTachometerAlt />, label: "Dashboard", path: "/" },
     { icon: <FaShoppingCart />, label: "Master", path: "/master" },
-    { icon: <FaComments />, label: "Billing", path: "/billing" },
+    { icon: <FaFileInvoice />, label: "Billing", path: "/billing" },
     { icon: <FaCalendarAlt />, label: "Calendar", path: "/calendar" },
     { icon: <FaUtensils />, label: "Menu", path: "/menu" },
     { icon: <FaBoxes />, label: "Inventory", path: "/inventory" },
