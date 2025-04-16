@@ -26,6 +26,19 @@
   height: auto;
 }
 
+.content-area.no-padding {
+  padding: 0;
+}
+
+.layout.no-sidebar {
+  display: flex;
+}
+
+.layout.no-sidebar .main-content {
+  margin-left: 0;
+  width: 100%;
+}
+
 @media (max-width: 768px) {
   .sidebar {
     position: fixed;
