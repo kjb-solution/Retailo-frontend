@@ -85,7 +85,7 @@ function Billing() {
     : [];
 
   return (
-    <div id="billing-container">
+    <div id="billing-container" >
       <div className="mobile-nav-container element-only-sm">
         <div
           onClick={() => setActiveNav("category")}
@@ -97,7 +97,7 @@ function Billing() {
           }}          id="mobile-cart-container"
           className={`header-bar ${activeNav === "category" ? "active" : ""}`}
         >
-          <p>Category</p>
+          <span>Category</span>
         </div>
         <div
           style={{
@@ -110,7 +110,7 @@ function Billing() {
             activeNav === "menu" ? "active" : ""
           }`}
         >
-          <p>Menu</p>
+          <span>Menu</span>
         </div>
         <div
           style={activeNav === "invoice" ? { backgroundColor: "red" } : {}}
@@ -129,7 +129,7 @@ function Billing() {
               id="mobile-cart-container"
               className="header-bar element-only-lg"
             >
-              <p>Category</p>
+              <span>Category</span>
             </div>
             <div className="menu-category-container">
               {menu.map((item, index) => (
@@ -172,7 +172,7 @@ function Billing() {
                   key={product.id}
                   onClick={() => handleAddProduct(product)}
                 >
-                  <h4 className="">{product.name}</h4>
+                  <span className="">{product.name}</span>
                   {products.find((p) => p.id === product.id)?.quantity > 0 && (
                     <span className="product-quantity">
                       X{products.find((p) => p.id === product.id)?.quantity}
@@ -201,7 +201,7 @@ function Billing() {
 
         <div id="billing-right-container" className="element-only-lg">
           <div className="header-bar billing-header">
-            <p>Billing</p>
+            <span>Billing</span>
             <Cart totalItems={totalItems} />
           </div>
           <Invoice
@@ -223,7 +223,7 @@ function Billing() {
             className="header-bar element-only-lg"
             style={{ backgroundColor: "#1e4a64" }}
           >
-            <p className="header-lg">Category</p>
+            <span className="header-lg header-new-lg">Category</span>
           </div>
           <div className="menu-category-container">
             {menu.map((item, index) => (
@@ -248,7 +248,7 @@ function Billing() {
             className="header-bar menu-header-wrapper"
             style={{ backgroundColor: "#1e4a64"  }}
           >
-            <p className="header-lg">Menu</p>
+            <span className="header-lg header-new-lg">Menu</span>
           </div>
           <div className="search-container1">
             <FontAwesomeIcon icon={faSearch} className="search-icon1" />
@@ -267,7 +267,7 @@ function Billing() {
                 key={product.id}
                 onClick={() => handleAddProduct(product)}
               >
-                <p className="">{product.name}</p>
+                <span className="">{product.name}</span>
                 {products.find((p) => p.id === product.id)?.quantity > 0 && (
                   <span className="product-quantity element-only-sm">
                     X{products.find((p) => p.id === product.id)?.quantity}
@@ -284,7 +284,7 @@ function Billing() {
             // style={{ backgroundColor: "black" }}
           >
             {" "}
-            <p className="header-lg">Billing</p>
+            <span className="header-lg">Billing</span>
             <Cart totalItems={totalItems} />
           </div>
           <Invoice
@@ -301,13 +301,18 @@ function Billing() {
       </div>
       <ToastContainer
         position={isMobile ? "bottom-center" : "top-center"}
+            style={{
+              fontSize: "19px",
+            }}
         autoClose={400}
         transition={Slide}
         hideProgressBar={true}
         theme="light"
         limit={1}
-      />
-    </div>
+        closeButton={false}
+        delay={0}
+        
+      />    </div>
   );
 }
 export default Billing;

@@ -71,14 +71,12 @@ const Invoice = ({
     },
     {
       name: "Rate",
-      width: "15%",
       width:isMobile ? "17%" : "15%",
      
       selector: (row) => row.price.toFixed(2),
     },
     {
       name: "Quantity",
-      width: "25%",
       width:isMobile ? "20%" : "25%",
       cell: (row) => (
         <div className="quantity-controller">
@@ -98,7 +96,6 @@ const Invoice = ({
     },
     {
       name: "Total",
-      width: "15%",
       width:isMobile ? "16%" : "15%",
       selector: (row) => (row.price * row.quantity).toFixed(2),
     },
