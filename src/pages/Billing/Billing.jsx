@@ -154,8 +154,8 @@ function Billing() {
           <div id="menu-display-area">
             <h1>{selectedCategory}</h1>
             <div className="menu-header-wrapper">
-              <div className="search-container">
-                <FontAwesomeIcon icon={faSearch} className="search-icon" />
+              <div className="search-container1">
+                <FontAwesomeIcon icon={faSearch} className="search-icon1" />
                 <input
                   type="text"
                   placeholder="Search menu items..."
@@ -250,8 +250,8 @@ function Billing() {
           >
             <p className="header-lg">Menu</p>
           </div>
-          <div className="search-container">
-            <FontAwesomeIcon icon={faSearch} className="search-icon" />
+          <div className="search-container1">
+            <FontAwesomeIcon icon={faSearch} className="search-icon1" />
             <input
               type="text"
               placeholder="Search menu items..."
