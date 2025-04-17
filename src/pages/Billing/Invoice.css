@@ -3,7 +3,7 @@
   width: 100%;
   user-select: none;
   border: 2px solid #eee;
-  height: 90vh;
+  height: 91vh;
   overflow-y: scroll;
   overflow-x: hidden;
   display: flex;
@@ -39,14 +39,7 @@
   background: var(--theme-bg-color);
   border-radius: 4px;
 }
-.invoice-table{
-  display: flex;
-  flex-direction: column;
- justify-content: center;
- align-items: center;
- width: 100%;
- overflow-x: hidden;
-}
+
 .invoice-footer{
  
   width: 100%;

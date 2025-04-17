@@ -7,6 +7,7 @@ import Invoice from "./Invoice.jsx";
 import Cart from "./cart.jsx";
 import { Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Product_Quantity_Model from "./Product_Quantity_Model.jsx";
 
 function Billing() {
   const [menu, setMenu] = useState(menuData);
@@ -19,7 +20,12 @@ function Billing() {
   const [tax, setTax] = useState(0);
   const [activeNav, setActiveNav] = useState("category");
   const [searchTerm, setSearchTerm] = useState("");
+  const [isModelOpen, setIsModelOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [isMobile] = useState(window.innerWidth <= 768);
+  useEffect(() => {
+    console.log(isModelOpen);
+  }, [isModelOpen]);
 
   const clearCart = () => {
     setProducts([]);
@@ -34,15 +40,22 @@ function Billing() {
     if (existingProduct) {
       setProducts(
         products.map((p) =>
-          p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
+          p.id === product.id
+            ? { ...p, quantity: p.quantity + (product.quantity || 1) }
+            : p
         )
       );
     } else {
-      setProducts([...products, { ...product, quantity: 1 }]);
+      setProducts([
+        ...products,
+        { ...product, quantity: product.quantity || 1 },
+      ]);
     }
 
-    toast.success(`${product.name} Added`, {});
+    toast.success(`${product.name} Added`);
   };
+
+ 
 
   const updateQuantity = (productId, change) => {
     setProducts((prevProducts) =>
@@ -85,16 +98,14 @@ function Billing() {
     : [];
 
   return (
-    <div id="billing-container" >
+    <div id="billing-container">
       <div className="mobile-nav-container element-only-sm">
         <div
           onClick={() => setActiveNav("category")}
           style={{
-            
-            ...(activeNav === "category"
-              ? { backgroundColor: "red" }
-              : {})
-          }}          id="mobile-cart-container"
+            ...(activeNav === "category" ? { backgroundColor: "red" } : {}),
+          }}
+          id="mobile-cart-container"
           className={`header-bar ${activeNav === "category" ? "active" : ""}`}
         >
           <span>Category</span>
@@ -103,7 +114,7 @@ function Billing() {
           style={{
             borderRight: "1px solid #ccc",
             borderLeft: "1px solid #ccc",
-            ...(activeNav === "menu" ? { backgroundColor: "red" } : {})
+            ...(activeNav === "menu" ? { backgroundColor: "red" } : {}),
           }}
           onClick={() => setActiveNav("menu")}
           className={`header-bar menu-header-wrapper ${
@@ -152,7 +163,7 @@ function Billing() {
 
         {activeNav === "menu" && (
           <div id="menu-display-area">
-            <h1>{selectedCategory}</h1>
+            <h1 style={{marginLeft:"5px"}}>{selectedCategory}</h1>
             <div className="menu-header-wrapper">
               <div className="search-container1">
                 <FontAwesomeIcon icon={faSearch} className="search-icon1" />
@@ -165,19 +176,22 @@ function Billing() {
                 />
               </div>
             </div>
-            <div id="product-container">
+            <div id="product-container" style={{marginTop: "5px"}}>
               {filteredProducts.map((product) => (
                 <div
                   className="product-card"
                   key={product.id}
-                  onClick={() => handleAddProduct(product)}
+                  onClick={() => {
+                    setIsModelOpen(true);
+                    setSelectedProduct(product);
+                  }}
                 >
                   <span className="">{product.name}</span>
-                  {products.find((p) => p.id === product.id)?.quantity > 0 && (
+                  {/* {products.find((p) => p.id === product.id)?.quantity > 0 && (
                     <span className="product-quantity">
                       X{products.find((p) => p.id === product.id)?.quantity}
                     </span>
-                  )}
+                  )} */}
                 </div>
               ))}
             </div>
@@ -246,7 +260,7 @@ function Billing() {
         <div id="menu-display-area">
           <div
             className="header-bar menu-header-wrapper"
-            style={{ backgroundColor: "#1e4a64"  }}
+            style={{ backgroundColor: "#1e4a64" }}
           >
             <span className="header-lg header-new-lg">Menu</span>
           </div>
@@ -268,11 +282,11 @@ function Billing() {
                 onClick={() => handleAddProduct(product)}
               >
                 <span className="">{product.name}</span>
-                {products.find((p) => p.id === product.id)?.quantity > 0 && (
+                {/* {products.find((p) => p.id === product.id)?.quantity > 0 && (
                   <span className="product-quantity element-only-sm">
                     X{products.find((p) => p.id === product.id)?.quantity}
                   </span>
-                )}
+                )} */}
               </div>
             ))}
           </div>
@@ -299,11 +313,18 @@ function Billing() {
           />
         </div>
       </div>
+      {isModelOpen && selectedProduct && (
+        <Product_Quantity_Model
+          product={selectedProduct}
+          setIsModelOpen={setIsModelOpen}
+          handleAddProduct={handleAddProduct}
+        />
+      )}
       <ToastContainer
         position={isMobile ? "bottom-center" : "top-center"}
-            style={{
-              fontSize: "19px",
-            }}
+        style={{
+          fontSize: "19px",
+        }}
         autoClose={400}
         transition={Slide}
         hideProgressBar={true}
@@ -311,8 +332,8 @@ function Billing() {
         limit={1}
         closeButton={false}
         delay={0}
-        
-      />    </div>
+      />{" "}
+    </div>
   );
 }
 export default Billing;

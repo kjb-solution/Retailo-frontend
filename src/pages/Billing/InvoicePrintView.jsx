@@ -71,7 +71,7 @@ const InvoicePrintView = ({
         .total.price::before { content: "\\20B9"; }
         .line { border-top: 1px solid black !important; }
         p { padding: 1px; margin: 0; }
-        section, footer { font-size: 12px; text-align: center; }
+        section, footer { font-size: 12px; text-align: center; display:flex; flex-direction: column;}
       </style>
     `;
 
@@ -108,21 +108,25 @@ const InvoicePrintView = ({
           <div id="logo">{/* optional logo here */}</div>
         </header>
 
-        <p>GST Number : 4910487129047124</p>
+        <p></p>
 
         <table className="bill-details">
           <tbody>
             <tr>
-              <td>Date : <span>{new Date().toLocaleDateString()}</span></td>
-              <td>Time : <span>{new Date().toLocaleTimeString()}</span></td>
+              <td>GST Number : 4910487129047124</td>
+        
             </tr>
             <tr>
-              <td>Table #: <span>3</span></td>
+              <td>Date : <span>{new Date().toLocaleDateString()}</span></td>
+              {/* <td>Time : <span>{new Date().toLocaleTimeString()}</span></td> */}
+            </tr>
+            <tr>
+              {/* <td>Table #: <span>3</span></td> */}
               <td>Bill # : <span>4</span></td>
             </tr>
             <tr>
               <th className="center-align" colSpan="2">
-                <span className="receipt">Original Receipt</span>
+                <span className="receipt">KJB SOLUTION</span>
               </th>
             </tr>
           </tbody>
@@ -167,14 +171,13 @@ const InvoicePrintView = ({
           </tbody>
         </table>
 
-        <section>
-          <p>Paid by : <span>{selectedPayment}</span></p>
-          <p className="center-align">Thank you for your visit!</p>
-        </section>
+        
 
         <footer>
-          <p>KJB Solution</p>
-          <p>www.kjbsolution.in</p>
+          <span>Paid via  <span>{selectedPayment}</span></span>
+          <span className="center-align">Make sure to come Again</span>
+          {/* <p>Make sure to come Again!</p> */}
+          
         </footer>
       </div>
         {/* Buttons */}

@@ -31,7 +31,7 @@
 #menu-display-area {
   width: 55%;
   overflow-x: hidden;
-  background-color: var(--theme-bg-menu-color);
+  background-color:#f2f2f2;
 }
 #menu-display-area h1 {
   margin: 0;
@@ -109,6 +109,7 @@
   user-select: none;
   flex-grow: 1;
   width: 100%;
+  height: 75px;
   padding: 15px 5px;
   text-align: center;
   display: flex;
@@ -299,13 +300,32 @@
 /* --------- Responsive Styles --------- */
 
 @media (max-width: 1024px) {
+  .menu-category-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    min-width: 240px;
+    grid-auto-flow: row;
+    margin-top: 0px;
+    
+    max-height: 90vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 10px 10px 20px;
+  }
+  .menu-header-wrapper {
+   
+    margin-bottom: 0px;
+  }
   .element-only-sm {
     display: block;
   }
   #billing-container {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 0px;
   }
   .mobile-nav-container {
     display: flex;
@@ -335,7 +355,7 @@
   .search-container1 input {
     border-radius: 5px;
     width: 80vw;
-    /* padding: 10px 10px 10px 30px; */
+   
     padding: 8px 12px 8px 35px;
     border: none;
     margin: 0px;
@@ -364,5 +384,48 @@
     min-height: 80px;
     max-height: 85px;
     
+  }
+  .quantity-controller {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+    background-color: #f2eded;
+    border-radius: 50px;
+    width: 220px;
+  }
+  .addProductBtn {
+    all:unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px 0px;
+    width: 130px;
+    border: 1px solid var(--theme-bg-color);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+    background-color: var(--theme-bg-color);
+    color: #fff;
+    border-radius: 5%;
+  }
+  .addProductBtn:active {
+    background-color: #fff;
+    color: var(--theme-bg-color);
+
+  }
+  .quantity-icons-menu-sm {
+    padding: 13px;
+    border: 1px solid var(--theme-bg-color);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  .quantity-icons-menu-sm:hover {
+    background-color: var(--theme-bg-color);
+    color: #fff;
+  }
+  .quantity-controller span{
+    padding-bottom: 3px;
+    font-size: 25px;
   }
 }

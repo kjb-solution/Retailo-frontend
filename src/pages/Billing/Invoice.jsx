@@ -65,19 +65,20 @@ const Invoice = ({
   const columns = [
     {
       name: "Name",
-      width:isMobile ? "35%" : "35%",
+      width:isMobile ? "100px" : "35%",
      
       selector: (row) => row.name,
     },
     {
       name: "Rate",
-      width:isMobile ? "17%" : "15%",
+      width:isMobile ? "50px" : "15%",
+      center: true,
      
       selector: (row) => row.price.toFixed(2),
     },
     {
       name: "Quantity",
-      width:isMobile ? "20%" : "25%",
+      width:isMobile ? "70px" : "25%",
       cell: (row) => (
         <div className="quantity-controller">
           <FontAwesomeIcon
@@ -96,7 +97,8 @@ const Invoice = ({
     },
     {
       name: "Total",
-      width:isMobile ? "16%" : "15%",
+      width:isMobile ? "50px" : "15%",
+      center: true,
       selector: (row) => (row.price * row.quantity).toFixed(2),
     },
     {
@@ -125,9 +127,8 @@ const Invoice = ({
    
       {!showPrintView && !showPopup && (
         <>
-          <div className="invoice-table">
+        
             <DataTable
-              className=""
               columns={columns}
               data={items}
               highlightOnHover
@@ -160,8 +161,8 @@ const Invoice = ({
                 },
                 cells: {
                   style: {
-                    fontSize: "12px",
-                    padding: isMobile ? "5px" : "10px",
+                    fontSize: isMobile ? "10px" : "12px",
+                    padding: isMobile ? "8px" : "10px",
                     wordBreak: "break-word",
                   },
                 },
@@ -179,7 +180,7 @@ const Invoice = ({
                 },
               }}
             />
-          </div>
+         
           <div className="invoice-footer">
             <div className="invoice-summary">
               <div className="summary-row">
