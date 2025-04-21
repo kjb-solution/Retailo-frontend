@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./InvoicePrintView.css";
 import { Printer } from 'lucide-react';
+import { NodePrinter } from "../../services/NodePrinter";
 
 const InvoicePrintView = ({
   items,
@@ -11,90 +12,104 @@ const InvoicePrintView = ({
   handleBack,
 }) => {
   const handlePrint = () => {
-    // 1) Gather your invoice HTML
-    const invoiceHtml = document.getElementById("printable").outerHTML;
+        // 1) Gather your invoice HTML
+    // const invoiceHtml = document.getElementById("printable").outerHTML;
 
-    // 2) Define all your styles inline
-    const styles = `
-      <style>
-        body {
-          margin: 0;
-          padding: 0;
-          font-family: 'PT Sans', sans-serif;
-        }
-        @page {
-          size: 2.8in 11in;
-          margin: 0;
-        }
-        table { width: 100%; }
-        tr    { width: 100%; }
-        #logo {
-          width: 60%;
-          margin: 0 auto;
-          padding: 5px;
-          display: block;
-        }
-        header { text-align: center; }
-        .center-align { text-align: center; }
-        .bill-details td { font-size: 12px; }
-        .receipt { font-size: medium; }
-        .items .heading {
-          font-size: 12.5px;
-          text-transform: uppercase;
-          border-top: 1px solid black;
-          margin-bottom: 4px;
-          border-bottom: 1px solid black;
-          vertical-align: middle;
-        }
-        .items thead th:first-child,
-        .items tbody td:first-child {
-          width: 47%;
-          word-break: break-all;
-          text-align: left;
-        }
-        .items td {
-          font-size: 12px;
-          text-align: right;
-          vertical-align: bottom;
-        }
-        .price::before {
-          content: "\\20B9";
-          font-family: Arial;
-        }
-        .sum-up { text-align: right !important; }
-        .total {
-          font-size: 13px;
-          border-top: 1px dashed black !important;
-          border-bottom: 1px dashed black !important;
-        }
-        .total.text, .total.price { text-align: right; }
-        .total.price::before { content: "\\20B9"; }
-        .line { border-top: 1px solid black !important; }
-        p { padding: 1px; margin: 0; }
-        section, footer { font-size: 12px; text-align: center; display:flex; flex-direction: column;}
-      </style>
-    `;
+    // // 2) Define all your styles inline
+    // const styles = `
+    //   <style>
+    //     body {
+    //       margin: 0;
+    //       padding: 0;
+    //       font-family: 'PT Sans', sans-serif;
+    //     }
+    //     @page {
+    //       size: 2.8in 11in;
+    //       margin: 0;
+    //     }
+    //     table { width: 100%; }
+    //     tr    { width: 100%; }
+    //     #logo {
+    //       width: 60%;
+    //       margin: 0 auto;
+    //       padding: 5px;
+    //       display: block;
+    //     }
+    //     header { text-align: center; }
+    //     .center-align { text-align: center; }
+    //     .bill-details td { font-size: 12px; }
+    //     .receipt { font-size: medium; }
+    //     .items .heading {
+    //       font-size: 12.5px;
+    //       text-transform: uppercase;
+    //       border-top: 1px solid black;
+    //       margin-bottom: 4px;
+    //       border-bottom: 1px solid black;
+    //       vertical-align: middle;
+    //     }
+    //     .items thead th:first-child,
+    //     .items tbody td:first-child {
+    //       width: 47%;
+    //       word-break: break-all;
+    //       text-align: left;
+    //     }
+    //     .items td {
+    //       font-size: 12px;
+    //       text-align: right;
+    //       vertical-align: bottom;
+    //     }
+    //     .price::before {
+    //       content: "\\20B9";
+    //       font-family: Arial;
+    //     }
+    //     .sum-up { text-align: right !important; }
+    //     .total {
+    //       font-size: 13px;
+    //       border-top: 1px dashed black !important;
+    //       border-bottom: 1px dashed black !important;
+    //     }
+    //     .total.text, .total.price { text-align: right; }
+    //     .total.price::before { content: "\\20B9"; }
+    //     .line { border-top: 1px solid black !important; }
+    //     p { padding: 1px; margin: 0; }
+    //     section, footer { font-size: 12px; text-align: center; display:flex; flex-direction: column;}
+    //   </style>
+    // `;
 
-    // 3) Open a new window and write the full HTML
-    const printWindow = window.open("", "_blank", `width=${window.screen.width},height=${window.screen.height}`);
+    // // 3) Open a new window and write the full HTML
+    // const printWindow = window.open("", "_blank", `width=${window.screen.width},height=${window.screen.height}`);
 
-     printWindow.document.write(`
-      <html>
-        <head>
-          <title>Invoice</title>
-          ${styles}
-        </head>
-        <body>
-          ${invoiceHtml}
-        </body>
-      </html>
-    `);
-    printWindow.document.close();
-    printWindow.focus();
+    //  printWindow.document.write(`
+    //   <html>
+    //     <head>
+    //       <title>Invoice</title>
+    //       ${styles}
+    //     </head>
+    //     <body>
+    //       ${invoiceHtml}
+    //     </body>
+    //   </html>
+    // `);
+    // printWindow.document.close();
+    // printWindow.focus();
 
-    // 4) Print and then close
-    printWindow.print();
-    printWindow.close();
+    // // 4) Print and then close
+    // printWindow.print();
+    // printWindow.close();
+    const data = {
+      items,
+      subtotal,
+      tax,
+      total,
+      selectedPayment,
+      gstNumber: "4910487129047124",
+      date: new Date().toLocaleDateString(),
+      billNumber: "4",
+      companyName: "KJB SOLUTION",
+      cgst: (tax / 2).toFixed(2),
+      sgst: (tax / 2).toFixed(2)
+    };
+    NodePrinter(data);
   };
  
 
