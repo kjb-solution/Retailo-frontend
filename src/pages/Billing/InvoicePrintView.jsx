@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./InvoicePrintView.css";
 import { Printer } from 'lucide-react';
-import { NodePrinter } from "../../services/NodePrinter";
+import { printReceipt,getPrinters,findPrinterStatus,findDefaultPrinter } from "../../services/NodePrinter";
 
 const InvoicePrintView = ({
   items,
@@ -109,7 +109,11 @@ const InvoicePrintView = ({
       cgst: (tax / 2).toFixed(2),
       sgst: (tax / 2).toFixed(2)
     };
-    NodePrinter(data);
+    printReceipt(data);
+    // getPrinters();
+    // findPrinterStatus("EPSON TM-T82 Receipt");
+    // findDefaultPrinter();
+
   };
  
 
