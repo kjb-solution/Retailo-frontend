@@ -1,0 +1,132 @@
+.KOT-container {
+  display: flex;
+  min-height: 100%;
+  gap: 20px;
+  padding: 3px;
+  margin: 10px;
+  border-radius: 5px;
+  /* background-color: white; */
+}
+.KOT-table-container {
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(auto, 1fr);
+  gap: 5px;
+  grid-row-gap: 0px;
+  overflow-y: scroll;
+  padding: 5px 15px;
+}
+.KOT-table-card {
+  height: 110px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 0px;
+  margin: 10px;
+  min-width: 120px;
+  max-width: 100%;
+  max-height: 500px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.KOT-table-card:hover {
+  border: 1px solid #000000;
+}
+.KOT-table-number {
+  font-size: 20px;
+  font-weight: bold;
+
+  text-transform: uppercase;
+  text-align: center;
+  /* border-bottom: 1px solid white; */
+}
+.KOT-table-status {
+  font-size: small;
+  text-align: end;
+}
+.KOT-table-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+.KOT-table-total-amount {
+  text-align: center;
+  background-color:#f02438 ;
+  padding: 3px 0px;
+}
+.booked {
+  color: aliceblue;
+  background-color: #c62f3e;
+ 
+}
+.free {
+  color: aliceblue;
+  background-color: rgba(28, 182, 28, 0.9);
+  .KOT-table-total-amount {
+  
+    background-color: rgba(29, 229, 29, 0.9) ;
+  }
+}
+.mobile-kot-nav-header {
+  display: none;
+}
+.KOT-table-time {
+  font-size: 12px;
+  text-align: center;
+  border-radius: 6px;
+  padding: 0px 10px;
+  /* background-color: #000000; */
+}
+
+/* --------- Responsive Styles --------- */
+
+@media (max-width: 1024px) {
+  .KOT-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    gap: 10px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  .KOT-table-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .mobile-kot-nav-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--theme-bg-color);
+    color: #fff;
+    height: 50px;
+  }
+  .mobile-kot-nav-header div {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .active-kot-nav-header {
+    background-color: rgb(214, 44, 44);
+  }
+  .KOT-table-card {
+    height: 100px;
+    font-size: 14px;
+    padding: 5px;
+
+    min-width: 120px;
+    max-width: 100%;
+    max-height: 500px;
+    border: 1px solid transparent;
+  }
+}

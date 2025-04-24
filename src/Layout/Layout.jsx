@@ -10,7 +10,7 @@ const Layout = ({ children }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  const hideSidebarRoutes = ["/billing", "/login", "/signup"];
+  const hideSidebarRoutes = ["/billing", "/login", "/signup","/kot","/kot-billing"];
   const shouldHideSidebar = hideSidebarRoutes.includes(location.pathname);
 
   useEffect(() => {

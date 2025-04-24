@@ -8,6 +8,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Master from "./pages/Master/Master";
 import Reports from "./pages/Reports/Reports";
 import "bootstrap/dist/css/bootstrap.min.css";
+import KOT from "./pages/KOT/KOT";
+import KOT_BillingScreen from "./pages/KOT/KOT_BillingScreen";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/master" element={<Master />} />
           <Route path="/billing" element={<Billing />} />
           <Route path="/reports" element={<Reports />} />
+          <Route path="/kot" element={<KOT />} />
+          <Route path="/kot-billing" element={<KOT_BillingScreen/>}/>
         </Routes>
       </Layout>
     </Router>
