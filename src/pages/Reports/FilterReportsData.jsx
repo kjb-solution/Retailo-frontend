@@ -2,17 +2,18 @@ import React from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import { Formik } from "formik";
 
-const FilterItemForm = ({ show, handleClose, onFilter }) => {
+const FilterReportsData = ({ show, handleClose, onFilter }) => {
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton className="custom-modal-header">
-        <Modal.Title>Filter Items</Modal.Title>
+        <Modal.Title>Filter Report</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Formik
           initialValues={{
-            masterGroup: "",
-            category: "",
+            fromDate: "",
+            toDate: "",
+            entity: "",
             itemName: "",
           }}
           onSubmit={(values) => {
@@ -25,32 +26,25 @@ const FilterItemForm = ({ show, handleClose, onFilter }) => {
               <Row>
                 <Col xs={6}>
                   <Form.Group>
-                    <Form.Label>Master Group</Form.Label>
-                    <Form.Select
-                      name="masterGroup"
-                      value={values.masterGroup}
+                    <Form.Label>From Date</Form.Label>
+                    <Form.Control
+                      type="date"
+                      name="fromDate"
+                      value={values.fromDate}
                       onChange={handleChange}
-                    >
-                      <option value="">--Select--</option>
-                      <option value="Restaurant">Restaurant</option>
-                    </Form.Select>
+                    />
                   </Form.Group>
                 </Col>
 
                 <Col xs={6}>
                   <Form.Group>
-                    <Form.Label>Category</Form.Label>
-                    <Form.Select
-                      name="category"
-                      value={values.category}
+                    <Form.Label>To Date</Form.Label>
+                    <Form.Control
+                      type="date"
+                      name="toDate"
+                      value={values.toDate}
                       onChange={handleChange}
-                    >
-                      <option value="">--Select--</option>
-                      <option value="KEBABS-6PCS">KEBABS-6PCS</option>
-                      <option value="OMELETTES">OMELETTES</option>
-                      <option value="SPL KEBABS-6PCS">SPL KEBABS-6PCS</option>
-                      <option value="KEBAB-ROLLS">KEBAB-ROLLS</option>
-                    </Form.Select>
+                    />
                   </Form.Group>
                 </Col>
               </Row>
@@ -58,20 +52,40 @@ const FilterItemForm = ({ show, handleClose, onFilter }) => {
               <Row className="mt-3">
                 <Col xs={6}>
                   <Form.Group>
+                    <Form.Label>Entity (Location)</Form.Label>
+                    <Form.Select
+                      name="entity"
+                      value={values.entity}
+                      onChange={handleChange}
+                    >
+                      <option value="">--Select--</option>
+                      <option value="Chennai">Chennai</option>
+                      {/* Add more locations here if needed */}
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
+
+                <Col xs={6}>
+                  <Form.Group>
                     <Form.Label>Item Name</Form.Label>
                     <Form.Control
+                      type="text"
                       name="itemName"
+                      placeholder="Item Name"
                       value={values.itemName}
                       onChange={handleChange}
-                      placeholder="Item Name"
                     />
                   </Form.Group>
                 </Col>
               </Row>
 
               <div className="d-flex justify-content-end mt-4 gap-2">
-                <button className="btn-filter" onClick={handleClose}>
-                  cancel
+                <button
+                  className="btn-filter"
+                  type="button"
+                  onClick={handleClose}
+                >
+                  Cancel
                 </button>
                 <button className="btn-create" type="submit">
                   Search
@@ -85,4 +99,4 @@ const FilterItemForm = ({ show, handleClose, onFilter }) => {
   );
 };
 
-export default FilterItemForm;
+export default FilterReportsData;

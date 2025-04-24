@@ -1,9 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Master.css";
 import DataTable from "react-data-table-component";
 import { TrashSVG, EditSVG } from "../../assets/image";
 import CreateItemForm from "./CreateItemForm";
-import FilterItemForm from "./FilterItemForm";
+import DeleteModal from "./DeleteModal";
+
+const fullData = [
+  {
+    sno: 3,
+    group: "Restaurant",
+    category: "KEBABS-6PCS",
+    code: 1,
+    itemName: "CHICKEN TAWA FRY",
+    uom: "Nos",
+    rate: 180.0,
+    pRate: 0.0,
+  },
+  {
+    sno: 4,
+    group: "Restaurant",
+    category: "OMELETTES",
+    code: 1,
+    itemName: "CHICKEN OMELETTE",
+    uom: "Nos",
+    rate: 180.0,
+    pRate: 0.0,
+  },
+];
 
 const customStyles = {
   headCells: {
@@ -23,104 +46,91 @@ const customStyles = {
   },
 };
 
-const columns = [
-  { name: "S.No", selector: (row) => row.sno },
-  { name: "Group", selector: (row) => row.group, sortable: true },
-  { name: "Category", selector: (row) => row.category, sortable: true },
-  { name: "Code", selector: (row) => row.code },
-  { name: "Item Name", selector: (row) => row.itemName },
-  { name: "UOM", selector: (row) => row.uom },
-  { name: "Rate", selector: (row) => row.rate },
-  { name: "P.Rate", selector: (row) => row.pRate },
-  {
-    name: "Actions",
-    cell: (row) => (
-      <div className="d-flex gap-2">
-        <button className="btn-edit">
-          <EditSVG />
-        </button>
-        <button className="btn-dlt">
-          <TrashSVG />
-        </button>
-      </div>
-    ),
-    ignoreRowClick: true,
-    allowOverflow: true,
-    button: true,
-  },
-];
-
-const fullData = [
-  {
-    sno: 1,
-    group: "Restaurant",
-    category: "KEBABS-6PCS",
-    code: 1,
-    itemName: "CHICKEN TAWA FRY",
-    uom: "Nos",
-    rate: 180.0,
-    pRate: 0.0,
-  },
-  {
-    sno: 2,
-    group: "Restaurant",
-    category: "OMELETTES",
-    code: 1,
-    itemName: "CHICKEN OMELETTE",
-    uom: "Nos",
-    rate: 180.0,
-    pRate: 0.0,
-  },
-  {
-    sno: 3,
-    group: "Restaurant",
-    category: "SPL KEBABS-6PCS",
-    code: 1,
-    itemName: "CHI TIKKA BARRA",
-    uom: "Nos",
-    rate: 180.0,
-    pRate: 0.0,
-  },
-  {
-    sno: 4,
-    group: "Restaurant",
-    category: "KEBAB-ROLLS",
-    code: 1,
-    itemName: "EGG BHURJI ROLL -Large",
-    uom: "Nos",
-    rate: 180.0,
-    pRate: 0.0,
-  },
-  {
-    sno: 5,
-    group: "Restaurant",
-    category: "KEBABS-6PCS",
-    code: 1,
-    itemName: "CHICKEN TAWA FRY",
-    uom: "Nos",
-    rate: 180.0,
-    pRate: 0.0,
-  },
-];
 const MasterPage = () => {
   const [showModal, setShowModal] = useState(false);
-  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [editItem, setEditItem] = useState(null);
   const [filteredData, setFilteredData] = useState(fullData);
+  const [deleteItemSno, setDeleteItemSno] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const handleShow = () => setShowModal(true);
-  const handleClose = () => setShowModal(false);
+  useEffect(() => {
+    const storedData = localStorage.getItem("itemMasterData");
+    if (storedData) {
+      setFilteredData(JSON.parse(storedData));
+    } else {
+      setFilteredData(fullData);
+      localStorage.setItem("itemMasterData", JSON.stringify(fullData));
+    }
+  }, []);
 
-  const handleFilter = (filters) => {
-    const filtered = fullData.filter((item) => {
-      return (
-        (!filters.masterGroup || item.group === filters.masterGroup) &&
-        (!filters.category || item.category === filters.category) &&
-        (!filters.itemName ||
-          item.itemName.toLowerCase().includes(filters.itemName.toLowerCase()))
+  const handleFormSubmit = (formData) => {
+    let updatedData;
+
+    if (editItem) {
+      updatedData = filteredData.map((item) =>
+        item.sno === editItem.sno ? { ...formData, sno: item.sno } : item
       );
-    });
+    } else {
+      updatedData = [
+        ...filteredData,
+        { ...formData, sno: filteredData.length + 1 },
+      ];
+    }
 
-    setFilteredData(filtered);
+    setFilteredData(updatedData);
+    localStorage.setItem("itemMasterData", JSON.stringify(updatedData));
+    setEditItem(null);
+    setShowModal(false);
+  };
+
+  const columns = [
+    { name: "S.No", selector: (row) => row.sno },
+    { name: "Group", selector: (row) => row.group },
+    { name: "Category", selector: (row) => row.category },
+    { name: "Code", selector: (row) => row.code },
+    { name: "Item Name", selector: (row) => row.itemName },
+    { name: "UOM", selector: (row) => row.uom },
+    { name: "Rate", selector: (row) => row.rate },
+    { name: "P.Rate", selector: (row) => row.pRate },
+    {
+      name: "Actions",
+      cell: (row) => (
+        <div className="d-flex gap-2">
+          <button
+            className="btn-edit"
+            onClick={() => {
+              setEditItem(row);
+              setShowModal(true);
+            }}
+          >
+            <EditSVG />
+          </button>
+          <button
+            className="btn-dlt"
+            onClick={() => {
+              setDeleteItemSno(row.sno);
+              setShowDeleteModal(true);
+            }}
+          >
+            <TrashSVG />
+          </button>
+        </div>
+      ),
+    },
+  ];
+
+  const handleDelete = (sno) => {
+    const updated = filteredData.filter((item) => item.sno !== sno);
+    setFilteredData(updated);
+    localStorage.setItem("itemMasterData", JSON.stringify(updated));
+  };
+
+  const handleConfirmDelete = () => {
+    const updated = filteredData.filter((item) => item.sno !== deleteItemSno);
+    setFilteredData(updated);
+    localStorage.setItem("itemMasterData", JSON.stringify(updated));
+    setShowDeleteModal(false);
+    setDeleteItemSno(null);
   };
 
   return (
@@ -129,12 +139,12 @@ const MasterPage = () => {
         <h3>Item Master</h3>
         <div className="d-flex gap-2">
           <button
-            className="btn-filter"
-            onClick={() => setShowFilterModal(true)}
+            className="btn-create"
+            onClick={() => {
+              setEditItem(null);
+              setShowModal(true);
+            }}
           >
-            Filter
-          </button>
-          <button className="btn-create" onClick={handleShow}>
             Create New
           </button>
         </div>
@@ -146,15 +156,27 @@ const MasterPage = () => {
           data={filteredData}
           pagination
           responsive
-          // highlightOnHover
           customStyles={customStyles}
         />
       </div>
-      <CreateItemForm show={showModal} handleClose={handleClose} />
-      <FilterItemForm
-        show={showFilterModal}
-        handleClose={() => setShowFilterModal(false)}
-        onFilter={handleFilter}
+
+      <CreateItemForm
+        show={showModal}
+        handleClose={() => {
+          setShowModal(false);
+          setEditItem(null);
+        }}
+        mode={editItem ? "edit" : "create"}
+        initialValues={editItem}
+        onSubmit={handleFormSubmit}
+      />
+      <DeleteModal
+        show={showDeleteModal}
+        onClose={() => {
+          setShowDeleteModal(false);
+          setDeleteItemSno(null);
+        }}
+        onConfirm={handleConfirmDelete}
       />
     </div>
   );

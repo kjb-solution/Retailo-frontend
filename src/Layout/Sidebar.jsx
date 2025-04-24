@@ -20,7 +20,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { icon: <FaTachometerAlt />, label: "Dashboard", path: "/" },
     { icon: <FaShoppingCart />, label: "Master", path: "/master" },
     { icon: <FaFileInvoice />, label: "Billing", path: "/billing" },
-    { icon: <FaCalendarAlt />, label: "Calendar", path: "/calendar" },
+    { icon: <FaCalendarAlt />, label: "Reports", path: "/reports" },
     { icon: <FaUtensils />, label: "Menu", path: "/menu" },
     { icon: <FaBoxes />, label: "Inventory", path: "/inventory" },
     { icon: <FaStar />, label: "Reviews", path: "/reviews" },

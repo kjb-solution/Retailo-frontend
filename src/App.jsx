@@ -6,6 +6,7 @@ import "./App.css";
 import Billing from "./pages/Billing/Billing";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Master from "./pages/Master/Master";
+import Reports from "./pages/Reports/Reports";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/master" element={<Master />} />
           <Route path="/billing" element={<Billing />} />
+          <Route path="/reports" element={<Reports />} />
         </Routes>
       </Layout>
     </Router>

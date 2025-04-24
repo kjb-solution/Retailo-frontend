@@ -58,6 +58,55 @@
   background-color: #233250;
 }
 
+.btn-dlt-modal {
+  width: 100px;
+  padding: 6px;
+  color: #233250;
+  background: none;
+  border-radius: 10px;
+  border: 1px solid #233250;
+}
+
+.btn-dlt-modal:hover {
+  color: #ffffff;
+  background-color: #233250;
+}
+
+.btn-delete {
+  width: 100px;
+  padding: 6px;
+  color: #ffffff;
+  background: #dc3545;
+  border-radius: 10px;
+  border: 1px solid #dc3545;
+}
+
+.btn-delete:hover {
+  background-color: #c52a39;
+}
+
+.no-border {
+  border: none !important;
+}
+
+.custom-modal-header {
+  background-color: #233250; /* red shade or any color you prefer */
+  color: #fff; /* text color */
+  height: 60px; /* adjust height */
+  display: flex;
+  align-items: center;
+  border: none !important;
+}
+
+.custom-modal-header .modal-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.custom-modal-header .btn-close {
+  filter: invert(1); /* makes close icon white */
+}
+
 @media (max-width: 768px) {
   .btn-create,
   .btn-filter {
