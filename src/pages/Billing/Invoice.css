@@ -1,5 +1,5 @@
 .invoice-container {
- background-color: var(--theme-bg-billing-color);
+ background-color: #fff;;
   width: 100%;
   user-select: none;
   border: 2px solid #eee;

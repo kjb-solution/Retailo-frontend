@@ -1,0 +1,113 @@
+.KOT-header-nav {
+  width: 100%;
+  height: 100%;
+}
+.KOT-Billing-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2px;
+}
+.active-kot-nav-header {
+  color: rgb(50, 100, 220);
+  outline: none;
+  border-bottom: 2px solid rgb(50, 100, 220);
+  border-right: 2px solid rgb(50, 100, 220);
+}
+.KOT-Billing-header div {
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+.KOT-staff-select {
+  width: 100%;
+  border: 2px solid rgb(50, 100, 220);
+  background-color: rgb(50, 100, 220);
+}
+.KOT-staff-tab {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 5px;
+  overflow: hidden;
+}
+.KOT-staff-tab {
+  display: flex;
+  align-items: center;
+
+  border-left: 1px solid rgb(50, 100, 220);
+
+  border-top: 1px solid rgb(50, 100, 220);
+  border-bottom: 1px solid rgb(50, 100, 220);
+  color: white;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  padding: 0px 0px 0px 10px;
+
+}
+
+.KOT-staff-tab svg {
+  margin-right: 5px;
+  font-size: 20px;
+  color: black;
+}
+
+.kot-staff-select {
+  background-color: rgb(50, 100, 220); /* Match the background */
+  color: white;
+  border: none; /* White border for contrast */
+  border-radius: 0px;
+  padding: 5px;
+  font-size: 14px;
+  appearance: none; /* Remove default dropdown arrow */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); /* Custom white arrow */
+  background-repeat: no-repeat;
+  background-position: right 5px center;
+  padding-right: 25px; /* Space for the arrow */
+}
+
+.kot-staff-select option {
+  background-color: #1a2a44;
+  color: white;
+}
+.form-select:focus{
+  box-shadow: 0 0 0 2.10rem rgba(113,110,253,.25);
+ 
+}
+
+.KOT-create-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.KOT-create-btn {
+  background-color: var(--theme-bg-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.KOT-table-container{
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.KOT-table-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}

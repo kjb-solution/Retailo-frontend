@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import DataTable from "react-data-table-component";
+
 import "../../Billing/Invoice.css";
+import "./KOT-invoice.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Printer } from "lucide-react";
+import { ListPlus, Printer, UserRoundPen } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Form from "react-bootstrap/Form";
 
 import {
   faPlus,
@@ -15,10 +17,12 @@ import {
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import InvoicePrintView from "./InvoicePrintView";
+import ReactDataTable from "./ReactDataTable";
+import { StaffSVG } from "../../../assets/image";
 const isMobile = window.innerWidth < 768;
 
 const Invoice = ({
-  items,
+  KOT_items,
   subtotal,
   tax,
   total,
@@ -30,6 +34,7 @@ const Invoice = ({
   const [showPopup, setShowPopup] = useState(false);
   const [showPrintView, setShowPrintView] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("UPI");
+  const [activeKotTab, setActiveKotTab] = useState("KOT");
 
   useEffect(() => {
     if (showPrintView && totalItems === 0) {
@@ -117,118 +122,119 @@ const Invoice = ({
       ),
     },
   ];
+  console.log(KOT_items);
+
+  const items = [
+    { id: 31, name: "Coca Cola", price: 12.03, quantity: 1 },
+    { id: 3, name: "Mango Juice", price: 10, quantity: 1 },
+  ];
 
   return (
     <>
-      <div className={`invoice-container ${showPrintView ? "print-mode" : ""}`} >
+      <div className={`invoice-container ${showPrintView ? "print-mode" : ""}`}>
         {!showPrintView && !showPopup && (
           <>
-          <div style={{width:"100%",height:"100%"}}>
-
-        <div className="KOT-Billing-header" style={{ display: "flex",gap:"0px",fontSize:"20px" }}>
-          <span style={{border:"1px solid black",padding:"2px 5px"}}>KOT</span>
-          <span style={{border:"1px solid black",padding:"2px 5px"}}>BILL</span>
-        </div>
-            <DataTable
-              columns={columns}
-              data={items}
-              highlightOnHover
-              fixedHeader
-              striped
-              dense
-              persistTableHead
-              noDataComponent="No items in the cart"
-              responsive
-              customStyles={{
-                rows: {
-                  style: {
-                    fontSize: isMobile ? "10px" : "12px",
-                    overflowX: "hidden",
-                  },
-                },
-                head: {
-                  style: {
-                    backgroundColor: "#000",
-                    fontSize: isMobile ? "5px" : "14px",
-                    fontWeight: "bold",
-                  },
-                },
-                headCells: {
-                  style: {
-                    fontSize: isMobile ? "12px" : "14px",
-                    fontWeight: "bold",
-                    padding: "8px",
-                  },
-                },
-                cells: {
-                  style: {
-                    fontSize: isMobile ? "10px" : "12px",
-                    padding: isMobile ? "8px" : "10px",
-                    wordBreak: "break-word",
-                  },
-                },
-                table: {
-                  style: {
-                    "&::-webkit-scrollbar": {},
-                    "&::-webkit-scrollbar-track": {
-                      background: "black",
-                    },
-
-                    overflowX: "hidden",
-                  },
-                },
-              }}
-            />
-
-            <div className="invoice-footer">
-              <div className="invoice-summary">
-                <div className="summary-row">
-                  <span>Sub Total</span>
-                  <span>₹{subtotal.toFixed(2)}</span>
+            <div className="KOT-header-nav">
+              <div className="KOT-Billing-header">
+                <div
+                  className={
+                    activeKotTab === "KOT"
+                      ? "active-kot-nav-header KOT-tab"
+                      : "KOT-tab"
+                  }
+                  onClick={() => setActiveKotTab("KOT")}
+                >
+                  KOT
                 </div>
-                <div className="summary-row">
-                  <span>Tax</span>
-                  <span>₹{tax.toFixed(2)}</span>
+                <div
+                  className={
+                    activeKotTab === "BILL"
+                      ? "active-kot-nav-header KOT-tab"
+                      : "KOT-tab"
+                  }
+                  onClick={() => setActiveKotTab("BILL")}
+                >
+                  BILL
                 </div>
-                <div className="summary-row total">
-                  <span>Total Payment</span>
-                  <span>₹{total.toFixed(2)}</span>
+                <div className="KOT-staff-tab">
+                  <StaffSVG />
+                  <Form.Select className="kot-staff-select">
+                    <option>Select Staff</option>
+                    <option value="Staff1">Staff1</option>
+                    <option value="Staff2">Staff2</option>
+                    <option value="Staff3">Staff3</option>
+                  </Form.Select>
                 </div>
               </div>
-          </div>
+              {activeKotTab === "KOT" && (
+                <div className="KOT-table-container">
+                  <ReactDataTable
+                    items={KOT_items}
+                    columns={columns}
+                    isMobile={isMobile}
+                   
+                  />
+                  <div className="KOT-create-btn-container"><button className="KOT-create-btn">   <ListPlus /> Create KOT </button></div>
+                </div>
+              )}
 
-              <div className="payment-methods">
-                <button
-                  className={`payment-button ${
-                    selectedPayment === "Credit Card" ? "active" : ""
-                  }`}
-                  onClick={() => setSelectedPayment("Credit Card")}
-                >
-                  <FontAwesomeIcon icon={faCreditCard} /> Credit Card
-                </button>
-                <button
-                  className={`payment-button ${
-                    selectedPayment === "UPI" ? "active" : ""
-                  }`}
-                  onClick={() => setSelectedPayment("UPI")}
-                >
-                  <FontAwesomeIcon icon={faClock} /> UPI
-                </button>
-                <button
-                  className={`payment-button ${
-                    selectedPayment === "Cash Payout" ? "active" : ""
-                  }`}
-                  onClick={() => setSelectedPayment("Cash Payout")}
-                >
-                  <FontAwesomeIcon icon={faMoneyBillWave} /> Cash
-                </button>
-              </div>
-              <button
-                className="place-order-btn"
-                onClick={handleGenerateInvoice}
-              >
-                <Printer /> Place Order
-              </button>
+              {activeKotTab === "BILL" && (
+                <>
+                  <ReactDataTable
+                    items={items}
+                    columns={columns}
+                    isMobile={isMobile}
+                  />
+                  <div className="invoice-footer">
+                    <div className="invoice-summary">
+                      <div className="summary-row">
+                        <span>Sub Total</span>
+                        <span>₹{subtotal.toFixed(2)}</span>
+                      </div>
+                      <div className="summary-row">
+                        <span>Tax</span>
+                        <span>₹{tax.toFixed(2)}</span>
+                      </div>
+                      <div className="summary-row total">
+                        <span>Total Payment</span>
+                        <span>₹{total.toFixed(2)}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="payment-methods">
+                    <button
+                      className={`payment-button ${
+                        selectedPayment === "Credit Card" ? "active" : ""
+                      }`}
+                      onClick={() => setSelectedPayment("Credit Card")}
+                    >
+                      <FontAwesomeIcon icon={faCreditCard} /> Credit Card
+                    </button>
+                    <button
+                      className={`payment-button ${
+                        selectedPayment === "UPI" ? "active" : ""
+                      }`}
+                      onClick={() => setSelectedPayment("UPI")}
+                    >
+                      <FontAwesomeIcon icon={faClock} /> UPI
+                    </button>
+                    <button
+                      className={`payment-button ${
+                        selectedPayment === "Cash Payout" ? "active" : ""
+                      }`}
+                      onClick={() => setSelectedPayment("Cash Payout")}
+                    >
+                      <FontAwesomeIcon icon={faMoneyBillWave} /> Cash
+                    </button>
+                  </div>
+                  <button
+                    className="place-order-btn"
+                    onClick={handleGenerateInvoice}
+                  >
+                    <Printer /> Place Order
+                  </button>
+                </>
+              )}
             </div>
           </>
         )}

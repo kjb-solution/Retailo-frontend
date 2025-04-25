@@ -259,8 +259,8 @@ function KOT_BillingScreen() {
 
         <div id="menu-display-area">
           <div
-            className="header-bar menu-header-wrapper"
-            style={{ backgroundColor: "#1e4a64" }}
+            className="header-bar menu-header-wrapper menu-header-unique"
+            // style={{ backgroundColor: "#1e4a64" }}
           >
             <span className="header-lg header-new-lg">Menu</span>
           </div>
@@ -295,14 +295,14 @@ function KOT_BillingScreen() {
         <div id="billing-right-container" className="">
           <div
             className={`header-bar billing-header `}
-            // style={{ backgroundColor: "black" }}
+            
           >
             {" "}
             <span className="header-lg">Billing</span>
             <Cart totalItems={totalItems} />
           </div>
           <Invoice
-            items={products}
+            KOT_items={products}
             subtotal={subtotal}
             tax={tax}
             total={total}

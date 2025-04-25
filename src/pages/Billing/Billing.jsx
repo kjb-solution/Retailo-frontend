@@ -259,10 +259,10 @@ function Billing() {
 
         <div id="menu-display-area">
           <div
-            className="header-bar menu-header-wrapper"
-            style={{ backgroundColor: "#1e4a64" }}
+            className="header-bar menu-header-wrapper menu-header-unique"
+            // style={{ backgroundColor: "#1e4a64" }}
           >
-            <span className="header-lg header-new-lg">Menu</span>
+            <span className="header-lg header-new-lg ">Menu</span>
           </div>
           <div className="search-container1">
             <FontAwesomeIcon icon={faSearch} className="search-icon1" />

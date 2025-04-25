@@ -49,7 +49,7 @@ const Layout = ({ children }) => {
         <TopNav onToggleSidebar={toggleSidebar} />
         <div
           className={`content-area ${
-            location.pathname === "/billing" ? "no-padding" : ""
+            location.pathname === "/billing" || "/kot-billing"||"/kot" ? "no-padding" : ""
           }`}
         >
           {children}
