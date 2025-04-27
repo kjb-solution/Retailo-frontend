@@ -103,7 +103,7 @@ function Billing() {
         <div
           onClick={() => setActiveNav("category")}
           style={{
-            ...(activeNav === "category" ? { backgroundColor: "red" } : {}),
+            ...(activeNav === "category" ? { backgroundColor: "#dc1e5c" } : {}),
           }}
           id="mobile-cart-container"
           className={`header-bar ${activeNav === "category" ? "active" : ""}`}
@@ -114,7 +114,7 @@ function Billing() {
           style={{
             borderRight: "1px solid #ccc",
             borderLeft: "1px solid #ccc",
-            ...(activeNav === "menu" ? { backgroundColor: "red" } : {}),
+            ...(activeNav === "menu" ? { backgroundColor: "#dc1e5c" } : {}),
           }}
           onClick={() => setActiveNav("menu")}
           className={`header-bar menu-header-wrapper ${
@@ -124,7 +124,7 @@ function Billing() {
           <span>Menu</span>
         </div>
         <div
-          style={activeNav === "invoice" ? { backgroundColor: "red" } : {}}
+          style={activeNav === "invoice" ? { backgroundColor: "#dc1e5c" } : {}}
           onClick={() => setActiveNav("invoice")}
           className={`header-bar billing-header ${
             activeNav === "invoice" ? "active" : ""

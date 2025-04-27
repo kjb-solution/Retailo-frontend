@@ -8,8 +8,12 @@ import Cart from "./KOT_BillingScreenComponents/cart.jsx";
 import { Slide, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Product_Quantity_Model from "./KOT_BillingScreenComponents/Product_Quantity_Model.jsx";
+import { useParams } from 'react-router-dom';
 
 function KOT_BillingScreen() {
+  const tableNumber = useParams().tableNumber;
+ 
+
   const [menu, setMenu] = useState(menuData);
   const [selectedCategory, setSelectedCategory] = useState(
     menuData[0].category
@@ -103,7 +107,7 @@ function KOT_BillingScreen() {
         <div
           onClick={() => setActiveNav("category")}
           style={{
-            ...(activeNav === "category" ? { backgroundColor: "red" } : {}),
+            ...(activeNav === "category" ? { backgroundColor: "#dc1e5c" } : {}),
           }}
           id="mobile-cart-container"
           className={`header-bar ${activeNav === "category" ? "active" : ""}`}
@@ -114,7 +118,7 @@ function KOT_BillingScreen() {
           style={{
             borderRight: "1px solid #ccc",
             borderLeft: "1px solid #ccc",
-            ...(activeNav === "menu" ? { backgroundColor: "red" } : {}),
+            ...(activeNav === "menu" ? { backgroundColor: "#dc1e5c" } : {}),
           }}
           onClick={() => setActiveNav("menu")}
           className={`header-bar menu-header-wrapper ${
@@ -124,7 +128,7 @@ function KOT_BillingScreen() {
           <span>Menu</span>
         </div>
         <div
-          style={activeNav === "invoice" ? { backgroundColor: "red" } : {}}
+          style={activeNav === "invoice" ? { backgroundColor: "#dc1e5c" } : {}}
           onClick={() => setActiveNav("invoice")}
           className={`header-bar billing-header ${
             activeNav === "invoice" ? "active" : ""
@@ -201,7 +205,7 @@ function KOT_BillingScreen() {
         {activeNav === "invoice" && (
           <div id="billing-right-container" className="">
             <Invoice
-              items={products}
+              KOT_items={products}
               subtotal={subtotal}
               tax={tax}
               total={total}
@@ -263,6 +267,7 @@ function KOT_BillingScreen() {
             // style={{ backgroundColor: "#1e4a64" }}
           >
             <span className="header-lg header-new-lg">Menu</span>
+            <span style={{ fontSize: "19px",fontWeight: "600", color: "rgb(107 255 225)",padding:"0px 5px", borderBottom:"1px solid white",borderRadius:"5px" }}>Table No : {tableNumber}</span>
           </div>
           <div className="search-container1">
             <FontAwesomeIcon icon={faSearch} className="search-icon1" />

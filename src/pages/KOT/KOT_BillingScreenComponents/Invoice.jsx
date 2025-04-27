@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import "../../Billing/Invoice.css";
 import "./KOT-invoice.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ListPlus, Printer, UserRoundPen } from "lucide-react";
+import { ListPlus, Printer, ReceiptText, UserRoundPen, UtensilsCrossed } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Form from "react-bootstrap/Form";
@@ -19,7 +19,7 @@ import {
 import InvoicePrintView from "./InvoicePrintView";
 import ReactDataTable from "./ReactDataTable";
 import { StaffSVG } from "../../../assets/image";
-const isMobile = window.innerWidth < 768;
+
 
 const Invoice = ({
   KOT_items,
@@ -35,6 +35,19 @@ const Invoice = ({
   const [showPrintView, setShowPrintView] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("UPI");
   const [activeKotTab, setActiveKotTab] = useState("KOT");
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+  
+    window.addEventListener('resize', handleResize);
+  
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
 
   useEffect(() => {
     if (showPrintView && totalItems === 0) {
@@ -64,11 +77,68 @@ const Invoice = ({
     setShowPrintView(false);
     onClearCart();
   };
-
+  console.log("Invoice",KOT_items);
   const columns = [
     {
       name: "Name",
-      width: isMobile ? "100px" : "35%",
+      width: isMobile ? "45%" : "35%",
+
+      selector: (row) => row.name,
+    },
+    {
+      name: "Rate",
+      width: isMobile ? "50px" : "15%",
+      center: true,
+
+      selector: (row) => row.price.toFixed(2),
+    },
+    {
+      name: "Quantity",
+      width: isMobile ? "70px" : "25%",
+      cell: (row) => (
+        <div className="quantity-controller">
+          <FontAwesomeIcon
+            icon={faMinus}
+            className="quantity-icons"
+            // onClick={() => onUpdateQty(row.id, -1)}
+          />
+          <div>{row.quantity}</div>
+          <FontAwesomeIcon
+            icon={faPlus}
+            className="quantity-icons"
+            // onClick={() => onUpdateQty(row.id, 1)}
+          />
+        </div>
+      ),
+    },
+    {
+      name: "Total",
+      width: isMobile ? "50px" : "15%",
+      center: true,
+      selector: (row) => (row.price * row.quantity).toFixed(2),
+    },
+    {
+      name: "",
+      width: isMobile ? "3px" : "5%",
+      style: {
+        display: "flex",
+        justifyContent: "flex-start", // shift it slightly to the left
+        paddingRight: "8px", // optional: control spacing from right edge
+      },
+      cell: (row) => (
+        <FontAwesomeIcon
+          icon={faTrashAlt}
+          size="lg"
+          className="delete-icon"
+          // onClick={() => onDelete(row.id)}
+        />
+      ),
+    },
+  ];
+  const kot_columns = [
+    {
+      name: "Name",
+      width: isMobile ? "45%" : "35%",
 
       selector: (row) => row.name,
     },
@@ -122,7 +192,6 @@ const Invoice = ({
       ),
     },
   ];
-  console.log(KOT_items);
 
   const items = [
     { id: 31, name: "Coca Cola", price: 12.03, quantity: 1 },
@@ -144,7 +213,7 @@ const Invoice = ({
                   }
                   onClick={() => setActiveKotTab("KOT")}
                 >
-                  KOT
+                    <UtensilsCrossed size={15} />KOT
                 </div>
                 <div
                   className={
@@ -154,6 +223,7 @@ const Invoice = ({
                   }
                   onClick={() => setActiveKotTab("BILL")}
                 >
+                   <ReceiptText size={15} />
                   BILL
                 </div>
                 <div className="KOT-staff-tab">
@@ -170,11 +240,15 @@ const Invoice = ({
                 <div className="KOT-table-container">
                   <ReactDataTable
                     items={KOT_items}
-                    columns={columns}
+                    columns={kot_columns}
                     isMobile={isMobile}
-                   
                   />
-                  <div className="KOT-create-btn-container"><button className="KOT-create-btn">   <ListPlus /> Create KOT </button></div>
+                  <div className="KOT-create-btn-container">
+                    <button className="KOT-create-btn">
+                      {" "}
+                      <ListPlus /> Create KOT{" "}
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -185,6 +259,8 @@ const Invoice = ({
                     columns={columns}
                     isMobile={isMobile}
                   />
+                  <span className="invoice-container-footer">
+
                   <div className="invoice-footer">
                     <div className="invoice-summary">
                       <div className="summary-row">
@@ -192,8 +268,11 @@ const Invoice = ({
                         <span>₹{subtotal.toFixed(2)}</span>
                       </div>
                       <div className="summary-row">
-                        <span>Tax</span>
-                        <span>₹{tax.toFixed(2)}</span>
+                      <span>CGST/SGST</span>
+                  <span>
+                    <span>₹{tax.toFixed(2) + "/"}</span>
+                    <span>₹{tax.toFixed(2)}</span>
+                  </span>
                       </div>
                       <div className="summary-row total">
                         <span>Total Payment</span>
@@ -231,8 +310,9 @@ const Invoice = ({
                     className="place-order-btn"
                     onClick={handleGenerateInvoice}
                   >
-                    <Printer /> Place Order
+                    <Printer /> Print
                   </button>
+                  </span>
                 </>
               )}
             </div>

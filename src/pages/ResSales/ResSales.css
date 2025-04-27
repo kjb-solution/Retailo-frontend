@@ -1,0 +1,237 @@
+.res-sales-container{
+   
+    background-color: #f9f9f9b7;
+    padding: 10px;
+}
+/* Container */
+.res-sales-container {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+  }
+  
+  /* Filter panel */
+  .filter-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: width 0.3s ease;
+    z-index: 2;
+  }
+  
+  .filter-panel.show {
+    width: 500px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  }
+  
+  .filter-content {
+    padding: 20px;
+  }
+  
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .close-icon {
+    cursor: pointer;
+  }
+  
+  hr {
+    margin: 10px 0;
+  }
+  
+  /* Header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Filter button */
+  .filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #233250;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  /* Paid and Unpaid Status */
+ 
+
+  .paid {
+    color: green;
+    font-weight: bold;
+    border: 1px solid green;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .unpaid {
+    color: red;
+    font-weight: bold;
+    border: 1px solid red;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  .paid-status, .unpaid-status {
+    width: 60px;
+    font-size: 10px;
+  }
+  /* Action icons */
+  .action-icons {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .res-sales-container {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+    padding: 20px;
+  }
+  
+  .top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #233250;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  .filter-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 0px;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: width 0.3s ease;
+    box-shadow: none;
+    z-index: 2;
+  }
+  
+  .filter-panel.show {
+    width: 400px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  }
+  
+  .filter-content {
+    padding: 20px;
+  }
+  
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .close-icon {
+    cursor: pointer;
+  }
+  
+  .filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .filter-form input,
+  .filter-form select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .action-icons {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .paid-status {
+    color: green;
+    font-weight: bold;
+    border: 1px solid green;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .unpaid-status {
+    color: red;
+    font-weight: bold;
+    border: 1px solid red;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  .apply-btn {
+    /* margin-top: 15px; */
+    background-color: #233250;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .apply-btn:hover {
+    background-color: #1b2436;
+  }
+  .filter-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .apply-btn, .clear-btn {
+   
+    background-color: #233250;
+    color: white;
+    border: none;
+    padding: 10px;
+    height: fit-content;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .apply-btn:hover {
+    background-color: #1b2436;
+  }
+  
+  .clear-btn {
+    background-color: #b91c1c;
+  }
+  
+  .clear-btn:hover {
+    background-color: #991b1b;
+  }
+    

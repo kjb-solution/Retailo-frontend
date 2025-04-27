@@ -1,6 +1,7 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 function ReactDataTable({columns,items,isMobile}) {
+  console.log("Inside react table",items);
   return (
     <>
       <DataTable
@@ -8,6 +9,7 @@ function ReactDataTable({columns,items,isMobile}) {
         data={items}
         highlightOnHover
         fixedHeader
+        fixedHeaderScrollHeight="70vh"
         striped
         dense
         persistTableHead
@@ -37,7 +39,7 @@ function ReactDataTable({columns,items,isMobile}) {
           cells: {
             style: {
               fontSize: isMobile ? "10px" : "12px",
-              padding: isMobile ? "8px" : "10px",
+              padding: isMobile ? "8px" : "8px",
               wordBreak: "break-word",
             },
           },
@@ -47,7 +49,7 @@ function ReactDataTable({columns,items,isMobile}) {
               "&::-webkit-scrollbar-track": {
                 background: "black",
               },
-              minHeight: "50vh",
+              minHeight: isMobile ? "60vh" : "70vh",
               overflowX: "hidden",
              
             },

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
 import "./Invoice.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Printer } from 'lucide-react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Printer } from "lucide-react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   faPlus,
@@ -31,7 +31,6 @@ const Invoice = ({
   const [showPrintView, setShowPrintView] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("UPI");
 
-
   useEffect(() => {
     if (showPrintView && totalItems === 0) {
       setShowPrintView(false);
@@ -43,16 +42,15 @@ const Invoice = ({
       toast.error("Please add items to generate invoice");
       return;
     }
-  
 
     setShowPopup(true);
-  
+
     setTimeout(() => {
       setShowPopup(false);
       setShowPrintView(true);
     }, 100);
   };
-  
+
   const handlePrint = () => {
     window.print();
   };
@@ -65,20 +63,20 @@ const Invoice = ({
   const columns = [
     {
       name: "Name",
-      width:isMobile ? "100px" : "35%",
-     
+      width: isMobile ? "45%" : "35%",
+
       selector: (row) => row.name,
     },
     {
       name: "Rate",
-      width:isMobile ? "50px" : "15%",
+      width: isMobile ? "50px" : "15%",
       center: true,
-     
+
       selector: (row) => row.price.toFixed(2),
     },
     {
       name: "Quantity",
-      width:isMobile ? "70px" : "25%",
+      width: isMobile ? "70px" : "25%",
       cell: (row) => (
         <div className="quantity-controller">
           <FontAwesomeIcon
@@ -97,17 +95,17 @@ const Invoice = ({
     },
     {
       name: "Total",
-      width:isMobile ? "50px" : "15%",
+      width: isMobile ? "50px" : "15%",
       center: true,
       selector: (row) => (row.price * row.quantity).toFixed(2),
     },
     {
       name: "",
-      width:isMobile ? "3px" : "5%",
+      width: isMobile ? "3px" : "5%",
       style: {
         display: "flex",
         justifyContent: "flex-start", // shift it slightly to the left
-        paddingRight: "8px",          // optional: control spacing from right edge
+        paddingRight: "8px", // optional: control spacing from right edge
       },
       cell: (row) => (
         <FontAwesomeIcon
@@ -119,15 +117,12 @@ const Invoice = ({
       ),
     },
   ];
-  
+
   return (
     <>
-    <div className={`invoice-container ${showPrintView ? "print-mode" : ""}`}>
-     
-   
-      {!showPrintView && !showPopup && (
-        <>
-        
+      <div className={`invoice-container ${showPrintView ? "print-mode" : ""}`}>
+        {!showPrintView && !showPopup && (
+          <>
             <DataTable
               columns={columns}
               data={items}
@@ -168,81 +163,84 @@ const Invoice = ({
                 },
                 table: {
                   style: {
-                    "&::-webkit-scrollbar": {
-                     
-                    },
+                    "&::-webkit-scrollbar": {},
                     "&::-webkit-scrollbar-track": {
                       background: "black",
                     },
-                  
+
                     overflowX: "hidden",
                   },
                 },
               }}
             />
-         
-          <div className="invoice-footer">
-            <div className="invoice-summary">
-              <div className="summary-row">
-                <span>Sub Total</span>
-                <span>₹{subtotal.toFixed(2)}</span>
+
+            <div className="invoice-footer">
+              <div className="invoice-summary">
+                <div className="summary-row">
+                  <span>Sub Total</span>
+                  <span>₹{subtotal.toFixed(2)}</span>
+                </div>
+                <div className="summary-row">
+                  <span>CGST/SGST</span>
+                  <span>
+                    <span>₹{tax.toFixed(2) + "/"}</span>
+                    <span>₹{tax.toFixed(2)}</span>
+                  </span>
+                </div>
+                <div className="summary-row total">
+                  <span>Total Payment</span>
+                  <span>₹{total.toFixed(2)}</span>
+                </div>
               </div>
-              <div className="summary-row">
-                <span>Tax</span>
-                <span>₹{tax.toFixed(2)}</span>
+
+              <div className="payment-methods">
+                <button
+                  className={`payment-button ${
+                    selectedPayment === "Credit Card" ? "active" : ""
+                  }`}
+                  onClick={() => setSelectedPayment("Credit Card")}
+                >
+                  <FontAwesomeIcon icon={faCreditCard} /> Credit Card
+                </button>
+                <button
+                  className={`payment-button ${
+                    selectedPayment === "UPI" ? "active" : ""
+                  }`}
+                  onClick={() => setSelectedPayment("UPI")}
+                >
+                  <FontAwesomeIcon icon={faClock} /> UPI
+                </button>
+                <button
+                  className={`payment-button ${
+                    selectedPayment === "Cash Payout" ? "active" : ""
+                  }`}
+                  onClick={() => setSelectedPayment("Cash Payout")}
+                >
+                  <FontAwesomeIcon icon={faMoneyBillWave} /> Cash
+                </button>
               </div>
-              <div className="summary-row total">
-                <span>Total Payment</span>
-                <span>₹{total.toFixed(2)}</span>
-              </div>
+              <button
+                className="place-order-btn"
+                onClick={handleGenerateInvoice}
+              >
+                <Printer />Print
+              </button>
             </div>
+          </>
+        )}
 
-            <div className="payment-methods">
-              <button
-                className={`payment-button ${
-                  selectedPayment === "Credit Card" ? "active" : ""
-                }`}
-                onClick={() => setSelectedPayment("Credit Card")}
-              >
-                <FontAwesomeIcon icon={faCreditCard} /> Credit Card
-              </button>
-              <button
-                className={`payment-button ${
-                  selectedPayment === "UPI" ? "active" : ""
-                }`}
-                onClick={() => setSelectedPayment("UPI")}
-              >
-                <FontAwesomeIcon icon={faClock} /> UPI
-              </button>
-              <button
-                className={`payment-button ${
-                  selectedPayment === "Cash Payout" ? "active" : ""
-                }`}
-                onClick={() => setSelectedPayment("Cash Payout")}
-              >
-                <FontAwesomeIcon icon={faMoneyBillWave} /> Cash
-              </button>
-            </div>
-            <button className="place-order-btn" onClick={handleGenerateInvoice}>
-            <Printer /> Place Order
-            </button>
-          </div>
-        </>
-      )}
-
-      {showPrintView && totalItems > 0 && (
-       <InvoicePrintView
-         items={items}
-         subtotal={subtotal}
-         tax={tax}
-         total={total}
-         selectedPayment={selectedPayment}
-         handleBack={handleBack}
-       />
-      )}
-
-    </div>
-     
+        {showPrintView && totalItems > 0 && (
+          <InvoicePrintView
+            items={items}
+            subtotal={subtotal}
+            tax={tax}
+            total={total}
+            selectedPayment={selectedPayment}
+            handleBack={handleBack}
+          />
+        )}
+      </div>
     </>
-  );};
+  );
+};
 export default Invoice;
