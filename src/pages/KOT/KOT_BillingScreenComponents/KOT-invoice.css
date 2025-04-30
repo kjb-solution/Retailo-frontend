@@ -4,6 +4,22 @@
   position: relative;
   /* max-height: 70vh; */
 }
+.kot-cart-quantity{
+  /* position: absolute;
+  top: 3px;
+  right: 4px; */
+  background: rgb(50, 100, 220);
+  color: white;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 8px;
+  font-size: 12px;
+  width: 10px;
+  height: 15px;
+}
 .KOT-Billing-header {
   display: flex;
   justify-content: space-around;
@@ -36,6 +52,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
+  gap: 10px;
 }
 .KOT-staff-select {
   width: 100%;
@@ -65,7 +82,7 @@
 }
 
 .KOT-staff-tab svg {
-  margin-right: 5px;
+  /* margin-right: 5px; */
   font-size: 20px;
   color: black;
 }
@@ -89,7 +106,7 @@
   color: white;
 }
 .form-select:focus {
-  box-shadow: 0 0 0 2.1rem rgba(113, 110, 253, 0.25);
+  box-shadow: 0 0 0 3.1rem rgba(113, 110, 253, 0.25);
 }
 
 .KOT-create-btn-container {
@@ -129,4 +146,5 @@
   left: 0;
   right: 0;
   z-index: 10;
+  background-color: white;
 }

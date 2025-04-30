@@ -1,7 +1,7 @@
 import React from "react";
 import DataTable from "react-data-table-component";
 function ReactDataTable({columns,items,isMobile}) {
-  console.log("Inside react table",items);
+  // console.log("Inside react table",items);
   return (
     <>
       <DataTable
@@ -51,7 +51,7 @@ function ReactDataTable({columns,items,isMobile}) {
               },
               minHeight: isMobile ? "60vh" : "70vh",
               overflowX: "hidden",
-             
+             borderTop: "1px solid #ccc",
             },
           },
         }}

@@ -10,8 +10,13 @@ const Layout = ({ children }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  const hideSidebarRoutes = ["/billing", "/login", "/signup","/kot","/kot-billing-table"];
-  const shouldHideSidebar = hideSidebarRoutes.includes(location.pathname);
+  // Routes that should hide the sidebar and full padding
+  const hideSidebarPrefixes = ["/billing", "/login", "/signup", "/kot", "/kot-billing-table"];
+
+  // Check if current path starts with any of the hidden sidebar routes
+  const shouldHideSidebar = hideSidebarPrefixes.some(prefix =>
+    location.pathname.startsWith(prefix)
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,7 +32,7 @@ const Layout = ({ children }) => {
   }, []);
 
   const toggleSidebar = () => {
-    setSidebarOpen((prev) => !prev);
+    setSidebarOpen(prev => !prev);
   };
 
   if (!isInitialized) return null;
@@ -41,6 +46,7 @@ const Layout = ({ children }) => {
       {!shouldHideSidebar && (
         <Sidebar isOpen={isSidebarOpen} setIsOpen={setSidebarOpen} />
       )}
+
       <div
         className={`main-content ${
           !isSidebarOpen && !isMobile ? "collapsed" : ""
@@ -49,7 +55,11 @@ const Layout = ({ children }) => {
         <TopNav onToggleSidebar={toggleSidebar} />
         <div
           className={`content-area ${
-            location.pathname === "/billing" || "/kot-billing"||"/kot" ? "no-padding" : ""
+            hideSidebarPrefixes.some(prefix =>
+              location.pathname.startsWith(prefix)
+            )
+              ? "no-padding"
+              : ""
           }`}
         >
           {children}

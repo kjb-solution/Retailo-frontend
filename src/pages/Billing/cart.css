@@ -30,6 +30,8 @@
   width: 10px;
   height: 15px;
 }
+
+
 @media (max-width: 1024px) {
   .cart-container {
     gap: 3px;

@@ -35,7 +35,23 @@ function KOT_BookedView() {
             AMT: "₹650.00",
         },
     ]
-
+    const customStyles = {
+      headCells: {
+        style: {
+          fontWeight: "bold",
+          fontSize: "16px",
+          fontFamily: "Poppins, sans-serif",
+          color: "#333",
+        },
+      },
+      cells: {
+        style: {
+          fontSize: "14px",
+          fontFamily: "Poppins, sans-serif",
+          color: "#444",
+        },
+      },
+    };
   return (
     <div style={{backgroundColor:"white",padding:"2px",height:"100%",boxShadow:"0 0 10px rgba(0, 0, 0, 0.1)",borderRadius:"5px"}}>
         
@@ -45,26 +61,7 @@ function KOT_BookedView() {
         striped
         highlightOnHover
         fixedHeader
-        customStyles={{
-            rows: {
-              style: {
-                fontSize: "14px",
-              },
-            },
-            head: {
-              style: {
-                fontWeight: "bold",
-              },
-            },
-            headCells: {
-              style: {
-                fontSize: "15px",
-                fontWeight: "bold",
-           
-              },
-            },
-           
-          }}
+        customStyles={customStyles}
         />
 
     </div>

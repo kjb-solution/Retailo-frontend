@@ -448,3 +448,9 @@
     width: 105%;
   }
 }
+@media (max-width: 768px) {
+
+  #product-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

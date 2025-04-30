@@ -7,9 +7,11 @@ export const printReceipt = async (data) => {
       "http://localhost:3000/print-receipt",        
       data
     );
-    console.log(response.data);
+    return response.data;
   } catch (error) {
+
     console.error(error.message);
+    return error.message;
   }
 };
 

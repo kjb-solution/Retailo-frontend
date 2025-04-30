@@ -12,163 +12,228 @@ function ResSales() {
     toDate: "",
     billStatus: "",
     stName: "",
+    billNo: "",
+    roomNo: "",
+    tableNo: "",
+    billType: "",
+    pMode: "",
+    entityName: "",
+    postFrom: "",
+    department: "",
   });
 
   const [appliedFilters, setAppliedFilters] = useState(filters);
 
   const columns = [
-    { name: "S.No", width: "100px", selector: (row) => row.sno },
-    { name: "Table No", width: "100px", selector: (row) => row.tableNumber },
-    { name: "Customer Name", selector: (row) => row.customerName },
-    { name: "ST Name", selector: (row) => row.stName },
-    { name: "Dept Name", selector: (row) => row.deptName },
+    { name: "S.No", center: true, selector: (row) => row.sno },
+    { name: "Date&Time", selector: (row) => row.billDate },
+    { name: "RM No", center: true, selector: (row) => row.rmNo },
+    { name: "Guest Name", selector: (row) => row.guestName },
     { name: "Bill No", selector: (row) => row.billNo },
-    { name: "Bill Date", selector: (row) => row.billDate },
-    { name: "Bill Amo", selector: (row) => row.billAmount },
+    { name: "Table No", center: true, selector: (row) => row.tableNumber },
+    { name: "KOT No", center: true, selector: (row) => row.kotNo },
+    { name: "NOP", center: true, selector: (row) => row.nop },
+    { name: "Net Tot", center: true, selector: (row) => row.netTot },
+    { name: "Disc", center: true, selector: (row) => row.disc },
+    { name: "State GST", center: true, selector: (row) => row.stateGST },
+    { name: "Central GST", center: true, selector: (row) => row.centralGST },
+    { name: "Sales Tax", center: true, selector: (row) => row.salesTax },
+    { name: "Service Charge", center: true, selector: (row) => row.charge },
+    { name: "Grand Tot", center: true, selector: (row) => row.grandTot },
+    { name: "Pay Mode", center: true, selector: (row) => row.payMode },
+    { name: "Amount", selector: (row) => row.billAmount },
     {
-      name: "Bill Status",
-      width: "100px",
+      name: "Status",
       center: true,
       selector: (row) => row.billStatus,
     },
     {
       name: "Action",
-      width: "100px",
       center: true,
       selector: (row) => row.action,
     },
   ];
 
+  const customStyles = {
+    headCells: {
+      style: {
+        fontWeight: "bold",
+        fontSize: "16px",
+        fontFamily: "Poppins, sans-serif",
+        color: "#333",
+      },
+    },
+    cells: {
+      style: {
+        fontSize: "14px",
+        fontFamily: "Poppins, sans-serif",
+        color: "#444",
+      },
+    },
+  };
+
   const allData = [
     {
       sno: 1,
-      tableNumber: "1",
-      customerName: "John Doe",
-      stName: "John",
-      deptName: "Food",
-      billNo: "12345",
-      billDate: "2023-08-01",
-      billAmount: "₹100.00",
+      billDate: "24/04/2025 7:47 am",
+      rmNo: 0,
+      guestName: "Alphonse Irudaya Sakayaraj",
+      billNo: "RF/281",
+      tableNumber: "T1",
+      kotNo: 2581,
+      nop: 0,
+      netTot: "57.14",
+      disc: "0.00",
+      stateGST: "1.43",
+      centralGST: "1.43",
+      salesTax: "0.00",
+      charge: "0.00",
+      grandTot: "60.00",
+      payMode: "Room #3",
+      billAmount: "₹60.00",
       billStatus: <div className="paid-status">Paid</div>,
       action: actionIcons(),
       status: "Paid",
+      roomNo: "3",
+      billType: "RF", // Assuming based on billNo prefix
+      entityName: "Alphonse Irudaya Sakayaraj", // Assuming guestName as entityName
+      postFrom: "Food", // Assuming based on context
+      department: "Food", // Assuming based on context
     },
     {
       sno: 2,
-      tableNumber: "2",
-      customerName: "Jane Smith",
-      stName: "Jane",
-      deptName: "Drinks",
-      billNo: "67890",
-      billDate: "2023-08-02",
-      billAmount: "₹200.00",
+      billDate: "24/04/2025 7:45 am",
+      rmNo: 3,
+      guestName: "Karthis Sundaram",
+      billNo: "RSF/901",
+      tableNumber: "T7",
+      kotNo: 2598,
+      nop: 0,
+      netTot: "51.43",
+      disc: "0.00",
+      stateGST: "1.43",
+      centralGST: "1.43",
+      salesTax: "0.00",
+      charge: "0.57",
+      grandTot: "55.00",
+      payMode: "Room #20",
+      billAmount: "₹55.00",
       billStatus: <div className="unpaid-status">Unpaid</div>,
       action: actionIcons(),
       status: "Unpaid",
+      roomNo: "20",
+      billType: "RSF",
+      entityName: "Karthis Sundaram",
+      postFrom: "Food",
+      department: "Food",
     },
     {
       sno: 3,
-      tableNumber: "3",
-      customerName: "Michael Johnson",
-      stName: "Michael",
-      deptName: "Food",
-      billNo: "54321",
-      billDate: "2023-08-05",
-      billAmount: "₹150.00",
+      billDate: "24/04/2025 8:11 am",
+      rmNo: 2,
+      guestName: "Arun Kumar",
+      billNo: "RSF/063",
+      tableNumber: "T2",
+      kotNo: 2562,
+      nop: 0,
+      netTot: "51.43",
+      disc: "0.00",
+      stateGST: "1.43",
+      centralGST: "1.43",
+      salesTax: "0.00",
+      charge: "0.57",
+      grandTot: "55.00",
+      payMode: "Room #2",
+      billAmount: "₹55.00",
       billStatus: <div className="paid-status">Paid</div>,
       action: actionIcons(),
       status: "Paid",
+      roomNo: "2",
+      billType: "RSF",
+      entityName: "Arun Kumar",
+      postFrom: "Food",
+      department: "Food",
     },
     {
       sno: 4,
-      tableNumber: "4",
-      customerName: "Emily Williams",
-      stName: "Emily",
-      deptName: "Bar",
-      billNo: "98765",
-      billDate: "2023-08-07",
-      billAmount: "₹300.00",
+      billDate: "24/04/2025 9:12 am",
+      rmNo: 8,
+      guestName: "Rajasear Senthurai",
+      billNo: "RSF/094",
+      tableNumber: "T9",
+      kotNo: 2563,
+      nop: 0,
+      netTot: "51.43",
+      disc: "0.00",
+      stateGST: "1.43",
+      centralGST: "1.43",
+      salesTax: "0.00",
+      charge: "0.57",
+      grandTot: "55.00",
+      payMode: "Room #9",
+      billAmount: "₹55.00",
       billStatus: <div className="unpaid-status">Unpaid</div>,
       action: actionIcons(),
       status: "Unpaid",
+      roomNo: "9",
+      billType: "RSF",
+      entityName: "Rajasear Senthurai",
+      postFrom: "Food",
+      department: "Food",
     },
     {
       sno: 5,
-      tableNumber: "5",
-      customerName: "Chris Brown",
-      stName: "Chris",
-      deptName: "Food",
-      billNo: "11223",
-      billDate: "2023-08-10",
-      billAmount: "₹250.00",
-      billStatus: <div className="paid-status">Paid</div>,
+      billDate: "24/04/2025 10:04 am",
+      rmNo: 9,
+      guestName: "Rajasear Senthurai",
+      billNo: "RSF/096",
+      tableNumber: "T2",
+      kotNo: 2565,
+      nop: 0,
+      netTot: "51.43",
+      disc: "0.00",
+      stateGST: "1.43",
+      centralGST: "1.43",
+      salesTax: "0.00",
+      charge: "0.00",
+      grandTot: "55.00",
+      payMode: "Room #2",
+      billAmount: "₹55.00",
+      billStatus: <div className="unpaid-status">Unpaid</div>,
       action: actionIcons(),
-      status: "Paid",
+      status: "Unpaid",
+      roomNo: "2",
+      billType: "RSF",
+      entityName: "Rajasear Senthurai",
+      postFrom: "Food",
+      department: "Food",
     },
     {
       sno: 6,
-      tableNumber: "6",
-      customerName: "Olivia Davis",
-      stName: "Olivia",
-      deptName: "Cafe",
-      billNo: "33445",
-      billDate: "2023-08-12",
-      billAmount: "₹400.00",
+      billDate: "24/04/2025 11:51 am",
+      rmNo: 2,
+      guestName: "Rajasear Senthurai",
+      billNo: "RSF/087",
+      tableNumber: "T2",
+      kotNo: 2378,
+      nop: 0,
+      netTot: "295.24",
+      disc: "0.00",
+      stateGST: "5.24",
+      centralGST: "5.24",
+      salesTax: "0.00",
+      charge: "31.45",
+      grandTot: "331.73",
+      payMode: "Room #3",
+      billAmount: "₹331.73",
       billStatus: <div className="unpaid-status">Unpaid</div>,
       action: actionIcons(),
       status: "Unpaid",
-    },
-    {
-      sno: 7,
-      tableNumber: "7",
-      customerName: "Liam Wilson",
-      stName: "Liam",
-      deptName: "Food",
-      billNo: "55667",
-      billDate: "2023-08-14",
-      billAmount: "₹500.00",
-      billStatus: <div className="paid-status">Paid</div>,
-      action: actionIcons(),
-      status: "Paid",
-    },
-    {
-      sno: 8,
-      tableNumber: "8",
-      customerName: "Sophia Martinez",
-      stName: "Sophia",
-      deptName: "Cafe",
-      billNo: "77889",
-      billDate: "2023-08-16",
-      billAmount: "₹600.00",
-      billStatus: <div className="unpaid-status">Unpaid</div>,
-      action: actionIcons(),
-      status: "Unpaid",
-    },
-    {
-      sno: 9,
-      tableNumber: "9",
-      customerName: "James Anderson",
-      stName: "James",
-      deptName: "Food",
-      billNo: "99100",
-      billDate: "2023-08-18",
-      billAmount: "₹350.00",
-      billStatus: <div className="paid-status">Paid</div>,
-      action: actionIcons(),
-      status: "Paid",
-    },
-    {
-      sno: 10,
-      tableNumber: "10",
-      customerName: "Ava Thomas",
-      stName: "Ava",
-      deptName: "Bar",
-      billNo: "10112",
-      billDate: "2023-08-20",
-      billAmount: "₹450.00",
-      billStatus: <div className="unpaid-status">Unpaid</div>,
-      action: actionIcons(),
-      status: "Unpaid",
+      roomNo: "3",
+      billType: "RSF",
+      entityName: "Rajasear Senthurai",
+      postFrom: "Food",
+      department: "Food",
     },
   ];
 
@@ -176,7 +241,7 @@ function ResSales() {
     return (
       <span className="action-icons">
         <FilePenLine size={16} color="green" />
-        <Printer size={16} color="blue" />
+        <Printer size={16} color="#3A59D1" />
       </span>
     );
   }
@@ -196,7 +261,39 @@ function ResSales() {
       (!appliedFilters.billStatus ||
         row.status.toLowerCase() === appliedFilters.billStatus.toLowerCase()) &&
       (!appliedFilters.stName ||
-        row.stName.toLowerCase().includes(appliedFilters.stName.toLowerCase()))
+        row.guestName
+          .toLowerCase()
+          .includes(appliedFilters.stName.toLowerCase())) &&
+      (!appliedFilters.billNo ||
+        row.billNo
+          .toLowerCase()
+          .includes(appliedFilters.billNo.toLowerCase())) &&
+      (!appliedFilters.roomNo ||
+        row.roomNo
+          .toLowerCase()
+          .includes(appliedFilters.roomNo.toLowerCase())) &&
+      (!appliedFilters.tableNo ||
+        row.tableNumber
+          .toLowerCase()
+          .includes(appliedFilters.tableNo.toLowerCase())) &&
+      (!appliedFilters.billType ||
+        row.billType.toLowerCase() === appliedFilters.billType.toLowerCase()) &&
+      (!appliedFilters.pMode ||
+        row.payMode
+          .toLowerCase()
+          .includes(appliedFilters.pMode.toLowerCase())) &&
+      (!appliedFilters.entityName ||
+        row.entityName
+          .toLowerCase()
+          .includes(appliedFilters.entityName.toLowerCase())) &&
+      (!appliedFilters.postFrom ||
+        row.postFrom
+          .toLowerCase()
+          .includes(appliedFilters.postFrom.toLowerCase())) &&
+      (!appliedFilters.department ||
+        row.department
+          .toLowerCase()
+          .includes(appliedFilters.department.toLowerCase()))
     );
   });
 
@@ -228,6 +325,9 @@ function ResSales() {
 
   return (
     <div className="res-sales-container">
+      {showFilter && (
+        <div className="filter-overlay" onClick={() => setShowFilter(false)} />
+      )}
       <div
         className={`filter-panel ${showFilter ? "show" : ""}`}
         ref={filterRef}
@@ -235,7 +335,7 @@ function ResSales() {
         {showFilter && (
           <div className="filter-content">
             <div className="filter-header">
-              <h2>Filters</h2>
+              <h5>Filters</h5>
               <X
                 size={24}
                 onClick={() => setShowFilter(false)}
@@ -244,64 +344,134 @@ function ResSales() {
             </div>
             <hr />
             <div className="filter-form">
-              <label>From Date</label>
-              <input
-                type="date"
-                name="fromDate"
-                value={filters.fromDate}
-                onChange={handleInputChange}
-              />
-              <label>To Date</label>
-              <input
-                type="date"
-                name="toDate"
-                value={filters.toDate}
-                onChange={handleInputChange}
-              />
-              <label>Bill Status</label>
-              <select
-                name="billStatus"
-                value={filters.billStatus}
-                onChange={handleInputChange}
-              >
-                <option value="">All</option>
-                <option value="Paid">Paid</option>
-                <option value="Unpaid">Unpaid</option>
-              </select>
-              <label>ST Name</label>
-              <input
-                type="text"
-                name="stName"
-                value={filters.stName}
-                onChange={handleInputChange}
-                placeholder="Search ST Name"
-              />
+              <div className="filter-form-fields">
+                <label>From Date</label>
+                <input
+                  type="date"
+                  name="fromDate"
+                  value={filters.fromDate}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="filter-form-fields">
+                <label>To Date</label>
+                <input
+                  type="date"
+                  name="toDate"
+                  value={filters.toDate}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="filter-form-fields">
+                <label>Bill No</label>
+                <input
+                  type="text"
+                  name="billNo"
+                  value={filters.billNo}
+                  onChange={handleInputChange}
+                  placeholder="Search Bill No"
+                />
+              </div>
+              <div className="filter-form-fields">
+                <label>Room No</label>
+                <input
+                  type="text"
+                  name="roomNo"
+                  value={filters.roomNo}
+                  onChange={handleInputChange}
+                  placeholder="Search Room No"
+                />
+              </div>
+              <div className="filter-form-fields">
+                <label>Table No</label>
+                <input
+                  type="text"
+                  name="tableNo"
+                  value={filters.tableNo}
+                  onChange={handleInputChange}
+                  placeholder="Search Table No"
+                />
+              </div>
+              <div className="filter-form-fields">
+                <label>Bill Type</label>
+                <select
+                  name="billType"
+                  value={filters.billType}
+                  onChange={handleInputChange}
+                >
+                  <option value="">Select Bill Type</option>
+                  <option value="RF">RF</option>
+                  <option value="RSF">RSF</option>
+                </select>
+              </div>
+              <div className="filter-form-fields">
+                <label>Pay Mode</label>
+                <input
+                  type="text"
+                  name="pMode"
+                  value={filters.pMode}
+                  onChange={handleInputChange}
+                  placeholder="Search Pay Mode"
+                />
+              </div>
+              <div className="filter-form-fields">
+                <label>Entity Name</label>
+                <input
+                  type="text"
+                  name="entityName"
+                  value={filters.entityName}
+                  onChange={handleInputChange}
+                  placeholder="Search Entity Name"
+                />
+              </div>
+              <div className="filter-form-fields">
+                <label>Post From</label>
+                <input
+                  type="text"
+                  name="postFrom"
+                  value={filters.postFrom}
+                  onChange={handleInputChange}
+                  placeholder="Search Post From"
+                />
+              </div>
+              <div className="filter-form-fields">
+                <label>Department</label>
+                <input
+                  type="text"
+                  name="department"
+                  value={filters.department}
+                  onChange={handleInputChange}
+                  placeholder="Search Department"
+                />
+              </div>
+              <div className="filter-form-fields">
+                <label>Bill Status</label>
+                <select
+                  name="billStatus"
+                  value={filters.billStatus}
+                  onChange={handleInputChange}
+                >
+                  <option value="">All</option>
+                  <option value="Paid">Paid</option>
+                  <option value="Unpaid">Unpaid</option>
+                </select>
+              </div>
+              <div className="filter-form-fields">
+                <label>ST Name</label>
+                <input
+                  type="text"
+                  name="stName"
+                  value={filters.stName}
+                  onChange={handleInputChange}
+                  placeholder="Search ST Name"
+                />
+              </div>
               <div className="filter-buttons">
                 <button className="apply-btn" onClick={handleApplyFilter}>
                   Apply Filter
                 </button>
-                <button
-                  className="clear-btn"
-                  onClick={() => {
-                    setFilters({
-                      fromDate: "",
-                      toDate: "",
-                      billStatus: "",
-                      stName: "",
-                    });
-                    setAppliedFilters({
-                      fromDate: "",
-                      toDate: "",
-                      billStatus: "",
-                      stName: "",
-                    });
-                    setShowFilter(false);
-                  }}
-                >
-                  Clear Filter
-                </button>
               </div>
-            </div>
+            </div>{" "}
           </div>
         )}
       </div>
@@ -316,38 +486,90 @@ function ResSales() {
           <span>Filter</span>
         </button>
       </div>
-
-      <DataTable
-        columns={columns}
-        data={filteredData}
-        striped
-        highlightOnHover
-        pagination
-        fixedHeader
-        fixedHeaderScrollHeight="70vh"
-        dense
-        paginationPerPage={10}
-        customStyles={{
-          rows: { style: { fontSize: "12px", overflowX: "hidden" } },
-          headCells: {
-            style: {
-              backgroundColor: "#233250",
-              color: "white",
-              fontSize: "14px",
-              fontWeight: "bold",
-            },
-          },
-          cells: { style: { fontSize: "15px",paddingTop:"15px", paddingLeft: "15px" } },
-          table: {
-            style: {
-              minHeight: "100%",
-              maxHeight: "500px",
-              overflowX: "hidden",
-              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
-            },
-          },
-        }}
-      />
+      <div className="data-table-records">
+        <DataTable
+          columns={columns}
+          data={filteredData}
+          highlightOnHover
+          pagination
+          fixedHeader
+          fixedHeaderScrollHeight="70vh"
+          paginationPerPage={10}
+          customStyles={customStyles}
+        />
+      </div>
+      <div style={{ display: "flex" ,width:"100%",justifyContent:"space-between",gap:"10px",backgroundColor:"#fff"}}>
+       <div style={{width:"50%",border:"1px solid #ccc",padding:"10px"}}>
+       <h5>Restaurant Sales Details</h5>
+        <div className="res-sales-details" >
+          {[
+            ["Restaurants Food Sales", "685.71"],
+            ["Home Delivery", "0.00"],
+            ["Parcel Sales", "0.00"],
+            ["Parcel Charge", "0.00"],
+            ["Discount", "0.00"],
+            ["Net Sales", "685.71"],
+            ["State GST", "17.14"],
+            ["Central GST", "17.14"],
+            ["Total Sales", "720.00"],
+            ["Cash", "0.00"],
+            ["Card", "0.00"],
+            ["Credit", "0.00"],
+            ["Room", "660.00"],
+            ["Bank", "60.00"],
+            ["Total Collection", "720.00"],
+          ].map(([label, value], index) => (
+            <div
+              key={index}
+              className="res-sales-details-item"
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <div style={{width:"49%"}}>{label}</div>
+              <span>:</span>
+              <div style={{width:"49%",textAlign:"right"}}>{value}</div>
+            </div>
+          ))}
+        </div>
+       </div>
+       <div style={{width:"50%",border:"1px solid #ccc",padding:"10px"}}>
+       <h5> Sales Details</h5>
+        <div className="room-services-details">
+          {[
+            ["Room Service Sales", "1142.80"],
+            ["Discount", "0.00"],
+            ["Net Sales", "1142.80"],
+            ["State GST", "28.58"],
+            ["Central GST", "28.58"],
+            ["Service Charge", "65.71"],
+            ["Total Sales", "1267.00"],
+            ["Cash", "0.00"],
+            ["Card", "0.00"],
+            ["Credit", "0.00"],
+            ["Room", "1267.00"],
+            ["Bank", "0.00"],
+            ["Total Collection", "1267.00"],
+          ].map(([label, value], index) => (
+            <div
+              key={index}
+              className="room-services-details-item"
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+            <div style={{width:"49%"}}>{label}</div>
+              <span>:</span>
+              <div style={{width:"49%",textAlign:"right"}}>{value}</div>
+            </div>
+          ))}
+        </div>
+       </div>
+      </div>
     </div>
   );
 }

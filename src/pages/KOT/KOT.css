@@ -11,6 +11,19 @@
   height: 80vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+.KOT-table-filter-button {
+  padding: 4px 10px;
+  border-radius: 5px;
+  border: 2px solid #000;
+  background: #fff;
+  color: #233250;
+  cursor: pointer;
+  font-weight: bold;
+}
+.KOT-table-filter-button.filter-btn-active {
+  background: #233250;
+  color: #fff;
+}
 
 .KOT-table-container-main {
 
@@ -28,12 +41,13 @@
 }
 .KOT-table-card {
   height: 110px;
+  overflow: hidden;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 5px 0px;
+  padding: 0px 0px 5px 0px;
   min-width: 120px;
   max-width: 100%;
   max-height: 500px;
@@ -41,11 +55,12 @@
   cursor: pointer;
   position: relative;
   transition: all 0.3s ease;
+ 
 }
 
 .KOT-open-icon {
   position: absolute;
-  top: 7px;
+  top: 3px;
   right: 15px;
   opacity: 0;
   cursor: pointer;
@@ -63,6 +78,9 @@
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  padding: 2px 0px;
 }
 .KOT-table-status {
   font-size: small;
@@ -75,24 +93,53 @@
   font-size: small;
   padding: 0px 15px;
   color: #ffffff;
-  border-bottom: 1px solid #d7fbf6;
-  border-top: 1px solid #d7fbf6;
+ 
   font-weight: 700;
-  background-color: rgba(0, 0, 0, 0.2);
+ 
 }
 
 .booked {
   color: aliceblue;
   background-color: #c62f3e;
+  .KOT-table-number {
+    background-color: #c10114;
+  }
 }
 .free {
   color: aliceblue;
   background-color: rgba(21, 119, 21, 0.9);
+  .KOT-table-number {
+    background-color: #006400;
+  }
 }
+
+.billing {
+  color: white;
+  background-color: #f0ad4e; /* Orange/Amber */
+}
+.billing .KOT-table-number {
+  background-color: #d98e00;
+}
+.KOT-table-status-billing {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: white;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+
+
 .KOT-table-total-amount {
-  /* color: #000000; */
+  
+  width: 100%;
+  font-size: 16px;
   border-radius: 6px;
-  text-align: end;
+  text-align: center;
 }
 .mobile-kot-nav-header {
   display: none;
@@ -100,14 +147,13 @@
 .KOT-table-time {
   display: flex;
   font-size: 10px;
-  /* text-align: center; */
+
   border-radius: 6px;
-  /* padding: 0px 10px; */
-  /* background-color: #000000; */
+ 
 }
 .KOT-table-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 0px 5px;
   font-size: 10px;

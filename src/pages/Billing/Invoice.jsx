@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Printer } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PrinterLoading from "../../assets/PrinterLoading.webm";
 
 import {
   faPlus,
@@ -15,6 +16,7 @@ import {
   faClock,
 } from "@fortawesome/free-solid-svg-icons";
 import InvoicePrintView from "./InvoicePrintView";
+import { printReceipt } from "../../services/NodePrinter";
 const isMobile = window.innerWidth < 768;
 
 const Invoice = ({
@@ -30,6 +32,7 @@ const Invoice = ({
   const [showPopup, setShowPopup] = useState(false);
   const [showPrintView, setShowPrintView] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("UPI");
+  const [isPrinting, setIsPrinting] = useState(false);
 
   useEffect(() => {
     if (showPrintView && totalItems === 0) {
@@ -37,18 +40,32 @@ const Invoice = ({
     }
   }, [totalItems, showPrintView]);
 
-  const handleGenerateInvoice = () => {
+  const handleGenerateInvoice = async () => {
     if (totalItems === 0) {
       toast.error("Please add items to generate invoice");
       return;
     }
-
-    setShowPopup(true);
-
-    setTimeout(() => {
-      setShowPopup(false);
-      setShowPrintView(true);
-    }, 100);
+    setIsPrinting(true);
+    
+    const data = {
+      billNumber: "BF-1332,BL-1397",
+      date: new Date().toLocaleDateString(),
+      time: new Date().toLocaleTimeString(),
+      tableNo: "G2",
+      captain: "Gp.Day",
+      items,
+      subtotal,
+      cgst: (tax).toFixed(2),
+      sgst: (tax).toFixed(2),
+      vat: 0,
+      total,
+      selectedPayment,
+      gstNumber: "4910487129047124",
+      companyName: "GREEN GARDEN RESORT",
+    };
+    const response = await printReceipt(data);
+    console.log(response);
+    response.success && setIsPrinting(false);
   };
 
   const handlePrint = () => {
@@ -221,9 +238,46 @@ const Invoice = ({
               </div>
               <button
                 className="place-order-btn"
+                style={{
+                  transition: "all 0.3s ease",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px", // Adds spacing between icon/text/video
+                }}
                 onClick={handleGenerateInvoice}
               >
-                <Printer />Print
+                <Printer />
+                <span>{isPrinting ? "Printing" : "Print"}</span>
+                {isPrinting ? (
+                  <>
+                    <div
+                      style={{
+                        width: "35px",
+                        height: "20px",
+                        overflow: "hidden",
+                        transition: "all 0.3s ease",
+
+                        paddingLeft: "1px",
+                      }}
+                    >
+                      <video
+                        src={PrinterLoading}
+                        autoPlay
+                        loop
+                        muted
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          transform: "scale(3.5)",
+                          transition: "transform 0.3s ease", // Smooth video scaling
+                        }}
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <></>
+                )}
               </button>
             </div>
           </>
