@@ -60,7 +60,11 @@ function ResSales() {
     {
       name: "Status",
       center: true,
-      selector: (row) => row.billStatus,
+      cell: (row) => (
+        <span className={`${row.billStatus.toLowerCase()==="paid" ? "paid" : row.billStatus.toLowerCase()==="unpaid"?"unpaid":null}`}>
+          {row.billStatus}
+        </span>
+      ),
     },
     {
       name: "Action",
@@ -259,39 +263,8 @@ function ResSales() {
   ];
   
 
-  const footerData = {
-    sno: "",
-    billDate: "",
-    rmNo: "",
-    guestName: "",
-    billNo: "",
-    tableNumber: "",
-    kotNo: "",
-    nop: allData.reduce((totals, row) => totals + row.nop, 0),
-    netTot: allData.reduce((totals, row) => totals + row.netTot, 0),
-    disc: allData.reduce((totals, row) => totals + row.disc, 0),
-    stateGST: allData.reduce((totals, row) => totals + row.stateGST, 0),
-    centralGST: allData.reduce((totals, row) => totals + row.centralGST, 0),
-    salesTax: allData.reduce((totals, row) => totals + row.salesTax, 0),
-    charge: allData.reduce((totals, row) => totals + row.charge, 0),
-    grandTot: allData.reduce((totals, row) => totals + row.grandTot, 0),
-    payMode: "",
-    billAmount: "",
-    billStatus: "",
-    action: "",
-    status: "",
-    billType: "",
-    entityName: "",
-    postFrom: "",
-    department: "",
-    isFooter: true,
-  };
+ 
 
-useEffect(() => {
-  console.log(allData);
-}, [allData]);
-
-  allData = [...allData, footerData];
 
   const headers = [
     { label: "S.No", key: "sno" },
@@ -386,7 +359,7 @@ useEffect(() => {
     });
 
   // Append footerData to filteredData to ensure it always appears
-  const tableData = [...filteredData, footerData];
+  // const tableData = [...filteredData, footerData];
   // Calculate totals for footer
   const calculateTotals = () => {
     const totals = {
@@ -413,6 +386,37 @@ useEffect(() => {
   };
 
   const totals = calculateTotals();
+  // Create footerData based on filtered totals
+  const footerData = {
+    sno: "",
+    billDate: "",
+    rmNo: "",
+    guestName: "",
+    billNo: "",
+    tableNumber: "",
+    kotNo: "",
+    nop: totals.nop,
+    netTot: totals.netTot.toFixed(2),
+    disc: totals.disc.toFixed(2),
+    stateGST: totals.stateGST.toFixed(2),
+    centralGST: totals.centralGST.toFixed(2),
+    salesTax: totals.salesTax.toFixed(2),
+    charge: totals.charge.toFixed(2),
+    grandTot: totals.grandTot.toFixed(2),
+    payMode: "",
+    billAmount: "",
+    billStatus: "",
+    action: "",
+    status: "",
+    billType: "",
+    entityName: "",
+    postFrom: "",
+    department: "",
+    isFooter: true,
+  };
+
+  // Combine filteredData with updated footerData
+  const tableData = [...filteredData, footerData];
   useEffect(() => {
     function handleClickOutside(event) {
       if (filterRef.current && !filterRef.current.contains(event.target)) {
@@ -692,16 +696,11 @@ useEffect(() => {
         />
       </div>
       <div
-        style={{
-          display: "flex",
-          width: "100%",
-          justifyContent: "space-between",
-          gap: "10px",
-          backgroundColor: "#fff",
-        }}
+      className="res-sales-details-container"
+       
       >
         <div
-          style={{ width: "50%", border: "1px solid #ccc", padding: "10px" }}
+        className="res-sales-container1"
         >
           <h5>Restaurant Sales Details</h5>
           <div className="res-sales-details">
@@ -739,7 +738,7 @@ useEffect(() => {
           </div>
         </div>
         <div
-          style={{ width: "50%", border: "1px solid #ccc", padding: "10px" }}
+        className="res-sales-container2"
         >
           <h5>Sales Details</h5>
           <div className="room-services-details">

@@ -101,6 +101,7 @@ hr {
   padding: 5px;
   border-radius: 5px;
   text-align: center;
+  width: 70px;
 }
 
 .unpaid {
@@ -110,6 +111,7 @@ hr {
   padding: 5px;
   border-radius: 5px;
   text-align: center;
+  width: 70px;
 }
 .paid-status,
 .unpaid-status {
@@ -261,8 +263,19 @@ hr {
   gap: 14px;
   padding-right: 20px;
 }
-
-
+.res-sales-details-container{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 10px;
+  background-color: #fff;
+}
+.res-sales-container1,
+.res-sales-container2 {
+  width: 50%;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
 @media screen and (max-width: 1024px) {
   .filter-panel.show {
     width: 380px;
@@ -275,5 +288,11 @@ hr {
 @media screen and (max-width: 768px) {
   .filter-panel.show {
     width: 100%;
+  }
+  .res-sales-details-container{
+  flex-direction: column;
+  }
+  .res-sales-details-container div{
+ width: 100%;
   }
 }
