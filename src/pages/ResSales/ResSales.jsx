@@ -1,33 +1,48 @@
 import { FilePenLine, Printer, Filter, X } from "lucide-react";
 import React, { useState, useRef, useEffect } from "react";
 import DataTable from "react-data-table-component";
+import { Form, Button } from "react-bootstrap";
 import "./ResSales.css";
+import { FaFileCsv, FaPrint } from "react-icons/fa6";
+import { CSVLink } from "react-csv";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import { use } from "react";
 
 function ResSales() {
   const [showFilter, setShowFilter] = useState(false);
   const filterRef = useRef(null);
 
-  const [filters, setFilters] = useState({
+  const initialFilters = {
     fromDate: "",
     toDate: "",
     billStatus: "",
     stName: "",
     billNo: "",
-    roomNo: "",
+    rmNo: "",
     tableNo: "",
     billType: "",
     pMode: "",
     entityName: "",
     postFrom: "",
     department: "",
-  });
+  };
 
-  const [appliedFilters, setAppliedFilters] = useState(filters);
+  const [filters, setFilters] = useState(initialFilters);
+  const [appliedFilters, setAppliedFilters] = useState(initialFilters);
 
   const columns = [
     { name: "S.No", center: true, selector: (row) => row.sno },
-    { name: "Date&Time", selector: (row) => row.billDate },
-    { name: "RM No", center: true, selector: (row) => row.rmNo },
+    {
+      name: "Date&Time",
+
+      selector: (row) => row.billDate,
+    },
+    {
+      name: "RM No",
+      center: true,
+      selector: (row) => row.rmNo,
+    },
     { name: "Guest Name", selector: (row) => row.guestName },
     { name: "Bill No", selector: (row) => row.billNo },
     { name: "Table No", center: true, selector: (row) => row.tableNumber },
@@ -61,6 +76,8 @@ function ResSales() {
         fontSize: "16px",
         fontFamily: "Poppins, sans-serif",
         color: "#333",
+        backgroundColor: "#f8f8f8", // Light background for headers
+        padding: "12px",
       },
     },
     cells: {
@@ -68,11 +85,21 @@ function ResSales() {
         fontSize: "14px",
         fontFamily: "Poppins, sans-serif",
         color: "#444",
+        padding: "10px",
+      },
+    },
+    rows: {
+      style: {
+        "&:last-child": {
+          fontWeight: "bold",
+          backgroundColor: "#F1EFEC",
+          fontSize: "16px",
+        },
       },
     },
   };
 
-  const allData = [
+  let allData = [
     {
       sno: 1,
       billDate: "24/04/2025 7:47 am",
@@ -82,23 +109,22 @@ function ResSales() {
       tableNumber: "T1",
       kotNo: 2581,
       nop: 0,
-      netTot: "57.14",
-      disc: "0.00",
-      stateGST: "1.43",
-      centralGST: "1.43",
-      salesTax: "0.00",
-      charge: "0.00",
-      grandTot: "60.00",
-      payMode: "Room #3",
+      netTot: 57.14,
+      disc: 0.0,
+      stateGST: 1.43,
+      centralGST: 1.43,
+      salesTax: 0.0,
+      charge: 0.0,
+      grandTot: 60.0,
+      payMode: "Cash",
       billAmount: "₹60.00",
-      billStatus: <div className="paid-status">Paid</div>,
+      billStatus: "Paid",
       action: actionIcons(),
       status: "Paid",
-      roomNo: "3",
-      billType: "RF", // Assuming based on billNo prefix
-      entityName: "Alphonse Irudaya Sakayaraj", // Assuming guestName as entityName
-      postFrom: "Food", // Assuming based on context
-      department: "Food", // Assuming based on context
+      billType: "RF",
+      entityName: "Alphonse Irudaya Sakayaraj",
+      postFrom: "Food",
+      department: "Food",
     },
     {
       sno: 2,
@@ -109,19 +135,18 @@ function ResSales() {
       tableNumber: "T7",
       kotNo: 2598,
       nop: 0,
-      netTot: "51.43",
-      disc: "0.00",
-      stateGST: "1.43",
-      centralGST: "1.43",
-      salesTax: "0.00",
-      charge: "0.57",
-      grandTot: "55.00",
-      payMode: "Room #20",
+      netTot: 51.43,
+      disc: 0.0,
+      stateGST: 1.43,
+      centralGST: 1.43,
+      salesTax: 0.0,
+      charge: 0.57,
+      grandTot: 55.0,
+      payMode: "Credit Card",
       billAmount: "₹55.00",
-      billStatus: <div className="unpaid-status">Unpaid</div>,
+      billStatus: "Unpaid",
       action: actionIcons(),
       status: "Unpaid",
-      roomNo: "20",
       billType: "RSF",
       entityName: "Karthis Sundaram",
       postFrom: "Food",
@@ -129,26 +154,25 @@ function ResSales() {
     },
     {
       sno: 3,
-      billDate: "24/04/2025 8:11 am",
+      billDate: "23/04/2025 8:11 am",
       rmNo: 2,
       guestName: "Arun Kumar",
       billNo: "RSF/063",
       tableNumber: "T2",
       kotNo: 2562,
       nop: 0,
-      netTot: "51.43",
-      disc: "0.00",
-      stateGST: "1.43",
-      centralGST: "1.43",
-      salesTax: "0.00",
-      charge: "0.57",
-      grandTot: "55.00",
-      payMode: "Room #2",
+      netTot: 51.43,
+      disc: 0.0,
+      stateGST: 1.43,
+      centralGST: 1.43,
+      salesTax: 0.0,
+      charge: 0.57,
+      grandTot: 55.0,
+      payMode: "UPI",
       billAmount: "₹55.00",
-      billStatus: <div className="paid-status">Paid</div>,
+      billStatus: "Paid",
       action: actionIcons(),
       status: "Paid",
-      roomNo: "2",
       billType: "RSF",
       entityName: "Arun Kumar",
       postFrom: "Food",
@@ -163,19 +187,18 @@ function ResSales() {
       tableNumber: "T9",
       kotNo: 2563,
       nop: 0,
-      netTot: "51.43",
-      disc: "0.00",
-      stateGST: "1.43",
-      centralGST: "1.43",
-      salesTax: "0.00",
-      charge: "0.57",
-      grandTot: "55.00",
-      payMode: "Room #9",
+      netTot: 51.43,
+      disc: 0.0,
+      stateGST: 1.43,
+      centralGST: 1.43,
+      salesTax: 0.0,
+      charge: 0.57,
+      grandTot: 55.0,
+      payMode: "Cash",
       billAmount: "₹55.00",
-      billStatus: <div className="unpaid-status">Unpaid</div>,
+      billStatus: "Unpaid",
       action: actionIcons(),
       status: "Unpaid",
-      roomNo: "9",
       billType: "RSF",
       entityName: "Rajasear Senthurai",
       postFrom: "Food",
@@ -183,26 +206,25 @@ function ResSales() {
     },
     {
       sno: 5,
-      billDate: "24/04/2025 10:04 am",
+      billDate: "25/04/2025 10:04 am",
       rmNo: 9,
       guestName: "Rajasear Senthurai",
       billNo: "RSF/096",
       tableNumber: "T2",
       kotNo: 2565,
       nop: 0,
-      netTot: "51.43",
-      disc: "0.00",
-      stateGST: "1.43",
-      centralGST: "1.43",
-      salesTax: "0.00",
-      charge: "0.00",
-      grandTot: "55.00",
-      payMode: "Room #2",
+      netTot: 51.43,
+      disc: 0.0,
+      stateGST: 1.43,
+      centralGST: 1.43,
+      salesTax: 0.0,
+      charge: 0.0,
+      grandTot: 55.0,
+      payMode: "Credit Card",
       billAmount: "₹55.00",
-      billStatus: <div className="unpaid-status">Unpaid</div>,
+      billStatus: "Unpaid",
       action: actionIcons(),
       status: "Unpaid",
-      roomNo: "2",
       billType: "RSF",
       entityName: "Rajasear Senthurai",
       postFrom: "Food",
@@ -217,24 +239,79 @@ function ResSales() {
       tableNumber: "T2",
       kotNo: 2378,
       nop: 0,
-      netTot: "295.24",
-      disc: "0.00",
-      stateGST: "5.24",
-      centralGST: "5.24",
-      salesTax: "0.00",
-      charge: "31.45",
-      grandTot: "331.73",
-      payMode: "Room #3",
+      netTot: 295.24,
+      disc: 0.0,
+      stateGST: 5.24,
+      centralGST: 5.24,
+      salesTax: 0.0,
+      charge: 31.45,
+      grandTot: 331.73,
+      payMode: "UPI",
       billAmount: "₹331.73",
-      billStatus: <div className="unpaid-status">Unpaid</div>,
+      billStatus: "Unpaid",
       action: actionIcons(),
       status: "Unpaid",
-      roomNo: "3",
       billType: "RSF",
       entityName: "Rajasear Senthurai",
       postFrom: "Food",
       department: "Food",
     },
+  ];
+  
+
+  const footerData = {
+    sno: "",
+    billDate: "",
+    rmNo: "",
+    guestName: "",
+    billNo: "",
+    tableNumber: "",
+    kotNo: "",
+    nop: allData.reduce((totals, row) => totals + row.nop, 0),
+    netTot: allData.reduce((totals, row) => totals + row.netTot, 0),
+    disc: allData.reduce((totals, row) => totals + row.disc, 0),
+    stateGST: allData.reduce((totals, row) => totals + row.stateGST, 0),
+    centralGST: allData.reduce((totals, row) => totals + row.centralGST, 0),
+    salesTax: allData.reduce((totals, row) => totals + row.salesTax, 0),
+    charge: allData.reduce((totals, row) => totals + row.charge, 0),
+    grandTot: allData.reduce((totals, row) => totals + row.grandTot, 0),
+    payMode: "",
+    billAmount: "",
+    billStatus: "",
+    action: "",
+    status: "",
+    billType: "",
+    entityName: "",
+    postFrom: "",
+    department: "",
+    isFooter: true,
+  };
+
+useEffect(() => {
+  console.log(allData);
+}, [allData]);
+
+  allData = [...allData, footerData];
+
+  const headers = [
+    { label: "S.No", key: "sno" },
+    { label: "Date&Time", key: "billDate" },
+    { label: "RM No", key: "rmNo" },
+    { label: "Guest Name", key: "guestName" },
+    { label: "Bill No", key: "billNo" },
+    { label: "Table No", key: "tableNumber" },
+    { label: "KOT No", key: "kotNo" },
+    { label: "NOP", key: "nop" },
+    { label: "Net Tot", key: "netTot" },
+    { label: "Disc", key: "disc" },
+    { label: "State GST", key: "stateGST" },
+    { label: "Central GST", key: "centralGST" },
+    { label: "Sales Tax", key: "salesTax" },
+    { label: "Service Charge", key: "charge" },
+    { label: "Grand Tot", key: "grandTot" },
+    { label: "Pay Mode", key: "payMode" },
+    { label: "Amount", key: "billAmount" },
+    { label: "Status", key: "billStatus" },
   ];
 
   function actionIcons() {
@@ -246,57 +323,96 @@ function ResSales() {
     );
   }
 
-  const filteredData = allData.filter((row) => {
-    const billDate = new Date(row.billDate);
-    const fromDate = appliedFilters.fromDate
-      ? new Date(appliedFilters.fromDate)
-      : null;
-    const toDate = appliedFilters.toDate
-      ? new Date(appliedFilters.toDate)
-      : null;
+  const filteredData = allData
+    .filter((row) => !row.isFooter) // Exclude footer from filtering
+    .filter((row) => {
+      // Parse the billDate string (format: "24/04/2025 11:51 am")
+      const [datePart, timePart] = row.billDate.split(" ");
+      const [day, month, year] = datePart.split("/");
+      const billDate = new Date(`${month}/${day}/${year} ${timePart}`);
 
-    return (
-      (!appliedFilters.fromDate || billDate >= fromDate) &&
-      (!appliedFilters.toDate || billDate <= toDate) &&
-      (!appliedFilters.billStatus ||
-        row.status.toLowerCase() === appliedFilters.billStatus.toLowerCase()) &&
-      (!appliedFilters.stName ||
-        row.guestName
-          .toLowerCase()
-          .includes(appliedFilters.stName.toLowerCase())) &&
-      (!appliedFilters.billNo ||
-        row.billNo
-          .toLowerCase()
-          .includes(appliedFilters.billNo.toLowerCase())) &&
-      (!appliedFilters.roomNo ||
-        row.roomNo
-          .toLowerCase()
-          .includes(appliedFilters.roomNo.toLowerCase())) &&
-      (!appliedFilters.tableNo ||
-        row.tableNumber
-          .toLowerCase()
-          .includes(appliedFilters.tableNo.toLowerCase())) &&
-      (!appliedFilters.billType ||
-        row.billType.toLowerCase() === appliedFilters.billType.toLowerCase()) &&
-      (!appliedFilters.pMode ||
-        row.payMode
-          .toLowerCase()
-          .includes(appliedFilters.pMode.toLowerCase())) &&
-      (!appliedFilters.entityName ||
-        row.entityName
-          .toLowerCase()
-          .includes(appliedFilters.entityName.toLowerCase())) &&
-      (!appliedFilters.postFrom ||
-        row.postFrom
-          .toLowerCase()
-          .includes(appliedFilters.postFrom.toLowerCase())) &&
-      (!appliedFilters.department ||
-        row.department
-          .toLowerCase()
-          .includes(appliedFilters.department.toLowerCase()))
-    );
-  });
+      // Get date-only portion (set time to 00:00:00)
+      const billDateOnly = new Date(billDate);
+      billDateOnly.setHours(0, 0, 0, 0);
 
+      // Convert filter dates to Date objects
+      const fromDate = appliedFilters.fromDate
+        ? new Date(appliedFilters.fromDate + "T00:00:00")
+        : null;
+      const toDate = appliedFilters.toDate
+        ? new Date(appliedFilters.toDate + "T23:59:59.999")
+        : null;
+
+      return (
+        (!appliedFilters.fromDate || billDate >= fromDate) &&
+        (!appliedFilters.toDate || billDate <= toDate) &&
+        (!appliedFilters.billStatus ||
+          row.status.toLowerCase() ===
+            appliedFilters.billStatus.toLowerCase()) &&
+        (!appliedFilters.stName ||
+          row.guestName
+            .toLowerCase()
+            .includes(appliedFilters.stName.toLowerCase())) &&
+        (!appliedFilters.billNo ||
+          row.billNo
+            .toLowerCase()
+            .includes(appliedFilters.billNo.toLowerCase())) &&
+        (!appliedFilters.rmNo ||
+          row.rmNo == appliedFilters.rmNo) &&
+        (!appliedFilters.tableNo ||
+          row.tableNumber
+            .toLowerCase()
+            .includes(appliedFilters.tableNo.toLowerCase())) &&
+        (!appliedFilters.billType ||
+          row.billType.toLowerCase() ===
+            appliedFilters.billType.toLowerCase()) &&
+        (!appliedFilters.pMode ||
+          row.payMode
+            .toLowerCase()
+            .includes(appliedFilters.pMode.toLowerCase())) &&
+        (!appliedFilters.entityName ||
+          row.entityName
+            .toLowerCase()
+            .includes(appliedFilters.entityName.toLowerCase())) &&
+        (!appliedFilters.postFrom ||
+          row.postFrom
+            .toLowerCase()
+            .includes(appliedFilters.postFrom.toLowerCase())) &&
+        (!appliedFilters.department ||
+          row.department
+            .toLowerCase()
+            .includes(appliedFilters.department.toLowerCase()))
+      );
+    });
+
+  // Append footerData to filteredData to ensure it always appears
+  const tableData = [...filteredData, footerData];
+  // Calculate totals for footer
+  const calculateTotals = () => {
+    const totals = {
+      netTot: 0,
+      disc: 0,
+      stateGST: 0,
+      centralGST: 0,
+      salesTax: 0,
+      charge: 0,
+      grandTot: 0,
+    };
+
+    filteredData.forEach((row) => {
+      totals.netTot += parseFloat(row.netTot) || 0;
+      totals.disc += parseFloat(row.disc) || 0;
+      totals.stateGST += parseFloat(row.stateGST) || 0;
+      totals.centralGST += parseFloat(row.centralGST) || 0;
+      totals.salesTax += parseFloat(row.salesTax) || 0;
+      totals.charge += parseFloat(row.charge) || 0;
+      totals.grandTot += parseFloat(row.grandTot) || 0;
+    });
+
+    return totals;
+  };
+
+  const totals = calculateTotals();
   useEffect(() => {
     function handleClickOutside(event) {
       if (filterRef.current && !filterRef.current.contains(event.target)) {
@@ -322,6 +438,21 @@ function ResSales() {
     setAppliedFilters(filters);
     setShowFilter(false);
   };
+  useEffect(() => {
+    console.log(filters);
+  }, [filters]);
+
+  const handleClearFilter = () => {
+    setFilters(initialFilters);
+    setAppliedFilters(initialFilters);
+    setShowFilter(false);
+  };
+
+  // Unique options for dropdowns
+  const payModeOptions = [...new Set(allData.map((row) => row.payMode))];
+  const entityNameOptions = [...new Set(allData.map((row) => row.entityName))];
+  const postFromOptions = [...new Set(allData.map((row) => row.postFrom))];
+  const departmentOptions = [...new Set(allData.map((row) => row.department))];
 
   return (
     <div className="res-sales-container">
@@ -345,8 +476,8 @@ function ResSales() {
             <hr />
             <div className="filter-form">
               <div className="filter-form-fields">
-                <label>From Date</label>
-                <input
+                <Form.Label>From Date</Form.Label>
+                <Form.Control
                   type="date"
                   name="fromDate"
                   value={filters.fromDate}
@@ -354,8 +485,8 @@ function ResSales() {
                 />
               </div>
               <div className="filter-form-fields">
-                <label>To Date</label>
-                <input
+                <Form.Label>To Date</Form.Label>
+                <Form.Control
                   type="date"
                   name="toDate"
                   value={filters.toDate}
@@ -363,8 +494,8 @@ function ResSales() {
                 />
               </div>
               <div className="filter-form-fields">
-                <label>Bill No</label>
-                <input
+                <Form.Label>Bill No</Form.Label>
+                <Form.Control
                   type="text"
                   name="billNo"
                   value={filters.billNo}
@@ -373,18 +504,18 @@ function ResSales() {
                 />
               </div>
               <div className="filter-form-fields">
-                <label>Room No</label>
-                <input
+                <Form.Label>Room No</Form.Label>
+                <Form.Control
                   type="text"
-                  name="roomNo"
-                  value={filters.roomNo}
+                  name="rmNo"
+                  value={filters.rmNo}
                   onChange={handleInputChange}
                   placeholder="Search Room No"
                 />
               </div>
               <div className="filter-form-fields">
-                <label>Table No</label>
-                <input
+                <Form.Label>Table No</Form.Label>
+                <Form.Control
                   type="text"
                   name="tableNo"
                   value={filters.tableNo}
@@ -393,8 +524,8 @@ function ResSales() {
                 />
               </div>
               <div className="filter-form-fields">
-                <label>Bill Type</label>
-                <select
+                <Form.Label>Bill Type</Form.Label>
+                <Form.Select
                   name="billType"
                   value={filters.billType}
                   onChange={handleInputChange}
@@ -402,51 +533,71 @@ function ResSales() {
                   <option value="">Select Bill Type</option>
                   <option value="RF">RF</option>
                   <option value="RSF">RSF</option>
-                </select>
+                </Form.Select>
               </div>
               <div className="filter-form-fields">
-                <label>Pay Mode</label>
-                <input
-                  type="text"
+                <Form.Label>Pay Mode</Form.Label>
+                <Form.Select
                   name="pMode"
                   value={filters.pMode}
                   onChange={handleInputChange}
-                  placeholder="Search Pay Mode"
-                />
+                >
+                  <option value="">Select Pay Mode</option>
+                  {payModeOptions.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </Form.Select>
               </div>
               <div className="filter-form-fields">
-                <label>Entity Name</label>
-                <input
-                  type="text"
+                <Form.Label>Entity Name</Form.Label>
+                <Form.Select
                   name="entityName"
                   value={filters.entityName}
                   onChange={handleInputChange}
-                  placeholder="Search Entity Name"
-                />
+                >
+                  <option value="">Select Entity Name</option>
+                  {entityNameOptions.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </Form.Select>
               </div>
               <div className="filter-form-fields">
-                <label>Post From</label>
-                <input
-                  type="text"
+                <Form.Label>Post From</Form.Label>
+                <Form.Select
                   name="postFrom"
                   value={filters.postFrom}
                   onChange={handleInputChange}
-                  placeholder="Search Post From"
-                />
+                >
+                  <option value="">Select Post From</option>
+                  {postFromOptions.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </Form.Select>
               </div>
               <div className="filter-form-fields">
-                <label>Department</label>
-                <input
-                  type="text"
+                <Form.Label>Department</Form.Label>
+                <Form.Select
                   name="department"
                   value={filters.department}
                   onChange={handleInputChange}
-                  placeholder="Search Department"
-                />
+                >
+                  <option value="">Select Department</option>
+                  {departmentOptions.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </Form.Select>
               </div>
               <div className="filter-form-fields">
-                <label>Bill Status</label>
-                <select
+                <Form.Label>Bill Status</Form.Label>
+                <Form.Select
                   name="billStatus"
                   value={filters.billStatus}
                   onChange={handleInputChange}
@@ -454,11 +605,11 @@ function ResSales() {
                   <option value="">All</option>
                   <option value="Paid">Paid</option>
                   <option value="Unpaid">Unpaid</option>
-                </select>
+                </Form.Select>
               </div>
               <div className="filter-form-fields">
-                <label>ST Name</label>
-                <input
+                <Form.Label>ST Name</Form.Label>
+                <Form.Control
                   type="text"
                   name="stName"
                   value={filters.stName}
@@ -467,108 +618,162 @@ function ResSales() {
                 />
               </div>
               <div className="filter-buttons">
-                <button className="apply-btn" onClick={handleApplyFilter}>
+                <Button className="apply-btn" onClick={handleApplyFilter}>
                   Apply Filter
-                </button>
+                </Button>
+                <Button
+                  className="clear-btn"
+                  variant="outline-secondary"
+                  onClick={handleClearFilter}
+                >
+                  Clear Filter
+                </Button>
               </div>
-            </div>{" "}
+            </div>
           </div>
         )}
       </div>
 
       <div className="top-header">
-        <h3>Restaurant Sales</h3>
+        <h3>Restaurant Sales Report</h3>
         <button
           className="filter-btn"
-          onClick={() => setShowFilter(!showFilter)}
+          onClick={() => {
+            setShowFilter(!showFilter);
+          }}
+          style={{ ":hover": { backgroundColor: "#233250" } }}
         >
           <Filter size={20} />
           <span>Filter</span>
         </button>
       </div>
       <div className="data-table-records">
+        <div className="utility-buttons-container">
+          <OverlayTrigger
+            placement="top"
+            delay={{ show: 100, hide: 100 }}
+            overlay={<Tooltip id="csv-export-tooltip">Print Table</Tooltip>}
+          >
+            <FaPrint size={25} color="rgb(58, 89, 209)" />
+          </OverlayTrigger>
+          <OverlayTrigger
+            placement="top"
+            delay={{ show: 100, hide: 100 }}
+            overlay={<Tooltip id="csv-export-tooltip">Export CSV</Tooltip>}
+          >
+            <div>
+              <CSVLink
+                data={tableData}
+                headers={headers}
+                onClick={() => {
+                  return confirm("DO you want to export the data?");
+                }}
+                filename={`${new Date()
+                  .toISOString()
+                  .slice(0, 10)}_Restaurant_Sales_Report.csv`}
+                className="csv-link" // Optional: for styling if needed
+              >
+                <FaFileCsv size={25} color="green" />
+              </CSVLink>
+            </div>
+          </OverlayTrigger>
+        </div>
         <DataTable
           columns={columns}
-          data={filteredData}
+          data={tableData}
           highlightOnHover
           pagination
           fixedHeader
+          striped
+          responsive
           fixedHeaderScrollHeight="70vh"
           paginationPerPage={10}
           customStyles={customStyles}
         />
       </div>
-      <div style={{ display: "flex" ,width:"100%",justifyContent:"space-between",gap:"10px",backgroundColor:"#fff"}}>
-       <div style={{width:"50%",border:"1px solid #ccc",padding:"10px"}}>
-       <h5>Restaurant Sales Details</h5>
-        <div className="res-sales-details" >
-          {[
-            ["Restaurants Food Sales", "685.71"],
-            ["Home Delivery", "0.00"],
-            ["Parcel Sales", "0.00"],
-            ["Parcel Charge", "0.00"],
-            ["Discount", "0.00"],
-            ["Net Sales", "685.71"],
-            ["State GST", "17.14"],
-            ["Central GST", "17.14"],
-            ["Total Sales", "720.00"],
-            ["Cash", "0.00"],
-            ["Card", "0.00"],
-            ["Credit", "0.00"],
-            ["Room", "660.00"],
-            ["Bank", "60.00"],
-            ["Total Collection", "720.00"],
-          ].map(([label, value], index) => (
-            <div
-              key={index}
-              className="res-sales-details-item"
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <div style={{width:"49%"}}>{label}</div>
-              <span>:</span>
-              <div style={{width:"49%",textAlign:"right"}}>{value}</div>
-            </div>
-          ))}
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          justifyContent: "space-between",
+          gap: "10px",
+          backgroundColor: "#fff",
+        }}
+      >
+        <div
+          style={{ width: "50%", border: "1px solid #ccc", padding: "10px" }}
+        >
+          <h5>Restaurant Sales Details</h5>
+          <div className="res-sales-details">
+            {[
+              ["Restaurants Food Sales", "685.71"],
+              ["Home Delivery", "0.00"],
+              ["Parcel Sales", "0.00"],
+              ["Parcel Charge", "0.00"],
+              ["Discount", "0.00"],
+              ["Net Sales", "685.71"],
+              ["State GST", "17.14"],
+              ["Central GST", "17.14"],
+              ["Total Sales", "720.00"],
+              ["Cash", "0.00"],
+              ["Card", "0.00"],
+              ["Credit", "0.00"],
+              ["Room", "660.00"],
+              ["Bank", "60.00"],
+              ["Total Collection", "720.00"],
+            ].map(([label, value], index) => (
+              <div
+                key={index}
+                className="res-sales-details-item"
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div style={{ width: "49%" }}>{label}</div>
+                <span>:</span>
+                <div style={{ width: "49%", textAlign: "right" }}>{value}</div>
+              </div>
+            ))}
+          </div>
         </div>
-       </div>
-       <div style={{width:"50%",border:"1px solid #ccc",padding:"10px"}}>
-       <h5> Sales Details</h5>
-        <div className="room-services-details">
-          {[
-            ["Room Service Sales", "1142.80"],
-            ["Discount", "0.00"],
-            ["Net Sales", "1142.80"],
-            ["State GST", "28.58"],
-            ["Central GST", "28.58"],
-            ["Service Charge", "65.71"],
-            ["Total Sales", "1267.00"],
-            ["Cash", "0.00"],
-            ["Card", "0.00"],
-            ["Credit", "0.00"],
-            ["Room", "1267.00"],
-            ["Bank", "0.00"],
-            ["Total Collection", "1267.00"],
-          ].map(([label, value], index) => (
-            <div
-              key={index}
-              className="room-services-details-item"
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-            <div style={{width:"49%"}}>{label}</div>
-              <span>:</span>
-              <div style={{width:"49%",textAlign:"right"}}>{value}</div>
-            </div>
-          ))}
+        <div
+          style={{ width: "50%", border: "1px solid #ccc", padding: "10px" }}
+        >
+          <h5>Sales Details</h5>
+          <div className="room-services-details">
+            {[
+              ["Room Service Sales", "1142.80"],
+              ["Discount", "0.00"],
+              ["Net Sales", "1142.80"],
+              ["State GST", "28.58"],
+              ["Central GST", "28.58"],
+              ["Service Charge", "65.71"],
+              ["Total Sales", "1267.00"],
+              ["Cash", "0.00"],
+              ["Card", "0.00"],
+              ["Credit", "0.00"],
+              ["Room", "1267.00"],
+              ["Bank", "0.00"],
+              ["Total Collection", "1267.00"],
+            ].map(([label, value], index) => (
+              <div
+                key={index}
+                className="room-services-details-item"
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div style={{ width: "49%" }}>{label}</div>
+                <span>:</span>
+                <div style={{ width: "49%", textAlign: "right" }}>{value}</div>
+              </div>
+            ))}
+          </div>
         </div>
-       </div>
       </div>
     </div>
   );

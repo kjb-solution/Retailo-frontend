@@ -267,7 +267,7 @@ const Invoice = ({
                 </div>
                 <div className="KOT-staff-tab">
                   <StaffSVG />
-                  <Form.Select className="kot-staff-select">
+                  <Form.Select className="kot-staff-select user-form-select">
                     <option>Select Staff</option>
                     <option value="Staff1">Staff1</option>
                     <option value="Staff2">Staff2</option>

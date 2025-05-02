@@ -105,7 +105,7 @@
   background-color: #1a2a44;
   color: white;
 }
-.form-select:focus {
+.user-form-select:focus {
   box-shadow: 0 0 0 3.1rem rgba(113, 110, 253, 0.25);
 }
 
@@ -147,4 +147,41 @@
   right: 0;
   z-index: 10;
   background-color: white;
+}
+
+/* new  */
+.res-sales-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.res-sales-container::-webkit-scrollbar {
+  display: none;
+}
+
+
+.data-table-records {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.rdt_Table {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+.rdt_TableHeadRow,
+.rdt_TableRow {
+  min-width: 0 !important;
+}
+
+.rdt_TableCol,
+.rdt_TableCell {
+  padding: 8px !important;
+  white-space: normal !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
