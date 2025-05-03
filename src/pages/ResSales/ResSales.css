@@ -261,8 +261,33 @@ hr {
   justify-content: end;
   align-items: center;
   gap: 14px;
-  padding-right: 20px;
+  padding: 10px 20px 10px 0px;
 }
+.align-items-center{
+  display: flex;
+  justify-content: space-between  ;
+  align-items: center;
+}
+.item-wise-search-container {
+  background-color: #f9f9f9;
+  padding: 5px 5px 5px 10px;
+  border-radius: 0.5rem;
+  border: 1px solid #ddd;
+  font-size: 12px;
+}
+.item-wise-search-container input,
+.item-wise-search-container select {
+  font-size: 14px;
+}
+.item-wise-search-container button{
+  background-color: #233250;
+  border-color: #233250;
+}
+.item-wise-search-container button:hover{
+  background-color: #1b2436;
+  border-color: #1b2436;
+}
+
 .res-sales-details-container{
   display: flex;
   width: 100%;

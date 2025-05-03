@@ -61,7 +61,15 @@ function ResSales() {
       name: "Status",
       center: true,
       cell: (row) => (
-        <span className={`${row.billStatus.toLowerCase()==="paid" ? "paid" : row.billStatus.toLowerCase()==="unpaid"?"unpaid":null}`}>
+        <span
+          className={`${
+            row.billStatus.toLowerCase() === "paid"
+              ? "paid"
+              : row.billStatus.toLowerCase() === "unpaid"
+              ? "unpaid"
+              : null
+          }`}
+        >
           {row.billStatus}
         </span>
       ),
@@ -261,10 +269,6 @@ function ResSales() {
       department: "Food",
     },
   ];
-  
-
- 
-
 
   const headers = [
     { label: "S.No", key: "sno" },
@@ -330,8 +334,7 @@ function ResSales() {
           row.billNo
             .toLowerCase()
             .includes(appliedFilters.billNo.toLowerCase())) &&
-        (!appliedFilters.rmNo ||
-          row.rmNo == appliedFilters.rmNo) &&
+        (!appliedFilters.rmNo || row.rmNo == appliedFilters.rmNo) &&
         (!appliedFilters.tableNo ||
           row.tableNumber
             .toLowerCase()
@@ -675,7 +678,7 @@ function ResSales() {
                 filename={`${new Date()
                   .toISOString()
                   .slice(0, 10)}_Restaurant_Sales_Report.csv`}
-                className="csv-link" // Optional: for styling if needed
+                className="csv-link"
               >
                 <FaFileCsv size={25} color="green" />
               </CSVLink>
@@ -695,13 +698,8 @@ function ResSales() {
           customStyles={customStyles}
         />
       </div>
-      <div
-      className="res-sales-details-container"
-       
-      >
-        <div
-        className="res-sales-container1"
-        >
+      <div className="res-sales-details-container">
+        <div className="res-sales-container1">
           <h5>Restaurant Sales Details</h5>
           <div className="res-sales-details">
             {[
@@ -737,9 +735,7 @@ function ResSales() {
             ))}
           </div>
         </div>
-        <div
-        className="res-sales-container2"
-        >
+        <div className="res-sales-container2">
           <h5>Sales Details</h5>
           <div className="room-services-details">
             {[

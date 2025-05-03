@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import KOT from "./pages/KOT/KOT";
 import KOT_BillingScreen from "./pages/KOT/KOT_BillingScreen";
 import ResSales from "./pages/ResSales/ResSales";
+import ItemWiseReport from "./pages/ItemWiseReport/ItemWiseReport";
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
           <Route path="/kot" element={<KOT />} />
           <Route path="/kot-billing-table/:tableNumber" element={<KOT_BillingScreen/>}/>
           <Route path="/res-sales" element={<ResSales/>}/>
+          <Route path="/item-wise-report" element={<ItemWiseReport/>}/>
+            
         </Routes>
       </Layout>
     </Router>
