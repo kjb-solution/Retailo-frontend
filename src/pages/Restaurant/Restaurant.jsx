@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DataTable from "react-data-table-component";
 import FilterReportsData from "./FilterReportsData";
 
-const Reports = () => {
+const Restaurant = () => {
   const initialData = [
     {
       fromDate: "2024-04-21",
@@ -106,4 +106,4 @@ const Reports = () => {
   );
 };
 
-export default Reports;
+export default Restaurant;
