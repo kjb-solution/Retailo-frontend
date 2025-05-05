@@ -1,5 +1,5 @@
 .sidebar {
-  width: 220px;
+  width: 200px;
   color: #ffffff;
   background: #233250;
   padding: 20px 10px;
@@ -27,7 +27,8 @@
 .logo {
   display: flex;
   align-items: center;
-  padding: 15px;
+  /* padding: 15px; */
+  margin-top: -14px;
   gap: 10px;
   font-size: 20px;
   font-weight: bold;
@@ -71,13 +72,16 @@
   width: 100%;
 }
 
-.nav-list li.active {
+.nav-list li.active,
+.submenu-popup ul li.active-submenu {
   background: #ffffff;
   color: #35353a;
+  border-radius: 8px;
 }
 
 .nav-list li.active .label,
-.nav-list li.active .icon {
+.nav-list li.active .icon,
+.submenu-popup ul li.active-submenu a {
   color: #35353a;
 }
 
@@ -202,6 +206,9 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .submenu-item {

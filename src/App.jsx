@@ -20,13 +20,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/master" element={<Master />} />
-          <Route path="/billing" element={<Billing />} />
+          <Route path="/restaurant/billing" element={<Billing />} />
           {/* <Route path="/restaurant" element={<Reports />} /> */}
-          <Route path="/kot" element={<KOT />} />
-          <Route path="/kot-billing-table/:tableNumber" element={<KOT_BillingScreen/>}/>
-          <Route path="/res-sales" element={<ResSales/>}/>
-          <Route path="/item-wise-report" element={<ItemWiseReport/>}/>
-            
+          <Route path="/restaurant/kot" element={<KOT />} />
+          <Route
+            path="/kot-billing-table/:tableNumber"
+            element={<KOT_BillingScreen />}
+          />
+          <Route path="/restaurant/res-sales" element={<ResSales />} />
+          <Route path="/item-wise-report" element={<ItemWiseReport />} />
         </Routes>
       </Layout>
     </Router>

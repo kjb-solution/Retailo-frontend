@@ -4,8 +4,8 @@
 }
 
 .main-content {
-  margin-left: 220px;
-  width: calc(100% - 220px);
+  margin-left: 200px;
+  width: calc(100% - 200px);
   transition: margin-left 0.3s ease, width 0.3s ease;
   display: flex;
   flex-direction: column;
