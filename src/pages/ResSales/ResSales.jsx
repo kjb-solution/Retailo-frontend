@@ -643,48 +643,50 @@ function ResSales() {
 
       <div className="top-header">
         <h3>Restaurant Sales Report</h3>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            setShowFilter(!showFilter);
-          }}
-          style={{ ":hover": { backgroundColor: "#233250" } }}
-        >
-          <Filter size={20} />
-          <span>Filter</span>
-        </button>
+        <span style={{display: 'flex', alignItems: 'center'}}>
+          <div className="utility-buttons-container">
+            <OverlayTrigger
+              placement="top"
+              delay={{ show: 100, hide: 100 }}
+              overlay={<Tooltip id="csv-export-tooltip">Print Table</Tooltip>}
+            >
+              <FaPrint size={25} color="rgb(58, 89, 209)" />
+            </OverlayTrigger>
+            <OverlayTrigger
+              placement="top"
+              delay={{ show: 100, hide: 100 }}
+              overlay={<Tooltip id="csv-export-tooltip">Export CSV</Tooltip>}
+            >
+              <div>
+                <CSVLink
+                  data={tableData}
+                  headers={headers}
+                  onClick={() => {
+                    return confirm("DO you want to export the data?");
+                  }}
+                  filename={`${new Date()
+                    .toISOString()
+                    .slice(0, 10)}_Restaurant_Sales_Report.csv`}
+                  className="csv-link"
+                >
+                  <FaFileCsv size={25} color="green" />
+                </CSVLink>
+              </div>
+            </OverlayTrigger>
+          </div>
+          <button
+            className="filter-btn"
+            onClick={() => {
+              setShowFilter(!showFilter);
+            }}
+            style={{ ":hover": { backgroundColor: "#233250" } }}
+          >
+            <Filter size={20} />
+            <span>Filter</span>
+          </button>
+        </span>
       </div>
       <div className="data-table-records">
-        <div className="utility-buttons-container">
-          <OverlayTrigger
-            placement="top"
-            delay={{ show: 100, hide: 100 }}
-            overlay={<Tooltip id="csv-export-tooltip">Print Table</Tooltip>}
-          >
-            <FaPrint size={25} color="rgb(58, 89, 209)" />
-          </OverlayTrigger>
-          <OverlayTrigger
-            placement="top"
-            delay={{ show: 100, hide: 100 }}
-            overlay={<Tooltip id="csv-export-tooltip">Export CSV</Tooltip>}
-          >
-            <div>
-              <CSVLink
-                data={tableData}
-                headers={headers}
-                onClick={() => {
-                  return confirm("DO you want to export the data?");
-                }}
-                filename={`${new Date()
-                  .toISOString()
-                  .slice(0, 10)}_Restaurant_Sales_Report.csv`}
-                className="csv-link"
-              >
-                <FaFileCsv size={25} color="green" />
-              </CSVLink>
-            </div>
-          </OverlayTrigger>
-        </div>
         <DataTable
           columns={columns}
           data={tableData}
@@ -694,7 +696,7 @@ function ResSales() {
           striped
           responsive
           fixedHeaderScrollHeight="70vh"
-          paginationPerPage={10}
+          paginationPerPage={100}
           customStyles={customStyles}
         />
       </div>

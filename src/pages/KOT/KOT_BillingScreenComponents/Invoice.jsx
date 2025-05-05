@@ -265,13 +265,13 @@ const Invoice = ({
                     BILL
                   </div>
                 </div>
-                <div className="KOT-staff-tab">
+                <div className="KOT-staff-tab" style={{border: "1px solid var(--theme-menu-bg-color)",color:"var(--theme-menu-bg-color)"}}>
                   <StaffSVG />
-                  <Form.Select className="kot-staff-select user-form-select">
-                    <option>Select Staff</option>
-                    <option value="Staff1">Staff1</option>
-                    <option value="Staff2">Staff2</option>
-                    <option value="Staff3">Staff3</option>
+                  <Form.Select className="kot-staff-select user-form-select" style={{backgroundColor: "var(--theme-menu-bg-color)", color: "#000",border:"none"}}>
+                    <option style={{backgroundColor: "var(--theme-menu-bg-color)", color: "#000"}}>Select Staff</option>
+                    <option value="Staff1" style={{backgroundColor: "var(--theme-menu-bg-color)", color: "#000"}}>Staff1</option>
+                    <option value="Staff2" style={{backgroundColor: "var(--theme-menu-bg-color)", color: "#000"}}>Staff2</option>
+                    <option value="Staff3" style={{backgroundColor: "var(--theme-menu-bg-color)", color: "#000"}}>Staff3</option>
                   </Form.Select>
                 </div>
               </div>

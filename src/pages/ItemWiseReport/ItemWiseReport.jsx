@@ -90,10 +90,47 @@ const ItemWiseReport = () => {
 
   return (
     <div className="p-3 item-wise-report-table position-relative">
-      
-      <button className="filter-btn" onClick={() => setSliderOpen(!sliderOpen)}>
-        <FaFilter /> Filters
-      </button>
+      <div style={{ display: "flex", justifyContent: "flex-end",alignItems:"center"}}>
+        <div className="utility-buttons-container d-flex gap-3 ">
+          <OverlayTrigger
+            placement="top"
+            delay={{ show: 100, hide: 100 }}
+            overlay={<Tooltip id="csv-export-tooltip">Print Table</Tooltip>}
+          >
+            <FaPrint size={25} color="rgb(58, 89, 209)" />
+          </OverlayTrigger>
+
+          <OverlayTrigger
+            placement="top"
+            delay={{ show: 100, hide: 100 }}
+            overlay={<Tooltip id="csv-export-tooltip">Export CSV</Tooltip>}
+          >
+            <div>
+              <CSVLink
+                data={generateCSVData()}
+                headers={csvHeaders}
+                filename={`${new Date()
+                  .toISOString()
+                  .slice(0, 10)}_ItemWise_Sales_Report.csv`}
+                className="csv-link"
+                onClick={() => {
+                  return confirm("Do you want to export the data?");
+                }}
+              >
+                <FaFileCsv size={25} color="green" />
+              </CSVLink>
+            </div>
+          </OverlayTrigger>
+        </div>
+
+        <button
+          className="filter-btn"
+          style={{ alignSelf: "center" }}
+          onClick={() => setSliderOpen(!sliderOpen)}
+        >
+          <FaFilter /> Filters
+        </button>
+      </div>
 
       {sliderOpen && (
         <div className="slider-overlay" onClick={handleCloseSlider}></div>
@@ -108,11 +145,7 @@ const ItemWiseReport = () => {
       >
         <div className="filter-header">
           <h5>Filters</h5>
-          <X
-            size={24}
-            onClick={handleCloseSlider}
-            className="close-icon"
-          />
+          <X size={24} onClick={handleCloseSlider} className="close-icon" />
         </div>
         <hr />
         <Form className="p-3">
@@ -150,7 +183,7 @@ const ItemWiseReport = () => {
               </Form.Group>
             </Col>
             <Col xs={12}>
-              <Button variant="primary" onClick={handleItemSearch}>
+              <Button className="create-btn" onClick={handleItemSearch}>
                 Search
               </Button>
             </Col>
@@ -205,40 +238,6 @@ const ItemWiseReport = () => {
           </tr>
         </tbody>
       </Table>
-
-      <div className="utility-buttons-container d-flex gap-3 mt-3">
-        <OverlayTrigger
-          placement="top"
-          delay={{ show: 100, hide: 100 }}
-          overlay={<Tooltip id="csv-export-tooltip">Print Table</Tooltip>}
-        >
-          <FaPrint size={25} color="rgb(58, 89, 209)" />
-        </OverlayTrigger>
-
-        <OverlayTrigger
-          placement="top"
-          delay={{ show: 100, hide: 100 }}
-          overlay={<Tooltip id="csv-export-tooltip">Export CSV</Tooltip>}
-        >
-          <div>
-            <CSVLink
-              data={generateCSVData()}
-              headers={csvHeaders}
-              filename={`${new Date()
-                .toISOString()
-                .slice(0, 10)}_ItemWise_Sales_Report.csv`}
-              className="csv-link"
-              onClick={() => {
-                return confirm("Do you want to export the data?");
-              }}
-            >
-              <FaFileCsv size={25} color="green" />
-            </CSVLink>
-          </div>
-        </OverlayTrigger>
-      </div>
-
-    
     </div>
   );
 };

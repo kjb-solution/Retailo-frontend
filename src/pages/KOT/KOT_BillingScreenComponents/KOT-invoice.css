@@ -57,7 +57,7 @@
 .KOT-staff-select {
   width: 100%;
   border: 2px solid rgb(50, 100, 220);
-  background-color: rgb(50, 100, 220);
+  background-color: gray;
 }
 .KOT-staff-tab {
   color: white;
@@ -88,7 +88,7 @@
 }
 
 .kot-staff-select {
-  background-color: rgb(50, 100, 220); /* Match the background */
+  /* background-color: rgb(50, 100, 220); Match the background */
   color: white;
   border: none; /* White border for contrast */
   border-radius: 0px;
@@ -102,11 +102,15 @@
 }
 
 .kot-staff-select option {
-  background-color: #1a2a44;
-  color: white;
+  background-color: var(--theme-menu-bg-color);
+  color: #000;
+}
+
+.kot-staff-select option:hover {
+  background-color: white;
 }
 .user-form-select:focus {
-  box-shadow: 0 0 0 3.1rem rgba(113, 110, 253, 0.25);
+  box-shadow: 0 0 0 3.1rem rgb(0 132 154,0.25);
 }
 
 .KOT-create-btn-container {

@@ -40,16 +40,14 @@ export function StaffSVG() {
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      fill="none"
+      fill="black"
       stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="lucide lucide-user-round-pen-icon lucide-user-round-pen"
+      strokeWidth="1"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="lucide lucide-user-round-pen-icon lucide-user-round-pen"
     >
-      <path d="M2 21a8 8 0 0 1 10.821-7.487" />
-      <path d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
-      <circle cx="10" cy="8" r="5" />
+      <path d="M12 13.71a6.86 6.86 0 1 0 0-13.71 6.86 6.86 0 1 0 0 13.71zM9.76 16.29c-5.27 0-9.76 4.26-9.76 9.47 0 .88.72 1.59 1.59 1.59h20.82c.88 0 1.59-.71 1.59-1.59 0-5.21-4.49-9.47-9.76-9.47h-4.89z" />
     </svg>
   );
 }

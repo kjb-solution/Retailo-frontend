@@ -187,9 +187,9 @@ function KOT_BillingScreen() {
         style={{
           fontSize: "19px",
           fontWeight: "600",
-          color: "rgb(107 255 225)",
+          color: "#fff",
           padding: "0px 5px",
-          borderBottom: "0.5px solid white",
+       
           borderTop: "0.5px solid white",
           textAlign: "center",
           backgroundColor: "var(--theme-bg-color)",
@@ -334,12 +334,11 @@ function KOT_BillingScreen() {
             <span className="header-lg header-new-lg">Menu</span>
             <span
               style={{
-                fontSize: "19px",
+                fontSize: "15px",
                 fontWeight: "600",
-                color: "rgb(107 255 225)",
+                color: "#fff",
                 padding: "0px 5px",
-                borderBottom: "1px solid white",
-                borderRadius: "5px",
+               
               }}
             >
               Table No : {tableNumber}

@@ -12,6 +12,7 @@ import KOT from "./pages/KOT/KOT";
 import KOT_BillingScreen from "./pages/KOT/KOT_BillingScreen";
 import ResSales from "./pages/ResSales/ResSales";
 import ItemWiseReport from "./pages/ItemWiseReport/ItemWiseReport";
+import ViewSales from "./pages/View Sales/ViewSales";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/kot-billing-table/:tableNumber" element={<KOT_BillingScreen/>}/>
           <Route path="/res-sales" element={<ResSales/>}/>
           <Route path="/item-wise-report" element={<ItemWiseReport/>}/>
+          <Route path="/view-sales" element={<ViewSales/>}/>
             
         </Routes>
       </Layout>
