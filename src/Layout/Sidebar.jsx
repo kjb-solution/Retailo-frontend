@@ -12,7 +12,7 @@ import Logo from "../assets/logo.svg";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
-  const [showSubmenu, setShowSubmenu] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState(null);
 
   const navItems = [
     { icon: <FaTachometerAlt />, label: "Dashboard", path: "/" },
@@ -29,7 +29,17 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       ],
     },
     { icon: <FaShoppingCart />, label: "Master", path: "/master" },
-    { icon: <FaFileInvoice />, label: "Billing", path: "/billing" },
+    {
+      icon: <FaFileInvoice />,
+      label: "Reports",
+      path: "/reports",
+      submenu: [
+        { label: "Sales", path: "/reports/sales" },
+        { label: "Item Sales", path: "/reports/item-wise-report" },
+        { label: "NC Sales", path: "/reports/nc-sales" },
+        { label: "Day Sales", path: "/reports/day-sales" },
+      ],
+    },
     { icon: <FaBoxes />, label: "Inventory", path: "/inventory" },
   ];
 
@@ -39,18 +49,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     }
   };
 
-  const toggleSubmenu = (item) => {
-    if (item.label === "Restaurant") {
-      setShowSubmenu(!showSubmenu);
-    } else {
-      setShowSubmenu(false);
-    }
-  };
-
-  const handleSubmenuClick = () => {
-    setShowSubmenu(false);
-    handleNavClick();
-  };
+  const isSubmenuActive = (submenu) =>
+    submenu?.some((sub) => location.pathname.startsWith(sub.path));
 
   return (
     <>
@@ -60,6 +60,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             <img src={Logo} alt="Logo" className="logo-icon" />
             {isOpen && <span className="logo-text">Retail</span>}
           </div>
+
           <div className="sidebar-content">
             <div
               className={`sidebar-profile ${isOpen ? "expanded" : "collapsed"}`}
@@ -79,22 +80,17 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                 const hasSubmenu = !!item.submenu;
                 const isActive =
                   location.pathname === item.path ||
-                  (hasSubmenu &&
-                    item.submenu.some((sub) =>
-                      location.pathname.startsWith(sub.path)
-                    ));
+                  (hasSubmenu && isSubmenuActive(item.submenu)) ||
+                  hoveredItem === item.label;
 
                 return (
                   <li
                     key={index}
                     className={isActive ? "active" : ""}
-                    onClick={() => {
-                      if (hasSubmenu) {
-                        toggleSubmenu(item);
-                      } else {
-                        handleNavClick();
-                      }
-                    }}
+                    onMouseEnter={() =>
+                      hasSubmenu && setHoveredItem(item.label)
+                    }
+                    onMouseLeave={() => hasSubmenu && setHoveredItem(null)}
                   >
                     {hasSubmenu ? (
                       <div className="nav-link no-link">
@@ -102,10 +98,44 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                         {isOpen && <span className="label">{item.label}</span>}
                       </div>
                     ) : (
-                      <Link to={item.path} className="nav-link">
+                      <Link
+                        to={item.path}
+                        className="nav-link"
+                        onClick={handleNavClick}
+                      >
                         <span className="icon">{item.icon}</span>
                         {isOpen && <span className="label">{item.label}</span>}
                       </Link>
+                    )}
+
+                    {hasSubmenu && hoveredItem === item.label && (
+                      <div
+                        className={`submenu-popup animate`}
+                        style={{ left: isOpen ? "204px" : "64px" }}
+                      >
+                        <ul>
+                          {item.submenu.map((sub, idx) => {
+                            const isSubActive = location.pathname === sub.path;
+                            return (
+                              <li
+                                key={idx}
+                                className={isSubActive ? "active-submenu" : ""}
+                              >
+                                <Link
+                                  to={sub.path}
+                                  className="submenu-item"
+                                  onClick={() => {
+                                    handleNavClick();
+                                    setHoveredItem(null);
+                                  }}
+                                >
+                                  {sub.label}
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
                     )}
                   </li>
                 );
@@ -114,32 +144,6 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           </div>
         </div>
       </div>
-
-      {showSubmenu && (
-        <div
-          className={`submenu-popup animate`}
-          style={{ left: isOpen ? "204px" : "64px" }}
-        >
-          <ul>
-            {navItems
-              .find((item) => item.label === "Restaurant")
-              .submenu.map((sub, idx) => {
-                const isSubActive = location.pathname === sub.path;
-                return (
-                  <li key={idx} className={isSubActive ? "active-submenu" : ""}>
-                    <Link
-                      to={sub.path}
-                      className="submenu-item"
-                      onClick={handleSubmenuClick}
-                    >
-                      {sub.label}
-                    </Link>
-                  </li>
-                );
-              })}
-          </ul>
-        </div>
-      )}
     </>
   );
 };

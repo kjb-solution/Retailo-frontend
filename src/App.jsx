@@ -28,7 +28,7 @@ function App() {
             element={<KOT_BillingScreen />}
           />
           <Route path="/restaurant/res-sales" element={<ResSales />} />
-          <Route path="/item-wise-report" element={<ItemWiseReport />} />
+          <Route path="/reports/item-wise-report" element={<ItemWiseReport />} />
         </Routes>
       </Layout>
     </Router>
