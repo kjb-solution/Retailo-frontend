@@ -53,98 +53,98 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     submenu?.some((sub) => location.pathname.startsWith(sub.path));
 
   return (
-    <>
-      <div className={`sidebar ${isOpen ? "open" : "collapsed"}`}>
-        <div>
-          <div className="logo">
-            <img src={Logo} alt="Logo" className="logo-icon" />
-            {isOpen && <span className="logo-text">Retail</span>}
+    <div className={`sidebar ${isOpen ? "open" : "collapsed"}`}>
+      <div>
+        <div className="logo">
+          <img src={Logo} alt="Logo" className="logo-icon" />
+          {isOpen && <span className="logo-text">Retail</span>}
+        </div>
+
+        <div className="sidebar-content">
+          <div
+            className={`sidebar-profile ${isOpen ? "expanded" : "collapsed"}`}
+          >
+            <img
+              src="https://i.pravatar.cc/30"
+              alt="profile"
+              className="sidebar-profile-img"
+            />
+            {isOpen && (
+              <span className="sidebar-profile-name">Orlando Laurentius</span>
+            )}
           </div>
 
-          <div className="sidebar-content">
-            <div
-              className={`sidebar-profile ${isOpen ? "expanded" : "collapsed"}`}
-            >
-              <img
-                src="https://i.pravatar.cc/30"
-                alt="profile"
-                className="sidebar-profile-img"
-              />
-              {isOpen && (
-                <span className="sidebar-profile-name">Orlando Laurentius</span>
-              )}
-            </div>
+          <ul className="nav-list">
+            {navItems.map((item, index) => {
+              const hasSubmenu = !!item.submenu;
+              const isActive =
+                location.pathname === item.path ||
+                (hasSubmenu && isSubmenuActive(item.submenu)) ||
+                hoveredItem === item.label;
 
-            <ul className="nav-list">
-              {navItems.map((item, index) => {
-                const hasSubmenu = !!item.submenu;
-                const isActive =
-                  location.pathname === item.path ||
-                  (hasSubmenu && isSubmenuActive(item.submenu)) ||
-                  hoveredItem === item.label;
+              const liContent = (
+                <>
+                  <div className={`nav-link ${hasSubmenu ? "no-link" : ""}`}>
+                    <span className="icon">{item.icon}</span>
+                    {isOpen && <span className="label">{item.label}</span>}
+                  </div>
 
-                return (
-                  <li
-                    key={index}
-                    className={isActive ? "active" : ""}
-                    onMouseEnter={() =>
-                      hasSubmenu && setHoveredItem(item.label)
-                    }
-                    onMouseLeave={() => hasSubmenu && setHoveredItem(null)}
-                  >
-                    {hasSubmenu ? (
-                      <div className="nav-link no-link">
-                        <span className="icon">{item.icon}</span>
-                        {isOpen && <span className="label">{item.label}</span>}
-                      </div>
-                    ) : (
-                      <Link
-                        to={item.path}
-                        className="nav-link"
-                        onClick={handleNavClick}
-                      >
-                        <span className="icon">{item.icon}</span>
-                        {isOpen && <span className="label">{item.label}</span>}
-                      </Link>
-                    )}
-
-                    {hasSubmenu && hoveredItem === item.label && (
-                      <div
-                        className={`submenu-popup animate`}
-                        style={{ left: isOpen ? "204px" : "64px" }}
-                      >
-                        <ul>
-                          {item.submenu.map((sub, idx) => {
-                            const isSubActive = location.pathname === sub.path;
-                            return (
-                              <li
-                                key={idx}
-                                className={isSubActive ? "active-submenu" : ""}
+                  {hasSubmenu && hoveredItem === item.label && (
+                    <div
+                      className={`submenu-popup animate`}
+                      style={{ left: isOpen ? "204px" : "64px" }}
+                    >
+                      <ul>
+                        {item.submenu.map((sub, idx) => {
+                          const isSubActive = location.pathname === sub.path;
+                          return (
+                            <li
+                              key={idx}
+                              className={isSubActive ? "active-submenu" : ""}
+                            >
+                              <Link
+                                to={sub.path}
+                                className="submenu-item"
+                                onClick={() => {
+                                  handleNavClick();
+                                  setHoveredItem(null);
+                                }}
                               >
-                                <Link
-                                  to={sub.path}
-                                  className="submenu-item"
-                                  onClick={() => {
-                                    handleNavClick();
-                                    setHoveredItem(null);
-                                  }}
-                                >
-                                  {sub.label}
-                                </Link>
-                              </li>
-                            );
-                          })}
-                        </ul>
-                      </div>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+                                {sub.label}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  )}
+                </>
+              );
+
+              return hasSubmenu ? (
+                <li
+                  key={index}
+                  className={isActive ? "active" : ""}
+                  onMouseEnter={() => setHoveredItem(item.label)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
+                  {liContent}
+                </li>
+              ) : (
+                <Link
+                  to={item.path}
+                  key={index}
+                  className={`nav-link-wrapper ${isActive ? "active" : ""}`}
+                  onClick={handleNavClick}
+                >
+                  <li>{liContent}</li>
+                </Link>
+              );
+            })}
+          </ul>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
