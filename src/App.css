@@ -9,32 +9,39 @@
   background-color: #f1f1f1;
   font-family: Arial;
 }
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: "Poppins", sans-serif;
-    background-color: #f1f1f1;
-  }
-.theme-btn{
-  width: 120px;
-  padding: 10px;
-  color: #ffffff;
-  background: #405172;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #f1f1f1;
+}
+.theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: white;
+  padding: 8px 12px;
   border-radius: 6px;
-  border: 1px solid #233250;
+  border: none;
+  background-color: #405172;
+  cursor: pointer;
 }
 .theme-btn:hover {
   background-color: #233250;
 }
 .theme-exit-btn {
-  padding: 10px 20px;
-  background-color: rgb(207, 15, 71);
-  color: white;
-  border: none;
+  padding: 8px 12px;
+  color: #000;
+  /* background: #405172; */
   border-radius: 6px;
+  border: 1px solid #233250;
   cursor: pointer;
-  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 .theme-exit-btn:hover {
-  background-color: #a10c39;
+  background-color: #405172;
+  color: #fff;
 }

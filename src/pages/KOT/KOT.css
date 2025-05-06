@@ -4,6 +4,13 @@
   font-size: 30px;
   font-weight: 600;
 }
+.kot-header-wrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 10px;
+    
+  }
 .KOT-container {
   display: flex;
   min-height: 100%;
@@ -221,5 +228,15 @@
 @media (max-width: 768px) {
   .KOT-table-container-main {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .kot-header-wrapper{
+    flex-direction: column;
+    justify-items: flex-start;
+    
+  }
+  .kot-header{
+    font-size: 30px;
+    margin: 0;
+    padding: 3px;
   }
 }

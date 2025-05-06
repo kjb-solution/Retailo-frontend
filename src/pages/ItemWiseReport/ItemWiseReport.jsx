@@ -9,7 +9,8 @@ import {
   Col,
 } from "react-bootstrap";
 import "./ItemWiseReport.css";
-import { FaFileCsv, FaPrint, FaFilter } from "react-icons/fa6";
+import { FaFileCsv, FaPrint } from "react-icons/fa6";
+import { FaSearch } from "react-icons/fa";
 import { CSVLink } from "react-csv";
 import { X } from "lucide-react";
 const isMobile = window.innerWidth <= 768;
@@ -56,6 +57,68 @@ const ItemWiseReport = () => {
 
   const handleCloseSlider = () => setSliderOpen(false);
 
+  const handlePrint = () => {
+    // Create a new window for printing
+    const printWindow = window.open('', '_blank');
+    const tableContent = document.querySelector('.table-to-print').outerHTML;
+    
+    // Write the print-specific HTML to the new window
+    printWindow.document.write(`
+      <html>
+        <head>
+          <title>Item Wise Sales Report</title>
+          <style>
+            @media print {
+              body {
+                margin: 20px;
+                font-family: Arial, sans-serif;
+              }
+              table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+              }
+              th, td {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: center;
+              }
+              th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+              }
+              .category-row td {
+                background-color: #ffe6e6;
+                color: red;
+                font-weight: bold;
+                text-align: left;
+              }
+              .total-row {
+                background-color: #f2f2f2;
+                font-weight: bold;
+              }
+              .text-end {
+                text-align: right !important;
+              }
+              .text-center {
+                text-align: center !important;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <h2>Item Wise Sales Report</h2>
+          ${tableContent}
+        </body>
+      </html>
+    `);
+    
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
+  };
+
   const csvHeaders = [
     { label: "S.No", key: "sno" },
     { label: "Category", key: "category" },
@@ -90,14 +153,14 @@ const ItemWiseReport = () => {
 
   return (
     <div className="p-3 item-wise-report-table position-relative">
-      <div style={{ display: "flex", justifyContent: "flex-end",alignItems:"center"}}>
-        <div className="utility-buttons-container d-flex gap-3 ">
+      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
+        <div className="utility-buttons-container d-flex gap-3">
           <OverlayTrigger
             placement="top"
             delay={{ show: 100, hide: 100 }}
-            overlay={<Tooltip id="csv-export-tooltip">Print Table</Tooltip>}
+            overlay={<Tooltip id="print-tooltip">Print Table</Tooltip>}
           >
-            <FaPrint size={25} color="rgb(58, 89, 209)" />
+            <FaPrint size={25} color="rgb(58, 89, 209)" onClick={handlePrint} style={{ cursor: "pointer" }} />
           </OverlayTrigger>
 
           <OverlayTrigger
@@ -128,7 +191,7 @@ const ItemWiseReport = () => {
           style={{ alignSelf: "center" }}
           onClick={() => setSliderOpen(!sliderOpen)}
         >
-          <FaFilter /> Filters
+          <FaSearch /> Search
         </button>
       </div>
 
@@ -144,7 +207,7 @@ const ItemWiseReport = () => {
         }}
       >
         <div className="filter-header">
-          <h5>Filters</h5>
+          <h5>Search</h5>
           <X size={24} onClick={handleCloseSlider} className="close-icon" />
         </div>
         <hr />
@@ -182,16 +245,17 @@ const ItemWiseReport = () => {
                 </Form.Select>
               </Form.Group>
             </Col>
-            <Col xs={12}>
-              <Button className="create-btn" onClick={handleItemSearch}>
-                Search
-              </Button>
+          
+            <Col xs={12} style={{ display: "flex", width: "100%", justifyContent: "flex-end" }}>
+              <button className="theme-btn" onClick={handleItemSearch}>
+                Apply Search
+              </button>
             </Col>
           </Row>
         </Form>
       </div>
 
-      <Table bordered hover responsive>
+      <Table bordered hover responsive className="table-to-print">
         <thead className="table-secondary text-center">
           <tr>
             <th style={{ width: "5%" }}>S.No</th>
@@ -207,7 +271,7 @@ const ItemWiseReport = () => {
 
             return (
               <React.Fragment key={groupIndex}>
-                <tr>
+                <tr className="category-row">
                   <td colSpan={5} style={{ color: "red", fontWeight: "bold" }}>
                     {groupIndex + 1}. {group.category}
                   </td>
@@ -230,7 +294,7 @@ const ItemWiseReport = () => {
               </React.Fragment>
             );
           })}
-          <tr className="table-secondary fw-bold">
+          <tr className="table-secondary fw-bold total-row">
             <td colSpan={4} className="text-end">
               Total
             </td>

@@ -11,19 +11,26 @@ function KOT() {
   const [activeSettlement, setActiveSettlement] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("");
   const [showOthersFields, setShowOthersFields] = useState(false);
-  const [billData, setBillData] = useState(null);
+  const [billData, setBillData] = useState({
+    total: 100,
+    balance: 100,
+  });
+  // console.log(billData);
+
   // State for Others fields
   const [othersFields, setOthersFields] = useState({
     cash: null,
     card: null,
-    bank: { name: "Axis Bank", amount: null },
-    credit: { name: "Credit Ledger Name", amount: null },
-    receiver: { name: "18 - Muniyandi Karu", amount: null },
+    bank: { name: "", amount: null },
+    credit: { name: "", amount: null },
+    receiver: { name: "", amount: null },
+    total: null,
+    balance: null,
   });
 
   const handleSettlement = (row) => {
     console.log("settlement", row);
-    setBillData(row);
+    // setBillData(row);
     setActiveSettlement(true);
   };
 
@@ -189,7 +196,6 @@ function KOT() {
             style={{
               backgroundColor: "white",
               padding: isMobile ? "15px" : "20px",
-              borderRadius: "8px 0 0 8px",
               width: isMobile ? "100%" : "400px",
               height: "100%",
               position: "relative",
@@ -205,19 +211,77 @@ function KOT() {
             >
               Settlement
             </h3>
+            <hr />
 
             <div style={{ marginBottom: "20px" }}>
-              <p style={{ fontSize: "20px", marginBottom: "5px" }}>
+              <p
+                style={{
+                  fontSize: "20px",
+                  marginBottom: "5px",
+                  fontWeight: "bold",
+                }}
+              >
                 Bill No: RF/388
               </p>
-              {/* <div style={{ display: "flex", gap: "15px" }}>
-                <p style={{ fontSize: "14px" }}>
-                  Total: ₹{billData?.total || 1.0}
-                </p>
-                <p style={{ fontSize: "14px" }}>
-                  Balance: ₹{billData?.balance || 1.0}
-                </p>
-              </div> */}
+              <div
+                style={{
+                  display: "flex",
+                  gap: "5px",
+                  justifyContent: "space-between",
+                  padding: "5px 0px",
+                }}
+              >
+                <div
+                  style={{ display: "flex", gap: "0px", alignItems: "center",fontWeight: "bold" }}
+                >
+                  <label htmlFor="total">Total: </label>
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      backgroundColor: "#F1EFEC",
+                      border: "1px solid #ccc",
+                      borderRight: "none",
+                      padding: "5px 10px",
+                      borderRadius: "4px 0 0 4px",
+                      marginLeft: "5px",
+                    }}
+                  >
+                    ₹
+                  </span>
+                  <input
+                    style={{ width: "100px" }}
+                    type="number"
+                    value={billData?.total}
+                    id="total"
+                    disabled
+                  />
+                </div>
+                <div
+                  style={{ display: "flex", gap: "0px", alignItems: "center",fontWeight: "bold" }}
+                >
+                  <label htmlFor="balance">Balance: </label>
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      backgroundColor: "#F1EFEC",
+                      border: "1px solid #ccc",
+                      borderRight: "none",
+                      padding: "5px 10px",
+                      borderRadius: "4px 0 0 4px",
+                      marginLeft: "5px",
+                    }}
+                  >
+                    ₹
+                  </span>
+                  <input
+                    style={{ width: "100px" }}
+                    type="number"
+                    value={billData?.balance}
+                    id="balance"
+                    disabled
+                  />
+                </div>
+              </div>
             </div>
             <div
               style={{
@@ -237,7 +301,9 @@ function KOT() {
                   borderRadius: "4px",
                   cursor: "pointer",
                   flex: isMobile ? "1 1 48%" : 1,
+                  
                 }}
+                
                 onClick={() => handlePaymentSelect("Cash")}
               >
                 CASH
@@ -300,7 +366,9 @@ function KOT() {
                     marginBottom: "15px",
                   }}
                 >
-                  <label style={{ fontSize: "14px" }}>Cash</label>
+                  <label style={{ fontSize: "14px", fontWeight: "bold" }}>
+                    Cash
+                  </label>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <span
                       style={{
@@ -320,6 +388,7 @@ function KOT() {
                       onChange={(e) =>
                         handleOthersFieldChange("cash", e.target.value)
                       }
+                      placeholder="Cash amount"
                       style={{
                         padding: "5px",
                         border: "1px solid #ccc",
@@ -339,7 +408,9 @@ function KOT() {
                     marginBottom: "15px",
                   }}
                 >
-                  <label style={{ fontSize: "14px" }}>Card</label>
+                  <label style={{ fontSize: "14px", fontWeight: "bold" }}>
+                    Card
+                  </label>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <span
                       style={{
@@ -359,6 +430,7 @@ function KOT() {
                       onChange={(e) =>
                         handleOthersFieldChange("card", e.target.value)
                       }
+                       placeholder="Card amount"
                       style={{
                         padding: "5px",
                         border: "1px solid #ccc",
@@ -378,13 +450,16 @@ function KOT() {
                     marginBottom: "15px",
                   }}
                 >
-                  <label style={{ fontSize: "14px" }}>Bank</label>
+                  <label style={{ fontSize: "14px", fontWeight: "bold" }}>
+                    Bank
+                  </label>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <select
                       value={othersFields.bank.name ?? ""}
                       onChange={(e) =>
                         handleOthersFieldChange("bank", e.target.value, "name")
                       }
+                       
                       style={{
                         padding: "5px",
                         border: "1px solid #ccc",
@@ -394,6 +469,7 @@ function KOT() {
                         marginRight: "5px",
                       }}
                     >
+                       <option>Select</option>
                       <option>Axis Bank</option>
                     </select>
                     <span
@@ -412,8 +488,13 @@ function KOT() {
                       type="number"
                       value={othersFields.bank.amount ?? ""}
                       onChange={(e) =>
-                        handleOthersFieldChange("bank", e.target.value, "amount")
+                        handleOthersFieldChange(
+                          "bank",
+                          e.target.value,
+                          "amount"
+                        )
                       }
+                      placeholder="Amount"
                       style={{
                         padding: "5px",
                         border: "1px solid #ccc",
@@ -433,13 +514,14 @@ function KOT() {
                     marginBottom: "15px",
                   }}
                 >
-                  <label style={{ fontSize: "14px" }}>Credit</label>
+                  <label style={{ fontSize: "14px", fontWeight: "bold" }}>
+                    Credit
+                  </label>
                   <div style={{ display: "flex", alignItems: "center" }}>
-                    <select
+                    <input
+                      type="text"
                       value={othersFields.credit.name ?? ""}
-                      onChange={(e) =>
-                        handleOthersFieldChange("credit", e.target.value, "name")
-                      }
+                      onChange={(e) => handleOthersFieldChange(e.target.value)}
                       style={{
                         padding: "5px",
                         border: "1px solid #ccc",
@@ -449,9 +531,8 @@ function KOT() {
                         marginRight: "5px",
                         width: "100%",
                       }}
-                    >
-                      <option>Credit Ledger Name</option>
-                    </select>
+                      placeholder="Credit"
+                    />
                     <span
                       style={{
                         fontSize: "14px",
@@ -467,11 +548,12 @@ function KOT() {
                     <input
                       type="number"
                       value={othersFields.credit.amount ?? ""}
+                      placeholder="Amount"
                       onChange={(e) =>
                         handleOthersFieldChange(
-                          "credit",
+                        
                           e.target.value,
-                          "amount"
+                          
                         )
                       }
                       style={{
@@ -494,17 +576,13 @@ function KOT() {
                     width: "100%",
                   }}
                 >
-                  <label style={{ fontSize: "14px" }}>Receiver</label>
+                  <label style={{ fontSize: "14px", fontWeight: "bold" }}>
+                    Receiver
+                  </label>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <select
                       value={othersFields.receiver.name ?? ""}
-                      onChange={(e) =>
-                        handleOthersFieldChange(
-                          "receiver",
-                          e.target.value,
-                          "name"
-                        )
-                      }
+                      onChange={(e) => handleOthersFieldChange(e.target.value)}
                       style={{
                         padding: "5px",
                         border: "1px solid #ccc",
@@ -515,7 +593,10 @@ function KOT() {
                         width: "100%",
                       }}
                     >
-                      <option>18 - Muniyandi Karu</option>
+                      <option>Select</option>
+                      <option value={"18 - Muniyandi Karu"}>
+                        18 - Muniyandi Karu
+                      </option>
                     </select>
                     <span
                       style={{
@@ -539,6 +620,7 @@ function KOT() {
                           "amount"
                         )
                       }
+                      placeholder="Amount"
                       style={{
                         padding: "5px",
                         border: "1px solid #ccc",
@@ -555,7 +637,8 @@ function KOT() {
                 style={{
                   marginBottom: "20px",
                   color: "#007bff",
-                  fontSize: "14px",
+                  fontSize: "18px",
+                  textAlign: "center",
                 }}
               >
                 {selectedPayment
@@ -572,18 +655,15 @@ function KOT() {
                 flexWrap: isMobile ? "wrap" : "nowrap",
               }}
             >
+              <button className="theme-exit-btn" onClick={handleCloseSlider}>
+                Cancel
+              </button>
               <button
                 className="theme-btn"
-                style={{width:"50%"}}
+                style={{ width: "25%",justifyContent:"center" }}
                 onClick={handleSubmitSettlement}
               >
                 Submit
-              </button>
-              <button
-                className="theme-exit-btn"
-                onClick={handleCloseSlider}
-              >
-              Cancel
               </button>
             </div>
           </div>

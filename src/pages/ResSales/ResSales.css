@@ -1,6 +1,6 @@
 .res-sales-container {
   background-color: #f9f9f9b7;
-  /* padding: 10px; */
+  padding: 10px;
 }
 /* Container */
 .res-sales-container {
@@ -33,7 +33,7 @@
 }
 
 .filter-panel.show {
-  width: 550px;
+  width: 40%;
   /* box-shadow: -4px 0 15px rgba(0, 0, 0, 0.25); */
   border-left: 1px solid #ddd;
   background: #fff;
@@ -88,7 +88,8 @@ hr {
   cursor: pointer;
 }
 
-.filter-btn:hover,.filter-btn:active {
+.filter-btn:hover,
+.filter-btn:active {
   background: #233250;
 }
 
@@ -256,16 +257,16 @@ hr {
   background-color: #991b1b;
 }
 
-.utility-buttons-container{
+.utility-buttons-container {
   display: flex;
   justify-content: end;
   align-items: center;
   gap: 14px;
   padding: 10px 20px 10px 0px;
 }
-.align-items-center{
+.align-items-center {
   display: flex;
-  justify-content: space-between  ;
+  justify-content: space-between;
   align-items: center;
 }
 .item-wise-search-container {
@@ -279,16 +280,16 @@ hr {
 .item-wise-search-container select {
   font-size: 14px;
 }
-.item-wise-search-container button{
+.item-wise-search-container button {
   background-color: #233250;
   border-color: #233250;
 }
-.item-wise-search-container button:hover{
+.item-wise-search-container button:hover {
   background-color: #1b2436;
   border-color: #1b2436;
 }
 
-.res-sales-details-container{
+.res-sales-details-container {
   display: flex;
   width: 100%;
   justify-content: space-between;
@@ -314,10 +315,11 @@ hr {
   .filter-panel.show {
     width: 100%;
   }
-  .res-sales-details-container{
-  flex-direction: column;
+  .res-sales-details-container {
+    flex-direction: column;
   }
-  .res-sales-details-container div{
- width: 100%;
+  .res-sales-details-container div {
+    width: 100%;
   }
+ 
 }
