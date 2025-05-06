@@ -15,3 +15,26 @@
     font-family: "Poppins", sans-serif;
     background-color: #f1f1f1;
   }
+.theme-btn{
+  width: 120px;
+  padding: 10px;
+  color: #ffffff;
+  background: #405172;
+  border-radius: 6px;
+  border: 1px solid #233250;
+}
+.theme-btn:hover {
+  background-color: #233250;
+}
+.theme-exit-btn {
+  padding: 10px 20px;
+  background-color: rgb(207, 15, 71);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  flex: 1 1 auto;
+}
+.theme-exit-btn:hover {
+  background-color: #a10c39;
+}

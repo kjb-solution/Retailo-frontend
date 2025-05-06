@@ -96,7 +96,21 @@
 .place-order-btn:hover {
   background-color: color-mix(in srgb, var(--theme-bg-color) 90%, #fff 10%);
 }
+.more-btn{
+  border-radius: 6px;
+  background-color: #605EA1;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  width: 80px;
+  height: 45px;
+  transition: all 0.2s ease-in-out;
+}
 
+.more-btn:hover{
+  background-color: #525088;
+}
 /* payment  */
 .payment-methods {
   display: flex;
