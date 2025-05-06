@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import {
   FaTachometerAlt,
@@ -13,6 +13,9 @@ import Logo from "../assets/logo.svg";
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
   const [hoveredItem, setHoveredItem] = useState(null);
+  const { isSubmenuHovered, setIsSubmenuHovered } = useState(false);
+
+
 
   const navItems = [
     { icon: <FaTachometerAlt />, label: "Dashboard", path: "/" },
@@ -23,7 +26,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       submenu: [
         { label: "KOT", path: "/restaurant/kot" },
         { label: "BILL", path: "/restaurant/billing" },
-        { label: "View Sales", path: "/restaurant/res-sales" },
+        { label: "View Sales", path: "/restaurant/view-sales" },
         { label: "Table Transfer", path: "/restaurant/table-transfer" },
         { label: "KOT Transfer", path: "/restaurant/kot-transfer" },
       ],
@@ -34,7 +37,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       label: "Reports",
       path: "/reports",
       submenu: [
-        { label: "Sales", path: "/reports/sales" },
+        { label: "Sales", path: "/reports/res-sales" },
         { label: "Item Sales", path: "/reports/item-wise-report" },
         { label: "NC Sales", path: "/reports/nc-sales" },
         { label: "Day Sales", path: "/reports/day-sales" },
@@ -48,6 +51,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       setIsOpen(false);
     }
   };
+
 
   const isSubmenuActive = (submenu) =>
     submenu?.some((sub) => location.pathname.startsWith(sub.path));
@@ -90,7 +94,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                     onMouseEnter={() =>
                       hasSubmenu && setHoveredItem(item.label)
                     }
-                    onMouseLeave={() => hasSubmenu && setHoveredItem(null)}
+                  
                   >
                     {hasSubmenu ? (
                       <div className="nav-link no-link">
@@ -112,7 +116,15 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                       <div
                         className={`submenu-popup animate`}
                         style={{ left: isOpen ? "204px" : "64px" }}
+                        onMouseHover={() => {
+                          setIsSubmenuHovered(true);
+                        }}
+                        onMouseLeave={() => {
+                          setHoveredItem(null);
+                          setIsSubmenuHovered(false);
+                        }}
                       >
+                      
                         <ul>
                           {item.submenu.map((sub, idx) => {
                             const isSubActive = location.pathname === sub.path;

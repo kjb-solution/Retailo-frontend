@@ -17,6 +17,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import InvoicePrintView from "./InvoicePrintView";
 import { printReceipt } from "../../services/NodePrinter";
+import { Form } from "react-bootstrap";
 
 const isMobile = window.innerWidth < 768;
 
@@ -318,7 +319,7 @@ const Invoice = ({
           </>
         )}
 
-        {showPrintView && totalItems > 0 && (
+        {/* {showPrintView && totalItems > 0 && (
           <InvoicePrintView
             items={items}
             subtotal={subtotal}
@@ -327,7 +328,7 @@ const Invoice = ({
             selectedPayment={selectedPayment}
             handleBack={handleBack}
           />
-        )}
+        )} */}
       </div>
 
       {activeMoreBillingOptions && (
@@ -386,7 +387,7 @@ const Invoice = ({
             style={{
               backgroundColor: "white",
               padding: isMobile ? "15px" : "20px",
-              borderRadius: "8px 0 0 8px",
+             
               width: isMobile ? "100%" : "400px",
               height: "100%",
               position: "relative",
@@ -403,7 +404,7 @@ const Invoice = ({
             >
               <h3
                 style={{
-                  marginBottom: "15px",
+                 
                   fontSize: isMobile ? "30px" : "24px",
                 }}
               >
@@ -422,6 +423,7 @@ const Invoice = ({
                 ✕
               </button>
             </div>
+            <hr />
 
             <div
               className="guest-details-actions"
@@ -434,10 +436,7 @@ const Invoice = ({
                     guestDetails.selectedOption === "NC"
                       ? "#405172"
                       : "#9AA6B2",
-                  color:
-                    guestDetails.selectedOption === "NC"
-                      ? "#fff"
-                      : "#000",
+                  color: guestDetails.selectedOption === "NC" ? "#fff" : "#000",
                   border: "none",
                   borderRadius: "4px",
                   cursor: "pointer",
@@ -475,9 +474,7 @@ const Invoice = ({
                       ? "#405172"
                       : "#9AA6B2",
                   color:
-                    guestDetails.selectedOption === "Split"
-                      ? "#fff"
-                      : "#000",
+                    guestDetails.selectedOption === "Split" ? "#fff" : "#000",
                   border: "none",
                   borderRadius: "4px",
                   cursor: "pointer",
@@ -494,51 +491,85 @@ const Invoice = ({
                 style={{ display: "flex", gap: "10px", alignItems: "center" }}
               >
                 <div style={{ display: "flex", gap: "10px" }}>
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                <label
-                  style={{
-                    fontSize: isMobile ? "14px" : "16px",
-                    width: "60px",
-                  }}
-                >
-                  PIN
-                </label>
-                  
-                  <input
-                    type="text"
-                    name="pin1"
-                    value={guestDetails.pin1}
-                    onChange={handleGuestDetailsChange}
-                    style={{
-                      padding: "8px",
-                      border: "1px solid #ccc",
-                      borderRadius: "5px",
-                      width: "80px",
-                    }}
-                  />
-                </div>
-                   <div style={{ display: "flex", flexDirection: "column" }}>
-                   <label
-                  style={{
-                    fontSize: isMobile ? "14px" : "16px",
-                    width: "60px",
-                  }}
-                >
-                  Details
-                </label>
-                  <input
-                    type="text"
-                    name="pin2"
-                    value={guestDetails.pin2}
-                    onChange={handleGuestDetailsChange}
-                    style={{
-                      padding: "8px",
-                      border: "1px solid #ccc",
-                      borderRadius: "5px",
-                      width: "100%",
-                    }}
-                  />
-                   </div>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <label
+                      style={{
+                        fontSize: isMobile ? "14px" : "16px",
+                        width: "60px",
+                      }}
+                    >
+                      PIN
+                    </label>
+                    <input
+                      type="text"
+                      name="pin1"
+                      value={guestDetails.pin1}
+                      onChange={handleGuestDetailsChange}
+                      style={{
+                        padding: "8px",
+                        border: "1px solid #ccc",
+                        borderRadius: "5px",
+                        width: "80px",
+                      }}
+                    />
+                  </div>
+                  {guestDetails.selectedOption === "NC" && (
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <label
+                        style={{
+                          fontSize: isMobile ? "14px" : "16px",
+                          width: "60px",
+                        }}
+                      >
+                        NC
+                      </label>
+                      <Form.Select
+                        name="nc"
+                        value={guestDetails.nc}
+                        onChange={handleGuestDetailsChange}
+                        style={{
+                          padding: "8px",
+                          border: "1px solid #ccc",
+                          borderRadius: "5px",
+                          width: "150px",
+                        }}
+                      >
+                        <option value="">Select NC</option>
+                        <option value="nc1">NC 1</option>
+                        <option value="nc2">NC 2</option>
+                        <option value="nc3">NC 3</option>
+                      </Form.Select>
+                    </div>
+                  )}
+                  {guestDetails.selectedOption === "Discount" && (
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <label
+                        style={{
+                          fontSize: isMobile ? "14px" : "16px",
+                          width: "60px",
+                        }}
+                      >
+                        Discount
+                      </label>
+                      <Form.Select
+                        name="discount"
+                        value={guestDetails.discount}
+                        onChange={handleGuestDetailsChange}
+                        style={{
+                          padding: "8px",
+                          border: "1px solid #ccc",
+                          borderRadius: "5px",
+                          width: "150px",
+                        }}
+                      >
+                        <option value="">Select Discount</option>
+                        <option value="discount1">5%</option>
+                        <option value="discount2">10%</option>
+                        <option value="discount3">15%</option>
+                        <option value="discount3">20%</option>
+                      </Form.Select>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -551,21 +582,21 @@ const Invoice = ({
                 }}
               >
                 <button
+                  onClick={() => setActiveMoreBillingOptions(false)}
+                  className="theme-exit-btn"
+                >
+                  Cancel
+                </button>
+                <button
                   onClick={handleGuestDetailsSubmit}
                   className="theme-btn"
                   style={{
-                    padding: "10px 40px",
-                    width: "50%",
+                    width: "100px",
+                    justifyContent: "center",
                     cursor: "pointer",
                   }}
                 >
                   Apply
-                </button>
-                <button
-                  onClick={() => setActiveMoreBillingOptions(false)}
-                  className="theme-exit-btn"
-                >
-                 Cancel
                 </button>
               </div>
             </div>

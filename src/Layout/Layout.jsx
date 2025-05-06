@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
   const [isInitialized, setIsInitialized] = useState(false);
 
   // Routes that should hide the sidebar and full padding
-  const hideSidebarPrefixes = ["/restaurant/billing", "/login", "/signup", "/kot", "/kot-billing-table"];
+  const hideSidebarPrefixes = ["/restaurant/billing", "/login", "/signup", "/restaurant/kot", "/kot-billing-table","/reports/res-sales"];
 
   // Check if current path starts with any of the hidden sidebar routes
   const shouldHideSidebar = hideSidebarPrefixes.some(prefix =>

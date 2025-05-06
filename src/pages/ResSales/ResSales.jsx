@@ -1,13 +1,13 @@
 import { FilePenLine, Printer, Filter, X } from "lucide-react";
 import React, { useState, useRef, useEffect } from "react";
 import DataTable from "react-data-table-component";
-import { Form, Button } from "react-bootstrap";
+
 import "./ResSales.css";
 import { FaFileCsv, FaPrint } from "react-icons/fa6";
 import { CSVLink } from "react-csv";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import { use } from "react";
+import ResSalesFilterUI from "./ResSalesFilterUI";
 
 function ResSales() {
   const [showFilter, setShowFilter] = useState(false);
@@ -74,11 +74,11 @@ function ResSales() {
         </span>
       ),
     },
-    {
-      name: "Action",
-      center: true,
-      selector: (row) => row.action,
-    },
+    // {
+    //   name: "Action",
+    //   center: true,
+    //   selector: (row) => row.action,
+    // },
   ];
 
   const customStyles = {
@@ -409,7 +409,7 @@ function ResSales() {
     payMode: "",
     billAmount: "",
     billStatus: "",
-    action: "",
+    // action: "",
     status: "",
     billType: "",
     entityName: "",
@@ -471,179 +471,26 @@ function ResSales() {
         ref={filterRef}
       >
         {showFilter && (
-          <div className="filter-content">
-            <div className="filter-header">
-              <h5>Filters</h5>
-              <X
-                size={24}
-                onClick={() => setShowFilter(false)}
-                className="close-icon"
-              />
-            </div>
-            <hr />
-            <div className="filter-form">
-              <div className="filter-form-fields">
-                <Form.Label>From Date</Form.Label>
-                <Form.Control
-                  type="date"
-                  name="fromDate"
-                  value={filters.fromDate}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="filter-form-fields">
-                <Form.Label>To Date</Form.Label>
-                <Form.Control
-                  type="date"
-                  name="toDate"
-                  value={filters.toDate}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="filter-form-fields">
-                <Form.Label>Bill No</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="billNo"
-                  value={filters.billNo}
-                  onChange={handleInputChange}
-                  placeholder="Search Bill No"
-                />
-              </div>
-              <div className="filter-form-fields">
-                <Form.Label>Room No</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="rmNo"
-                  value={filters.rmNo}
-                  onChange={handleInputChange}
-                  placeholder="Search Room No"
-                />
-              </div>
-              <div className="filter-form-fields">
-                <Form.Label>Table No</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="tableNo"
-                  value={filters.tableNo}
-                  onChange={handleInputChange}
-                  placeholder="Search Table No"
-                />
-              </div>
-              <div className="filter-form-fields">
-                <Form.Label>Bill Type</Form.Label>
-                <Form.Select
-                  name="billType"
-                  value={filters.billType}
-                  onChange={handleInputChange}
-                >
-                  <option value="">Select Bill Type</option>
-                  <option value="RF">RF</option>
-                  <option value="RSF">RSF</option>
-                </Form.Select>
-              </div>
-              <div className="filter-form-fields">
-                <Form.Label>Pay Mode</Form.Label>
-                <Form.Select
-                  name="pMode"
-                  value={filters.pMode}
-                  onChange={handleInputChange}
-                >
-                  <option value="">Select Pay Mode</option>
-                  {payModeOptions.map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </Form.Select>
-              </div>
-              <div className="filter-form-fields">
-                <Form.Label>Entity Name</Form.Label>
-                <Form.Select
-                  name="entityName"
-                  value={filters.entityName}
-                  onChange={handleInputChange}
-                >
-                  <option value="">Select Entity Name</option>
-                  {entityNameOptions.map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </Form.Select>
-              </div>
-              <div className="filter-form-fields">
-                <Form.Label>Post From</Form.Label>
-                <Form.Select
-                  name="postFrom"
-                  value={filters.postFrom}
-                  onChange={handleInputChange}
-                >
-                  <option value="">Select Post From</option>
-                  {postFromOptions.map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </Form.Select>
-              </div>
-              <div className="filter-form-fields">
-                <Form.Label>Department</Form.Label>
-                <Form.Select
-                  name="department"
-                  value={filters.department}
-                  onChange={handleInputChange}
-                >
-                  <option value="">Select Department</option>
-                  {departmentOptions.map((option, index) => (
-                    <option key={index} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </Form.Select>
-              </div>
-              <div className="filter-form-fields">
-                <Form.Label>Bill Status</Form.Label>
-                <Form.Select
-                  name="billStatus"
-                  value={filters.billStatus}
-                  onChange={handleInputChange}
-                >
-                  <option value="">All</option>
-                  <option value="Paid">Paid</option>
-                  <option value="Unpaid">Unpaid</option>
-                </Form.Select>
-              </div>
-              <div className="filter-form-fields">
-                <Form.Label>ST Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="stName"
-                  value={filters.stName}
-                  onChange={handleInputChange}
-                  placeholder="Search ST Name"
-                />
-              </div>
-              <div className="filter-buttons">
-                <Button className="apply-btn" onClick={handleApplyFilter}>
-                  Apply Filter
-                </Button>
-                <Button
-                  className="clear-btn"
-                  variant="outline-secondary"
-                  onClick={handleClearFilter}
-                >
-                  Clear Filter
-                </Button>
-              </div>
-            </div>
-          </div>
+          <ResSalesFilterUI
+            filters={filters}
+            setFilters={setFilters}
+            setShowFilter={setShowFilter}
+            handleInputChange={handleInputChange}
+            handleApplyFilter={handleApplyFilter}
+            handleClearFilter={handleClearFilter}
+            payModeOptions={payModeOptions}
+            entityNameOptions={entityNameOptions}
+            postFromOptions={postFromOptions}
+            departmentOptions={departmentOptions}
+
+          />
+         
         )}
       </div>
 
       <div className="top-header">
-        <h3>Restaurant Sales Report</h3>
-        <span style={{display: 'flex', alignItems: 'center'}}>
+        <h3 className="res-sales-title" style={{placeSelf:"flex-start"}}>Restaurant Sales Report</h3>
+        <span style={{ display: "flex", alignItems: "center" }}>
           <div className="utility-buttons-container">
             <OverlayTrigger
               placement="top"

@@ -334,16 +334,16 @@ function ViewSales() {
                 />
               </div>
               <div className="filter-buttons">
-                <Button className="apply-btn" onClick={handleApplyFilter}>
-                  Apply Filter
-                </Button>
-                <Button
-                  className="clear-btn"
+                <button
+                  className="theme-exit-btn"
                   variant="outline-secondary"
                   onClick={handleClearFilter}
                 >
                   Clear Filter
-                </Button>
+                </button>
+                <button className="theme-btn" onClick={handleApplyFilter}>
+                  Apply Filter
+                </button>
               </div>
             </div>
           </div>
@@ -353,7 +353,7 @@ function ViewSales() {
       <div className="top-header">
         <h3>View Sales</h3>
         <span style={{ display: "flex", alignItems: "center" }}>
-          <div className="utility-buttons-container">
+          {/* <div className="utility-buttons-container">
             <OverlayTrigger
               placement="top"
               delay={{ show: 100, hide: 100 }}
@@ -382,7 +382,7 @@ function ViewSales() {
                 </CSVLink>
               </div>
             </OverlayTrigger>
-          </div>
+          </div> */}
           <button
             className="theme-btn"
             onClick={() => {

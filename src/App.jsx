@@ -28,12 +28,12 @@ function App() {
             path="/kot-billing-table/:tableNumber"
             element={<KOT_BillingScreen />}
           />
-          <Route path="/restaurant/res-sales" element={<ResSales />} />
+          <Route path="/reports/res-sales" element={<ResSales />} />
           <Route
             path="/reports/item-wise-report"
             element={<ItemWiseReport />}
           />
-          <Route path="/view-sales" element={<ViewSales />} />
+          <Route path="/restaurant/view-sales" element={<ViewSales />} />
         </Routes>
       </Layout>
     </Router>
