@@ -16,32 +16,36 @@ body {
   background-color: #f1f1f1;
 }
 .theme-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: none;
-  background-color: #405172;
-  cursor: pointer;
+  width: 120px;
+  padding: 10px;
+  color: #ffffff;
+  background: #233250;
+  border-radius: 10px;
+  border: 1px solid #233250;
+  font-family: "Poppins", sans-serif;
 }
 .theme-btn:hover {
-  background-color: #233250;
+  background-color: #374764;
 }
 .theme-exit-btn {
-  padding: 8px 12px;
-  color: #000;
-  /* background: #405172; */
-  border-radius: 6px;
+  width: 120px;
+  padding: 10px;
+  color: #233250;
+  background: none;
+  border-radius: 10px;
   border: 1px solid #233250;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
+  font-family: "Poppins", sans-serif;
 }
 .theme-exit-btn:hover {
-  background-color: #405172;
+  background-color: #233250;
   color: #fff;
+}
+
+.form-label {
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+}
+
+.slider-header {
+  font-family: "Poppins", sans-serif;
 }

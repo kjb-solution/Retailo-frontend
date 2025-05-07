@@ -1,6 +1,7 @@
 import { X } from "lucide-react";
 import React from "react";
 import { Form, Button } from "react-bootstrap";
+import { CloseSVG } from "../../assets/image";
 
 function ResSalesFilterUI({
   filters,
@@ -17,15 +18,12 @@ function ResSalesFilterUI({
   return (
     <>
       <div className="filter-content">
-        <div className="filter-header">
-          <h5>Filters</h5>
-          <X
-            size={24}
-            onClick={() => setShowFilter(false)}
-            className="close-icon"
-          />
+        <div className="drawer-header">
+          <h5 className="slider-header">Filters</h5>
+          <button className="close-btn" onClick={() => setShowFilter(false)}>
+            <CloseSVG />
+          </button>
         </div>
-        <hr />
         <div className="filter-form">
           <div className="filter-form-fields">
             <Form.Label>From Date</Form.Label>

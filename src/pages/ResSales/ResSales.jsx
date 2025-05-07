@@ -482,14 +482,14 @@ function ResSales() {
             entityNameOptions={entityNameOptions}
             postFromOptions={postFromOptions}
             departmentOptions={departmentOptions}
-
           />
-         
         )}
       </div>
 
-      <div className="top-header">
-        <h3 className="res-sales-title" style={{placeSelf:"flex-start"}}>Restaurant Sales Report</h3>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h3 className="res-sales-title" style={{ placeSelf: "flex-start" }}>
+          Restaurant Sales Report
+        </h3>
         <span style={{ display: "flex", alignItems: "center" }}>
           <div className="utility-buttons-container">
             <OverlayTrigger
@@ -522,14 +522,14 @@ function ResSales() {
             </OverlayTrigger>
           </div>
           <button
-            className="filter-btn"
+            className="btn-create"
             onClick={() => {
               setShowFilter(!showFilter);
             }}
             style={{ ":hover": { backgroundColor: "#233250" } }}
           >
             <Filter size={20} />
-            <span>Filter</span>
+            Filter
           </button>
         </span>
       </div>

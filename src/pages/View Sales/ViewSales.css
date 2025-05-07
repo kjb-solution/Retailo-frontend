@@ -1,324 +1,311 @@
 .res-sales-container {
-    background-color: #f9f9f9b7;
-    /* padding: 10px; */
-  }
-  /* Container */
-  .res-sales-container {
-    position: relative;
-    /* overflow: hidden; */
-    height: 100%;
-  }
-  
-  /* Filter panel */
-  .filter-panel {
-    position: fixed;
-    top: -10px;
-    right: 0;
-    height: 100%;
-    width: 0;
-    background-color: #fff;
-    overflow-x: hidden;
-    transition: width 0.3s ease;
-    z-index: 30;
-  }
-  .filter-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1000;
-    transition: opacity 0.3s ease;
-  }
-  
+  background-color: #f9f9f9b7;
+  /* padding: 10px; */
+}
+/* Container */
+.res-sales-container {
+  position: relative;
+  /* overflow: hidden; */
+  height: 100%;
+}
+
+/* Filter panel */
+.filter-panel {
+  position: fixed;
+  top: -10px;
+  right: 0;
+  height: 100%;
+  width: 0;
+  background-color: #fff;
+  overflow-x: hidden;
+  transition: width 0.3s ease;
+  z-index: 30;
+}
+.filter-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
+.filter-panel.show {
+  width: 40%;
+  /* box-shadow: -4px 0 15px rgba(0, 0, 0, 0.25); */
+  /* border-left: 1px solid #ddd; */
+  background: #fff;
+}
+.filter-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  margin-bottom: 2px;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.close-icon {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+}
+
+hr {
+  margin: 10px 0;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Filter button */
+.filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #405172;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.filter-btn:hover,
+.filter-btn:active {
+  background: #233250;
+}
+
+/* Paid and Unpaid Status */
+
+.paid {
+  color: green;
+  font-weight: bold;
+  border: 1px solid green;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+  width: 70px;
+}
+
+.unpaid {
+  color: red;
+  font-weight: bold;
+  border: 1px solid red;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+  width: 70px;
+}
+.paid-status,
+.unpaid-status {
+  width: 60px;
+  font-size: 10px;
+}
+/* Action icons */
+.action-icons {
+  display: flex;
+  gap: 5px;
+}
+
+.res-sales-container {
+  position: relative;
+  /* overflow: hidden; */
+  height: 100%;
+  /* padding: 20px; */
+}
+.res-sales-details .room-services-details {
+  background-color: #fff;
+}
+
+.filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.filter-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 380px;
+  background-color: #fff;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.filter-panel.show {
+  transform: translateX(0%);
+}
+
+.filter-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 10px;
+  /* margin-top: 20px; */
+}
+
+.filter-form input,
+.filter-form select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.action-icons {
+  display: flex;
+  gap: 5px;
+}
+
+.paid-status {
+  color: green;
+  font-weight: bold;
+  border: 1px solid green;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.unpaid-status {
+  color: red;
+  font-weight: bold;
+  border: 1px solid red;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+}
+.apply-btn {
+  /* margin-top: 15px; */
+  background-color: #233250;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.apply-btn:hover {
+  background-color: #1b2436;
+}
+.filter-buttons {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  grid-column: span 2;
+  /* padding: 10px; */
+}
+
+.apply-btn,
+.clear-btn {
+  background-color: #233250;
+  color: white;
+  border: none;
+  padding: 10px;
+  height: fit-content;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.apply-btn:hover {
+  background-color: #1b2436;
+}
+
+.clear-btn {
+  background-color: #b91c1c;
+}
+
+.clear-btn:hover {
+  background-color: #991b1b;
+}
+
+.utility-buttons-container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 20px 10px 0px;
+}
+.align-items-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.item-wise-search-container {
+  background-color: #f9f9f9;
+  padding: 5px 5px 5px 10px;
+  border-radius: 0.5rem;
+  border: 1px solid #ddd;
+  font-size: 12px;
+}
+.item-wise-search-container input,
+.item-wise-search-container select {
+  font-size: 14px;
+}
+.item-wise-search-container button {
+  background-color: #233250;
+  border-color: #233250;
+}
+.item-wise-search-container button:hover {
+  background-color: #1b2436;
+  border-color: #1b2436;
+}
+
+.res-sales-details-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 10px;
+  background-color: #fff;
+}
+.res-sales-container1,
+.res-sales-container2 {
+  width: 50%;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+@media screen and (max-width: 1024px) {
   .filter-panel.show {
-    width: 40%;
-    /* box-shadow: -4px 0 15px rgba(0, 0, 0, 0.25); */
-    border-left: 1px solid #ddd;
-    background: #fff;
+    width: 380px;
   }
   .filter-form-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-    margin-bottom: 2px;
-  }
-  
-  .filter-content {
-    padding: 20px;
-  }
-  
-  .filter-header {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    width: 100%;
-    position: relative;
-  }
-  
-  .close-icon {
-    cursor: pointer;
-    position: absolute;
-    right: 0;
-  }
-  
-  hr {
-    margin: 10px 0;
-  }
-  
-  /* Header */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  /* Filter button */
-  .filter-btn {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background: #405172;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: none;
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
-  
-  .filter-btn:hover,.filter-btn:active {
-    background: #233250;
-  }
-  
-  /* Paid and Unpaid Status */
-  
-  .paid {
-    color: green;
-    font-weight: bold;
-    border: 1px solid green;
-    padding: 5px;
-    border-radius: 5px;
-    text-align: center;
-    width: 70px;
-  }
-  
-  .unpaid {
-    color: red;
-    font-weight: bold;
-    border: 1px solid red;
-    padding: 5px;
-    border-radius: 5px;
-    text-align: center;
-    width: 70px;
-  }
-  .paid-status,
-  .unpaid-status {
-    width: 60px;
-    font-size: 10px;
-  }
-  /* Action icons */
-  .action-icons {
-    display: flex;
-    gap: 5px;
-  }
-  
-  .res-sales-container {
-    position: relative;
-    /* overflow: hidden; */
-    height: 100%;
-    /* padding: 20px; */
-  }
-  .res-sales-details .room-services-details {
-    background-color: #fff;
-  }
-  .top-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .filter-btn {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  
-    color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: none;
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
-  
-  .filter-panel {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 380px;
-    background-color: #fff;
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    z-index: 1000;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  .filter-panel.show {
-    transform: translateX(0%);
-  }
-  
-  .filter-content {
-    padding: 20px;
-  }
-  
-  .filter-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .filter-form input,
-  .filter-form select {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .action-icons {
-    display: flex;
-    gap: 5px;
-  }
-  
-  .paid-status {
-    color: green;
-    font-weight: bold;
-    border: 1px solid green;
-    padding: 5px;
-    border-radius: 5px;
-    text-align: center;
-  }
-  
-  .unpaid-status {
-    color: red;
-    font-weight: bold;
-    border: 1px solid red;
-    padding: 5px;
-    border-radius: 5px;
-    text-align: center;
-  }
-  .apply-btn {
-    /* margin-top: 15px; */
-    background-color: #233250;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .apply-btn:hover {
-    background-color: #1b2436;
-  }
-  .filter-buttons {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    grid-column: span 2;
-    padding: 10px;
-  }
-  
-  .apply-btn,
-  .clear-btn {
-    background-color: #233250;
-    color: white;
-    border: none;
-    padding: 10px;
-    height: fit-content;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .apply-btn:hover {
-    background-color: #1b2436;
-  }
-  
-  .clear-btn {
-    background-color: #b91c1c;
-  }
-  
-  .clear-btn:hover {
-    background-color: #991b1b;
-  }
-  
-  .utility-buttons-container{
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    gap: 14px;
-    padding: 10px 20px 10px 0px;
-  }
-  .align-items-center{
-    display: flex;
-    justify-content: space-between  ;
-    align-items: center;
-  }
-  .item-wise-search-container {
-    background-color: #f9f9f9;
-    padding: 5px 5px 5px 10px;
-    border-radius: 0.5rem;
-    border: 1px solid #ddd;
     font-size: 12px;
   }
-  .item-wise-search-container input,
-  .item-wise-search-container select {
-    font-size: 14px;
-  }
-  .item-wise-search-container button{
-    background-color: #233250;
-    border-color: #233250;
-  }
-  .item-wise-search-container button:hover{
-    background-color: #1b2436;
-    border-color: #1b2436;
-  }
-  
-  .res-sales-details-container{
-    display: flex;
+}
+
+@media screen and (max-width: 768px) {
+  .filter-panel.show {
     width: 100%;
-    justify-content: space-between;
-    gap: 10px;
-    background-color: #fff;
   }
-  .res-sales-container1,
-  .res-sales-container2 {
-    width: 50%;
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
-  @media screen and (max-width: 1024px) {
-    .filter-panel.show {
-      width: 380px;
-    }
-    .filter-form-fields {
-      font-size: 12px;
-    }
-  }
-  
-  @media screen and (max-width: 768px) {
-    .filter-panel.show {
-      width: 100%;
-    }
-    .res-sales-details-container{
+  .res-sales-details-container {
     flex-direction: column;
-    }
-    .res-sales-details-container div{
-   width: 100%;
-    }
   }
-  
+  .res-sales-details-container div {
+    width: 100%;
+  }
+}

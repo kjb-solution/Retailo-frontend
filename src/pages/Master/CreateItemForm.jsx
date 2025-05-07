@@ -48,7 +48,9 @@ const CreateItemForm = ({
       {show && <div className="drawer-backdrop" onClick={handleClose}></div>}
       <div className={`drawer-form ${show ? "open" : ""}`}>
         <div className="drawer-header">
-          <h5>{isEditMode ? "Edit Item" : "Create Item"}</h5>
+          <h5 className="slider-header">
+            {isEditMode ? "Edit Item" : "Create Item"}
+          </h5>
           <button className="close-btn" onClick={handleClose}>
             <CloseSVG />
           </button>

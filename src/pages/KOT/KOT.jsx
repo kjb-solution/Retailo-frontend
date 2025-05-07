@@ -104,7 +104,7 @@ function KOT() {
         <HeaderNavLinks
           data={[
             { name: "Home", link: "/" },
-            { name: "View Sales", link: "/view-sales" },
+            { name: "View Sales", link: "/restaurant/view-sales" },
           ]}
         />
       </div>
@@ -232,7 +232,12 @@ function KOT() {
                 }}
               >
                 <div
-                  style={{ display: "flex", gap: "0px", alignItems: "center",fontWeight: "bold" }}
+                  style={{
+                    display: "flex",
+                    gap: "0px",
+                    alignItems: "center",
+                    fontWeight: "bold",
+                  }}
                 >
                   <label htmlFor="total">Total: </label>
                   <span
@@ -257,7 +262,12 @@ function KOT() {
                   />
                 </div>
                 <div
-                  style={{ display: "flex", gap: "0px", alignItems: "center",fontWeight: "bold" }}
+                  style={{
+                    display: "flex",
+                    gap: "0px",
+                    alignItems: "center",
+                    fontWeight: "bold",
+                  }}
                 >
                   <label htmlFor="balance">Balance: </label>
                   <span
@@ -301,9 +311,7 @@ function KOT() {
                   borderRadius: "4px",
                   cursor: "pointer",
                   flex: isMobile ? "1 1 48%" : 1,
-                  
                 }}
-                
                 onClick={() => handlePaymentSelect("Cash")}
               >
                 CASH
@@ -430,7 +438,7 @@ function KOT() {
                       onChange={(e) =>
                         handleOthersFieldChange("card", e.target.value)
                       }
-                       placeholder="Card amount"
+                      placeholder="Card amount"
                       style={{
                         padding: "5px",
                         border: "1px solid #ccc",
@@ -459,7 +467,6 @@ function KOT() {
                       onChange={(e) =>
                         handleOthersFieldChange("bank", e.target.value, "name")
                       }
-                       
                       style={{
                         padding: "5px",
                         border: "1px solid #ccc",
@@ -469,7 +476,7 @@ function KOT() {
                         marginRight: "5px",
                       }}
                     >
-                       <option>Select</option>
+                      <option>Select</option>
                       <option>Axis Bank</option>
                     </select>
                     <span
@@ -549,13 +556,7 @@ function KOT() {
                       type="number"
                       value={othersFields.credit.amount ?? ""}
                       placeholder="Amount"
-                      onChange={(e) =>
-                        handleOthersFieldChange(
-                        
-                          e.target.value,
-                          
-                        )
-                      }
+                      onChange={(e) => handleOthersFieldChange(e.target.value)}
                       style={{
                         padding: "5px",
                         border: "1px solid #ccc",
@@ -660,7 +661,7 @@ function KOT() {
               </button>
               <button
                 className="theme-btn"
-                style={{ width: "25%",justifyContent:"center" }}
+                style={{ width: "25%", justifyContent: "center" }}
                 onClick={handleSubmitSettlement}
               >
                 Submit

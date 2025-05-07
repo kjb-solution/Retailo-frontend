@@ -8,6 +8,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import "./ViewSales.css";
 import { width } from "@fortawesome/free-solid-svg-icons/fa0";
+import { CloseSVG } from "../../assets/image";
 
 function ViewSales() {
   const [showFilter, setShowFilter] = useState(false);
@@ -255,7 +256,7 @@ function ViewSales() {
   };
 
   return (
-    <div className="res-sales-container">
+    <div className="">
       {showFilter && (
         <div className="filter-overlay" onClick={() => setShowFilter(false)} />
       )}
@@ -265,15 +266,16 @@ function ViewSales() {
       >
         {showFilter && (
           <div className="filter-content">
-            <div className="filter-header">
-              <h5>Filters</h5>
-              <X
-                size={24}
+            <div className="drawer-header">
+              <h5 className="slider-header">Filters</h5>
+              <button
+                className="close-btn"
                 onClick={() => setShowFilter(false)}
-                className="close-icon"
-              />
+              >
+                <CloseSVG />
+              </button>
             </div>
-            <hr />
+            {/* <hr /> */}
             <div className="filter-form">
               <div className="filter-form-fields">
                 <Form.Label>From Date</Form.Label>
@@ -350,7 +352,7 @@ function ViewSales() {
         )}
       </div>
 
-      <div className="top-header">
+      <div className="d-flex justify-content-between align-items-center mb-4">
         <h3>View Sales</h3>
         <span style={{ display: "flex", alignItems: "center" }}>
           {/* <div className="utility-buttons-container">
@@ -384,11 +386,11 @@ function ViewSales() {
             </OverlayTrigger>
           </div> */}
           <button
-            className="theme-btn"
+            className="btn-create"
             onClick={() => {
               setShowFilter(!showFilter);
             }}
-            style={{ ":hover": { backgroundColor: "#233250" } }}
+            // style={{ ":hover": { backgroundColor: "#233250" } }}
           >
             <Filter size={20} />
             <span>Filter</span>

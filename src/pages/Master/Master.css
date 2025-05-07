@@ -38,6 +38,7 @@
   background: none;
   border-radius: 10px;
   border: 1px solid #233250;
+  font-family: "Poppins", sans-serif;
 }
 
 .btn-filter:hover {
@@ -46,12 +47,18 @@
 }
 
 .btn-create {
+  gap: 10px;
+  display: flex;
+  font-family: "Poppins";
   width: 120px;
   padding: 10px;
   color: #ffffff;
   background: #233250;
   border-radius: 10px;
+  align-items: center;
+  justify-content: center;
   border: 1px solid #233250;
+  font-family: "Poppins", sans-serif;
 }
 
 .btn-create:hover {

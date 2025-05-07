@@ -15,8 +15,6 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   const [hoveredItem, setHoveredItem] = useState(null);
   const { isSubmenuHovered, setIsSubmenuHovered } = useState(false);
 
-
-
   const navItems = [
     { icon: <FaTachometerAlt />, label: "Dashboard", path: "/" },
     {
@@ -51,7 +49,6 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       setIsOpen(false);
     }
   };
-
 
   const isSubmenuActive = (submenu) =>
     submenu?.some((sub) => location.pathname.startsWith(sub.path));
