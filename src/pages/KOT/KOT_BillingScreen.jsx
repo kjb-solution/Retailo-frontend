@@ -77,7 +77,7 @@ function KOT_BillingScreen() {
   };
 
   const updateQuantity = (productId, change) => {
-    console.log(productId, change);
+   
     setProducts((prevProducts) =>
       prevProducts
         .map((product) =>
@@ -89,7 +89,7 @@ function KOT_BillingScreen() {
     );
   };
   const deleteProduct = (productId) => {
-    console.log("delete product", productId);
+   
     setProducts((prevProducts) =>
       prevProducts.filter((product) => product.id !== productId)
     );
@@ -119,7 +119,7 @@ function KOT_BillingScreen() {
       0
     );
     const newTax = newSubtotal * 0.05;
-    const newTotal = newSubtotal + newTax;
+    const newTotal = newSubtotal + newTax + newTax;
     setSubtotal(newSubtotal);
     setTax(newTax);
     setTotal(newTotal);
@@ -130,8 +130,7 @@ function KOT_BillingScreen() {
     (acc, item) => acc + item.quantity,
     0
   );
-  console.log("totalItems", totalItems);
-  console.log("kotTotalItems", kotTotalItems);
+ 
 
   const filteredProducts = selectedCategory
     ? menu
@@ -141,10 +140,7 @@ function KOT_BillingScreen() {
         )
     : [];
 
-  useEffect(() => {
-    console.log("kOTBillingProducts", kOTBillingProducts);
-    console.log("products", products);
-  }, [kOTBillingProducts, products]);
+ 
 
   return (
     <div id="billing-container">

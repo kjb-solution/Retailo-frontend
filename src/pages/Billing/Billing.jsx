@@ -55,8 +55,6 @@ function Billing() {
     toast.success(`${product.name} Added`);
   };
 
- 
-
   const updateQuantity = (productId, change) => {
     setProducts((prevProducts) =>
       prevProducts
@@ -81,7 +79,7 @@ function Billing() {
       0
     );
     const newTax = newSubtotal * 0.05;
-    const newTotal = newSubtotal + newTax;
+    const newTotal = newSubtotal + newTax + newTax;
     setSubtotal(newSubtotal);
     setTax(newTax);
     setTotal(newTotal);
@@ -163,7 +161,7 @@ function Billing() {
 
         {activeNav === "menu" && (
           <div id="menu-display-area">
-            <h1 style={{marginLeft:"5px"}}>{selectedCategory}</h1>
+            <h1 style={{ marginLeft: "5px" }}>{selectedCategory}</h1>
             <div className="menu-header-wrapper">
               <div className="search-container1">
                 <FontAwesomeIcon icon={faSearch} className="search-icon1" />
@@ -176,7 +174,7 @@ function Billing() {
                 />
               </div>
             </div>
-            <div id="product-container" style={{marginTop: "5px"}}>
+            <div id="product-container" style={{ marginTop: "5px" }}>
               {filteredProducts.map((product) => (
                 <div
                   className="product-card"

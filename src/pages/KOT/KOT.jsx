@@ -23,7 +23,7 @@ function KOT() {
     card: null,
     bank: { name: "", amount: null },
     credit: { name: "", amount: null },
-    receiver: { name: "", amount: null },
+    room: { name: "", amount: null },
     total: null,
     balance: null,
   });
@@ -66,9 +66,9 @@ function KOT() {
         name: othersFields.credit.name,
         amount: othersFields.credit.amount ?? 0,
       },
-      receiver: {
-        name: othersFields.receiver.name,
-        amount: othersFields.receiver.amount ?? 0,
+      room: {
+        name: othersFields.room.name,
+        amount: othersFields.room.amount ?? 0,
       },
     };
 
@@ -87,7 +87,7 @@ function KOT() {
       card: null,
       bank: { name: "Axis Bank", amount: null },
       credit: { name: "Credit Ledger Name", amount: null },
-      receiver: { name: "18 - Muniyandi Karu", amount: null },
+      room: { name: "18 - Muniyandi Karu", amount: null },
     });
   };
 
@@ -577,11 +577,11 @@ function KOT() {
                   }}
                 >
                   <label style={{ fontSize: "14px", fontWeight: "bold" }}>
-                    Receiver
+                    Room
                   </label>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <select
-                      value={othersFields.receiver.name ?? ""}
+                      value={othersFields.room.name ?? ""}
                       onChange={(e) => handleOthersFieldChange(e.target.value)}
                       style={{
                         padding: "5px",
@@ -612,10 +612,10 @@ function KOT() {
                     </span>
                     <input
                       type="number"
-                      value={othersFields.receiver.amount ?? ""}
+                      value={othersFields.room.amount ?? ""}
                       onChange={(e) =>
                         handleOthersFieldChange(
-                          "receiver",
+                          "room",
                           e.target.value,
                           "amount"
                         )

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Sidebar.css";
 import {
   FaTachometerAlt,
@@ -13,9 +13,8 @@ import Logo from "../assets/logo.svg";
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
   const [hoveredItem, setHoveredItem] = useState(null);
-  const { isSubmenuHovered, setIsSubmenuHovered } = useState(false);
-
-
+  const [submenuVisible, setSubmenuVisible] = useState(false);
+  const timeoutRef = useRef(null);
 
   const navItems = [
     { icon: <FaTachometerAlt />, label: "Dashboard", path: "/" },
@@ -52,9 +51,33 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     }
   };
 
-
   const isSubmenuActive = (submenu) =>
     submenu?.some((sub) => location.pathname.startsWith(sub.path));
+
+  const handleMouseEnter = (label) => {
+    clearTimeout(timeoutRef.current);
+    setHoveredItem(label);
+    setSubmenuVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setHoveredItem(null);
+      setSubmenuVisible(false);
+    }, 150); // delay to allow moving into submenu
+  };
+
+  const handleSubmenuEnter = () => {
+    clearTimeout(timeoutRef.current);
+    setSubmenuVisible(true);
+  };
+
+  const handleSubmenuLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setHoveredItem(null);
+      setSubmenuVisible(false);
+    }, 200);
+  };
 
   return (
     <div className={`sidebar ${isOpen ? "open" : "collapsed"}`}>
@@ -93,35 +116,40 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                     {isOpen && <span className="label">{item.label}</span>}
                   </div>
 
-                  {hasSubmenu && hoveredItem === item.label && (
-                    <div
-                      className={`submenu-popup animate`}
-                      style={{ left: isOpen ? "204px" : "64px" }}
-                    >
-                      <ul>
-                        {item.submenu.map((sub, idx) => {
-                          const isSubActive = location.pathname === sub.path;
-                          return (
-                            <li
-                              key={idx}
-                              className={isSubActive ? "active-submenu" : ""}
-                            >
-                              <Link
-                                to={sub.path}
-                                className="submenu-item"
-                                onClick={() => {
-                                  handleNavClick();
-                                  setHoveredItem(null);
-                                }}
+                  {hasSubmenu &&
+                    hoveredItem === item.label &&
+                    submenuVisible && (
+                      <div
+                        className={`submenu-popup animate`}
+                        style={{ left: isOpen ? "204px" : "64px" }}
+                        onMouseEnter={handleSubmenuEnter}
+                        onMouseLeave={handleSubmenuLeave}
+                      >
+                        <ul>
+                          {item.submenu.map((sub, idx) => {
+                            const isSubActive =
+                              location.pathname === sub.path;
+                            return (
+                              <li
+                                key={idx}
+                                className={isSubActive ? "active-submenu" : ""}
                               >
-                                {sub.label}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  )}
+                                <Link
+                                  to={sub.path}
+                                  className="submenu-item"
+                                  onClick={() => {
+                                    handleNavClick();
+                                    setHoveredItem(null);
+                                  }}
+                                >
+                                  {sub.label}
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    )}
                 </>
               );
 
@@ -129,8 +157,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                 <li
                   key={index}
                   className={isActive ? "active" : ""}
-                  onMouseEnter={() => setHoveredItem(item.label)}
-                  onMouseLeave={() => setHoveredItem(null)}
+                  onMouseEnter={() => handleMouseEnter(item.label)}
+                  onMouseLeave={handleMouseLeave}
                 >
                   {liContent}
                 </li>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import DataTable from "react-data-table-component";
 import "./Invoice.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,7 +17,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import InvoicePrintView from "./InvoicePrintView";
 import { printReceipt } from "../../services/NodePrinter";
-import { Form } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 
 const isMobile = window.innerWidth < 768;
 
@@ -35,13 +35,73 @@ const Invoice = ({
   const [showPrintView, setShowPrintView] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("UPI");
   const [isPrinting, setIsPrinting] = useState(false);
+  const [showOthersFields, setShowOthersFields] = useState(true);
+  const [billData, setBillData] = useState({
+    total: 100,
+    balance: 100,
+  });
   const [activeMoreBillingOptions, setActiveMoreBillingOptions] =
     useState(false);
-  const [guestDetails, setGuestDetails] = useState({
-    pin1: "001",
-    pin2: "001",
-    selectedOption: "Discount",
-  });
+  const initialGuestDetails = {
+    pin1: null,
+    pin2: null,
+    selectedOption: null,
+    discount: 0,
+    nc: 0,
+  };
+   // State for Others fields
+  const initialOthersFields = {
+    cash: null,
+    card: null,
+    bankName: "",
+    bankAmount: null,
+    creditName: "",
+    creditAmount: null,
+    roomName: "",
+    roomAmount: null,
+    total: billData.total,
+    balance: billData.balance,
+  };
+ 
+  const [guestDetails, setGuestDetails] = useState(initialGuestDetails);
+  const [othersFields, setOthersFields] = useState(initialOthersFields);
+  const [activeSettlement, setActiveSettlement] = useState(false);
+ 
+  // console.log(billData);
+  const handleOthersFieldChange = (field, value) => {
+    console.log(field, value);
+    
+    setOthersFields((prev) => {
+      return {
+        ...prev,
+        [field]: value,
+      };
+    });
+  };
+
+ 
+
+  const handleSubmitSettlement = () => {
+   
+    console.log("Settlement submitted with:", othersFields);
+    setActiveSettlement(false);
+    setSelectedPayment("");
+    setShowOthersFields(false);
+    // Reset Others fields
+    setOthersFields(initialOthersFields);
+    setSelectedPayment("UPI")
+  };
+  const handlePaymentSelect = (paymentType) => {
+    setSelectedPayment(paymentType);
+    setShowOthersFields(paymentType === "Others");
+  };
+
+  const handleCloseSlider = () => {
+    setActiveSettlement(false);
+    setSelectedPayment("");
+    setShowOthersFields(false);
+    setSelectedPayment("UPI");
+  };
 
   useEffect(() => {
     if (showPrintView && totalItems === 0) {
@@ -241,11 +301,11 @@ const Invoice = ({
               <div className="payment-methods">
                 <button
                   className={`payment-button ${
-                    selectedPayment === "Credit Card" ? "active" : ""
+                    selectedPayment === "Cash Payout" ? "active" : ""
                   }`}
-                  onClick={() => setSelectedPayment("Credit Card")}
+                  onClick={() => setSelectedPayment("Cash Payout")}
                 >
-                  <FontAwesomeIcon icon={faCreditCard} /> Credit Card
+                  <FontAwesomeIcon icon={faMoneyBillWave} /> Cash
                 </button>
                 <button
                   className={`payment-button ${
@@ -255,13 +315,25 @@ const Invoice = ({
                 >
                   <FontAwesomeIcon icon={faClock} /> UPI
                 </button>
+
                 <button
                   className={`payment-button ${
-                    selectedPayment === "Cash Payout" ? "active" : ""
+                    selectedPayment === "Card" ? "active" : ""
                   }`}
-                  onClick={() => setSelectedPayment("Cash Payout")}
+                  onClick={() => setSelectedPayment("Card")}
                 >
-                  <FontAwesomeIcon icon={faMoneyBillWave} /> Cash
+                  <FontAwesomeIcon icon={faCreditCard} /> Card
+                </button>
+                <button
+                  className={`payment-button ${
+                    selectedPayment === "Others" ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    setActiveSettlement(true);
+                    setSelectedPayment("Others");
+                  }}
+                >
+                  Others
                 </button>
               </div>
               <div
@@ -318,17 +390,6 @@ const Invoice = ({
             </div>
           </>
         )}
-
-        {/* {showPrintView && totalItems > 0 && (
-          <InvoicePrintView
-            items={items}
-            subtotal={subtotal}
-            tax={tax}
-            total={total}
-            selectedPayment={selectedPayment}
-            handleBack={handleBack}
-          />
-        )} */}
       </div>
 
       {activeMoreBillingOptions && (
@@ -387,7 +448,6 @@ const Invoice = ({
             style={{
               backgroundColor: "white",
               padding: isMobile ? "15px" : "20px",
-             
               width: isMobile ? "100%" : "400px",
               height: "100%",
               position: "relative",
@@ -395,6 +455,7 @@ const Invoice = ({
               overflowY: "auto",
             }}
           >
+            {/* Header */}
             <div
               style={{
                 display: "flex",
@@ -402,15 +463,9 @@ const Invoice = ({
                 alignItems: "center",
               }}
             >
-              <h3
-                style={{
-                 
-                  fontSize: isMobile ? "30px" : "24px",
-                }}
-              >
+              <h3 style={{ fontSize: isMobile ? "30px" : "24px" }}>
                 Guest Details
               </h3>
-              <hr />
               <button
                 onClick={() => setActiveMoreBillingOptions(false)}
                 style={{
@@ -423,85 +478,63 @@ const Invoice = ({
                 ✕
               </button>
             </div>
+
             <hr />
 
+            {/* Option Buttons */}
             <div
               className="guest-details-actions"
               style={{ display: "flex", gap: "10px", marginBottom: "15px" }}
             >
-              <button
-                style={{
-                  padding: "10px 15px",
-                  backgroundColor:
-                    guestDetails.selectedOption === "NC"
-                      ? "#405172"
-                      : "#9AA6B2",
-                  color: guestDetails.selectedOption === "NC" ? "#fff" : "#000",
-                  border: "none",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                  flex: isMobile ? "1 1 48%" : 1,
-                }}
-                onClick={() => handleOptionSelect("NC")}
-              >
-                NC
-              </button>
-              <button
-                style={{
-                  padding: "10px 15px",
-                  backgroundColor:
-                    guestDetails.selectedOption === "Discount"
-                      ? "#405172"
-                      : "#9AA6B2",
-                  color:
-                    guestDetails.selectedOption === "Discount"
-                      ? "#fff"
-                      : "#000",
-                  border: "none",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                  flex: isMobile ? "1 1 48%" : 1,
-                }}
-                onClick={() => handleOptionSelect("Discount")}
-              >
-                Discount
-              </button>
-              <button
-                style={{
-                  padding: "10px 15px",
-                  backgroundColor:
-                    guestDetails.selectedOption === "Split"
-                      ? "#405172"
-                      : "#9AA6B2",
-                  color:
-                    guestDetails.selectedOption === "Split" ? "#fff" : "#000",
-                  border: "none",
-                  borderRadius: "4px",
-                  cursor: "pointer",
-                  flex: isMobile ? "1 1 48%" : 1,
-                }}
-                onClick={() => handleOptionSelect("Split")}
-              >
-                Split
-              </button>
+              {["NC", "Discount", "Split"].map((option) => (
+                <button
+                  key={option}
+                  style={{
+                    padding: "10px 15px",
+                    backgroundColor:
+                      guestDetails.selectedOption === option
+                        ? "#405172"
+                        : "#9AA6B2",
+                    color:
+                      guestDetails.selectedOption === option ? "#fff" : "#000",
+                    border: "none",
+                    borderRadius: "4px",
+                    cursor: "pointer",
+                    flex: isMobile ? "1 1 48%" : 1,
+                  }}
+                  onClick={() => handleOptionSelect(option)}
+                >
+                  {option}
+                </button>
+              ))}
             </div>
 
+            {/* Guest Details Form */}
+
             <div className="guest-details-form">
-              <div
-                style={{ display: "flex", gap: "10px", alignItems: "center" }}
-              >
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <label
-                      style={{
-                        fontSize: isMobile ? "14px" : "16px",
-                        width: "60px",
-                      }}
+              {(guestDetails.selectedOption === "NC" ||
+                guestDetails.selectedOption === "Discount") && (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "15px",
+                    alignItems: "flex-end",
+                    flexWrap: isMobile ? "wrap" : "nowrap",
+                    marginBottom: "20px",
+                  }}
+                >
+                  {/* PIN Field */}
+                  <Form.Group
+                    style={{ display: "flex", flexDirection: "column" }}
+                  >
+                    <Form.Label
+                      style={{ fontSize: isMobile ? "14px" : "16px" }}
                     >
                       PIN
-                    </label>
-                    <input
-                      type="text"
+                    </Form.Label>
+                    <Form.Control
+                      type="number"
+                      placeholder="PIN"
                       name="pin1"
                       value={guestDetails.pin1}
                       onChange={handleGuestDetailsChange}
@@ -509,20 +542,21 @@ const Invoice = ({
                         padding: "8px",
                         border: "1px solid #ccc",
                         borderRadius: "5px",
-                        width: "80px",
+                        width: "100px",
                       }}
                     />
-                  </div>
+                  </Form.Group>
+
+                  {/* NC Dropdown */}
                   {guestDetails.selectedOption === "NC" && (
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                      <label
-                        style={{
-                          fontSize: isMobile ? "14px" : "16px",
-                          width: "60px",
-                        }}
+                    <Form.Group
+                      style={{ display: "flex", flexDirection: "column" }}
+                    >
+                      <Form.Label
+                        style={{ fontSize: isMobile ? "14px" : "16px" }}
                       >
                         NC
-                      </label>
+                      </Form.Label>
                       <Form.Select
                         name="nc"
                         value={guestDetails.nc}
@@ -531,7 +565,7 @@ const Invoice = ({
                           padding: "8px",
                           border: "1px solid #ccc",
                           borderRadius: "5px",
-                          width: "150px",
+                          width: "160px",
                         }}
                       >
                         <option value="">Select NC</option>
@@ -539,18 +573,19 @@ const Invoice = ({
                         <option value="nc2">NC 2</option>
                         <option value="nc3">NC 3</option>
                       </Form.Select>
-                    </div>
+                    </Form.Group>
                   )}
+
+                  {/* Discount Dropdown */}
                   {guestDetails.selectedOption === "Discount" && (
-                    <div style={{ display: "flex", flexDirection: "column" }}>
-                      <label
-                        style={{
-                          fontSize: isMobile ? "14px" : "16px",
-                          width: "60px",
-                        }}
+                    <Form.Group
+                      style={{ display: "flex", flexDirection: "column" }}
+                    >
+                      <Form.Label
+                        style={{ fontSize: isMobile ? "14px" : "16px" }}
                       >
                         Discount
-                      </label>
+                      </Form.Label>
                       <Form.Select
                         name="discount"
                         value={guestDetails.discount}
@@ -559,46 +594,508 @@ const Invoice = ({
                           padding: "8px",
                           border: "1px solid #ccc",
                           borderRadius: "5px",
-                          width: "150px",
+                          width: "160px",
                         }}
                       >
                         <option value="">Select Discount</option>
-                        <option value="discount1">5%</option>
-                        <option value="discount2">10%</option>
-                        <option value="discount3">15%</option>
-                        <option value="discount3">20%</option>
+                        {["5%", "10%", "15%", "20%"].map((discount, index) => (
+                          <option key={index} value={discount}>
+                            {discount}
+                          </option>
+                        ))}
                       </Form.Select>
-                    </div>
+                    </Form.Group>
                   )}
                 </div>
-              </div>
+              )}
 
+              {/* Action Buttons */}
+              {(guestDetails.selectedOption === "Split" ||
+                guestDetails.selectedOption === "Discount" ||
+                guestDetails.selectedOption === "NC") && (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    justifyContent: "flex-end",
+                    marginTop: "20px",
+                  }}
+                >
+                  <button
+                    variant="outline-secondary"
+                    className="theme-exit-btn"
+                    onClick={() => {
+                      setActiveMoreBillingOptions(false);
+                      setGuestDetails(initialGuestDetails);
+                    }}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="theme-btn"
+                    onClick={handleGuestDetailsSubmit}
+                    style={{
+                      width: "100px",
+                      justifyContent: "center",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Apply
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {activeSettlement && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            zIndex: 1000,
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            animation: "fadeIn 0.3s ease-in-out",
+          }}
+        >
+          <style>
+            {`
+              @keyframes slideInFromRight {
+                0% {
+                  transform: translateX(100%);
+                  opacity: 0;
+                }
+                100% {
+                  transform: translateX(0);
+                  opacity: 1;
+                }
+              }
+              @keyframes slideOutToRight {
+                0% {
+                  transform: translateX(0);
+                  opacity: 1;
+                }
+                100% {
+                  transform: translateX(100%);
+                  opacity: 0;
+                }
+              }
+              @keyframes fadeIn {
+                0% { opacity: 0; }
+                100% { opacity: 1; }
+              }
+              .slider-panel {
+                animation: ${
+                  activeSettlement ? "slideInFromRight" : "slideOutToRight"
+                } 0.3s ease-in-out forwards;
+              }
+            `}
+          </style>
+          <div
+            className="slider-panel"
+            style={{
+              backgroundColor: "white",
+              padding: isMobile ? "15px" : "20px",
+              width: isMobile ? "100%" : "400px",
+              height: "100%",
+              position: "relative",
+              boxShadow: "-2px 0 5px rgba(0,0,0,0.2)",
+              overflowY: "auto",
+            }}
+          >
+            
+
+            <div style={{ marginBottom: "20px" }}>
+              {/* <p
+                style={{
+                  fontSize: "20px",
+                  marginBottom: "5px",
+                  fontWeight: "bold",
+                }}
+              >
+                Bill No: RF/388
+              </p> */}
               <div
                 style={{
                   display: "flex",
-                  gap: "10px",
-                  justifyContent: "flex-end",
-                  marginTop: "20px",
+                  gap: "5px",
+                  justifyContent: "space-between",
+                  padding: "5px 0px",
                 }}
               >
-                <button
-                  onClick={() => setActiveMoreBillingOptions(false)}
-                  className="theme-exit-btn"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleGuestDetailsSubmit}
-                  className="theme-btn"
+                <div
                   style={{
-                    width: "100px",
-                    justifyContent: "center",
-                    cursor: "pointer",
+                    display: "flex",
+                    gap: "0px",
+                    alignItems: "center",
+                    fontWeight: "bold",
                   }}
                 >
-                  Apply
-                </button>
+                  <label htmlFor="total">Total: </label>
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      backgroundColor: "#F1EFEC",
+                      border: "1px solid #ccc",
+                      borderRight: "none",
+                      padding: "5px 10px",
+                      borderRadius: "4px 0 0 4px",
+                      marginLeft: "5px",
+                    }}
+                  >
+                    ₹
+                  </span>
+                  <input
+                    style={{ width: "100px" }}
+                    type="number"
+                    value={billData?.total}
+                    id="total"
+                    disabled
+                  />
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "0px",
+                    alignItems: "center",
+                    fontWeight: "bold",
+                  }}
+                >
+                  <label htmlFor="balance">Balance: </label>
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      backgroundColor: "#F1EFEC",
+                      border: "1px solid #ccc",
+                      borderRight: "none",
+                      padding: "5px 10px",
+                      borderRadius: "4px 0 0 4px",
+                      marginLeft: "5px",
+                    }}
+                  >
+                    ₹
+                  </span>
+                  <input
+                    style={{ width: "100px" }}
+                    type="number"
+                    value={billData?.balance}
+                    id="balance"
+                    disabled
+                  />
+                </div>
               </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+                marginBottom: "20px",
+                flexWrap: isMobile ? "wrap" : "nowrap",
+              }}
+            >
+          
+              <button
+                style={{
+                  padding: "10px 15px",
+                  backgroundColor:
+                    selectedPayment === "Others" ? "#405172" : "#9AA6B2",
+                  color: selectedPayment === "Others" ? "#fff" : "#000",
+                  border: "none",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  flex: isMobile ? "1 1 48%" : 1,
+                }}
+                onClick={() => handlePaymentSelect("Others")}
+              >
+                OTHERS
+              </button>
+            </div>
+
+            <div style={{ marginBottom: "20px" }}>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: isMobile ? "80px 1fr" : "100px 1fr",
+                  alignItems: "center",
+                  gap: "10px",
+                  marginBottom: "15px",
+                }}
+              >
+                <label style={{ fontSize: "14px", fontWeight: "bold" }}>
+                  Cash
+                </label>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      backgroundColor: "#F1EFEC",
+                      border: "1px solid #ccc",
+                      borderRight: "none",
+                      padding: "5px 10px",
+                      borderRadius: "4px 0 0 4px",
+                    }}
+                  >
+                    ₹
+                  </span>
+                  <input
+                    type="number"
+                    value={othersFields.cash ?? ""}
+                    onChange={(e) =>
+                      handleOthersFieldChange("cash", e.target.value)
+                    }
+                    placeholder="Cash amount"
+                    style={{
+                      padding: "5px",
+                      border: "1px solid #ccc",
+                      borderRadius: "0 4px 4px 0",
+                      fontSize: "14px",
+                      width: "100%",
+                    }}
+                  />
+                </div>
+              </div>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: isMobile ? "80px 1fr" : "100px 1fr",
+                  alignItems: "center",
+                  gap: "10px",
+                  marginBottom: "15px",
+                }}
+              >
+                <label style={{ fontSize: "14px", fontWeight: "bold" }}>
+                  Card
+                </label>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      backgroundColor: "#F1EFEC",
+                      border: "1px solid #ccc",
+                      borderRight: "none",
+                      padding: "5px 10px",
+                      borderRadius: "4px 0 0 4px",
+                    }}
+                  >
+                    ₹
+                  </span>
+                  <input
+                    type="number"
+                    value={othersFields.card ?? ""}
+                    onChange={(e) =>
+                      handleOthersFieldChange("card", e.target.value)
+                    }
+                    placeholder="Card amount"
+                    style={{
+                      padding: "5px",
+                      border: "1px solid #ccc",
+                      borderRadius: "0 4px 4px 0",
+                      fontSize: "14px",
+                      width: "100%",
+                    }}
+                  />
+                </div>
+              </div>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: isMobile ? "80px 1fr" : "100px 1fr",
+                  alignItems: "center",
+                  gap: "10px",
+                  marginBottom: "15px",
+                }}
+              >
+                <label style={{ fontSize: "14px", fontWeight: "bold" }}>
+                  Bank
+                </label>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <select
+                    value={othersFields.bankName ?? ""}
+                    onChange={(e) => handleOthersFieldChange("bankName",e.target.value)}
+                    style={{
+                      padding: "5px",
+                      border: "1px solid #ccc",
+                      borderRadius: "4px",
+                      fontSize: "14px",
+                      flex: 1,
+                      marginRight: "5px",
+                    }}
+                  >
+                    <option>Select</option>
+                    <option>Axis Bank</option>
+                  </select>
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      backgroundColor: "#F1EFEC",
+                      border: "1px solid #ccc",
+                      borderRight: "none",
+                      padding: "5px 10px",
+                      borderRadius: "4px 0 0 4px",
+                    }}
+                  >
+                    ₹
+                  </span>
+                  <input
+                    type="number"
+                    value={othersFields.bankAmount ?? ""}
+                    onChange={(e) =>
+                      handleOthersFieldChange("bankAmount", e.target.value)
+                    }
+                    placeholder="Amount"
+                    style={{
+                      padding: "5px",
+                      border: "1px solid #ccc",
+                      borderRadius: "0 4px 4px 0",
+                      fontSize: "14px",
+                      width: isMobile ? "50%" : "100px",
+                    }}
+                  />
+                </div>
+              </div>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: isMobile ? "80px 1fr" : "100px 1fr",
+                  alignItems: "center",
+                  gap: "10px",
+                  marginBottom: "15px",
+                }}
+              >
+                <label style={{ fontSize: "14px", fontWeight: "bold" }}>
+                  Credit
+                </label>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <input
+                    type="text"
+                    value={othersFields.creditName ?? ""}
+                    onChange={(e) => handleOthersFieldChange("creditName",e.target.value)}
+                    style={{
+                      padding: "5px",
+                      border: "1px solid #ccc",
+                      borderRadius: "4px",
+                      fontSize: "14px",
+                      flex: 1,
+                      marginRight: "5px",
+                      width: "100%",
+                    }}
+                    placeholder="Credit"
+                  />
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      backgroundColor: "#F1EFEC",
+                      border: "1px solid #ccc",
+                      borderRight: "none",
+                      padding: "5px 10px",
+                      borderRadius: "4px 0 0 4px",
+                    }}
+                  >
+                    ₹
+                  </span>
+                  <input
+                    type="number"
+                    value={othersFields.creditAmount ?? ""}
+                    placeholder="Amount"
+                    onChange={(e) => handleOthersFieldChange("creditAmount",e.target.value)}
+                    style={{
+                      padding: "5px",
+                      border: "1px solid #ccc",
+                      borderRadius: "0 4px 4px 0",
+                      fontSize: "14px",
+                      width: isMobile ? "50%" : "100px",
+                    }}
+                  />
+                </div>
+              </div>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: isMobile ? "80px 1fr" : "100px 1fr",
+                  alignItems: "center",
+                  gap: "10px",
+                  marginBottom: "15px",
+                  width: "100%",
+                }}
+              >
+                <label style={{ fontSize: "14px", fontWeight: "bold" }}>
+                  Room
+                </label>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <select
+                    value={othersFields.roomName ?? ""}
+                    onChange={(e) => handleOthersFieldChange("roomName",e.target.value)}
+                    style={{
+                      padding: "5px",
+                      border: "1px solid #ccc",
+                      borderRadius: "4px",
+                      fontSize: "14px",
+                      flex: 1,
+                      marginRight: "5px",
+                      width: "100%",
+                    }}
+                  >
+                    <option>Select</option>
+                    <option value={"18 - Muniyandi Karu"}>
+                      18 - Muniyandi Karu
+                    </option>
+                  </select>
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      backgroundColor: "#F1EFEC",
+                      border: "1px solid #ccc",
+                      borderRight: "none",
+                      padding: "5px 10px",
+                      borderRadius: "4px 0 0 4px",
+                    }}
+                  >
+                    ₹
+                  </span>
+                  <input
+                    type="number"
+                    value={othersFields.roomAmount ?? ""}
+                    onChange={(e) =>
+                      handleOthersFieldChange("roomAmount", e.target.value)
+                    }
+                    placeholder="Amount"
+                    style={{
+                      padding: "5px",
+                      border: "1px solid #ccc",
+                      borderRadius: "0 4px 4px 0",
+                      fontSize: "14px",
+                      width: isMobile ? "50%" : "100px",
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                gap: "10px",
+                justifyContent: "flex-end",
+                flexWrap: isMobile ? "wrap" : "nowrap",
+              }}
+            >
+              <button className="theme-exit-btn" onClick={handleCloseSlider}>
+                Cancel
+              </button>
+              <button
+                className="theme-btn"
+                style={{ width: "25%", justifyContent: "center" }}
+                onClick={handleSubmitSettlement}
+              >
+                Submit
+              </button>
             </div>
           </div>
         </div>
