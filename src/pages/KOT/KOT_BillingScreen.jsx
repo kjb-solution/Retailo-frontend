@@ -77,7 +77,6 @@ function KOT_BillingScreen() {
   };
 
   const updateQuantity = (productId, change) => {
-    console.log(productId, change);
     setProducts((prevProducts) =>
       prevProducts
         .map((product) =>
@@ -89,7 +88,6 @@ function KOT_BillingScreen() {
     );
   };
   const deleteProduct = (productId) => {
-    console.log("delete product", productId);
     setProducts((prevProducts) =>
       prevProducts.filter((product) => product.id !== productId)
     );
@@ -119,7 +117,7 @@ function KOT_BillingScreen() {
       0
     );
     const newTax = newSubtotal * 0.05;
-    const newTotal = newSubtotal + newTax;
+    const newTotal = newSubtotal + newTax + newTax;
     setSubtotal(newSubtotal);
     setTax(newTax);
     setTotal(newTotal);
@@ -130,8 +128,9 @@ function KOT_BillingScreen() {
     (acc, item) => acc + item.quantity,
     0
   );
-  console.log("totalItems", totalItems);
-  console.log("kotTotalItems", kotTotalItems);
+  useEffect(() => {
+    console.log(kOTBillingProducts);
+  }, [kOTBillingProducts]);
 
   const filteredProducts = selectedCategory
     ? menu
@@ -140,11 +139,6 @@ function KOT_BillingScreen() {
           product.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
     : [];
-
-  useEffect(() => {
-    console.log("kOTBillingProducts", kOTBillingProducts);
-    console.log("products", products);
-  }, [kOTBillingProducts, products]);
 
   return (
     <div id="billing-container">
@@ -183,13 +177,13 @@ function KOT_BillingScreen() {
         </div>
       </div>
       <div
-      className="element-only-sm"
+        className="element-only-sm"
         style={{
           fontSize: "19px",
           fontWeight: "600",
           color: "#fff",
           padding: "0px 5px",
-       
+
           borderTop: "0.5px solid white",
           textAlign: "center",
           backgroundColor: "var(--theme-bg-color)",
@@ -338,7 +332,6 @@ function KOT_BillingScreen() {
                 fontWeight: "600",
                 color: "#fff",
                 padding: "0px 5px",
-               
               }}
             >
               Table No : {tableNumber}

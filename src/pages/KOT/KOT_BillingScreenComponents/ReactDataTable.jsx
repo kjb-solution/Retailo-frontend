@@ -8,8 +8,8 @@ function ReactDataTable({columns,items,isMobile}) {
         columns={columns}
         data={items}
         highlightOnHover
-        fixedHeader
-        fixedHeaderScrollHeight="70vh"
+        fixedHeader={true}
+        fixedHeaderScrollHeight="55vh"
         striped
         dense
         persistTableHead

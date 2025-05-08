@@ -542,7 +542,7 @@ function ResSales() {
           fixedHeader
           striped
           responsive
-          fixedHeaderScrollHeight="70vh"
+          fixedHeaderScrollHeight="400px"
           paginationPerPage={100}
           customStyles={customStyles}
         />
@@ -550,6 +550,8 @@ function ResSales() {
       <div className="res-sales-details-container">
         <div className="res-sales-container1">
           <h5>Restaurant Sales Details</h5>
+          <hr />
+
           <div className="res-sales-details">
             {[
               ["Restaurants Food Sales", "685.71"],
@@ -575,6 +577,20 @@ function ResSales() {
                   width: "100%",
                   display: "flex",
                   justifyContent: "space-between",
+                  borderBottom: `${
+                    label === "Net Sales" ||
+                    label === "Total Collection" ||
+                    label === "Total Sales"
+                      ? "2px solid #000"
+                      : "2px solid transparent"
+                  }`,
+                  borderTop: `${
+                    label === "Net Sales" ||
+                    label === "Total Collection" ||
+                    label === "Total Sales"
+                      ? "2px solid #000"
+                      : "2px solid transparent"
+                  }`,
                 }}
               >
                 <div style={{ width: "49%" }}>{label}</div>
@@ -586,6 +602,7 @@ function ResSales() {
         </div>
         <div className="res-sales-container2">
           <h5>Sales Details</h5>
+          <hr />
           <div className="room-services-details">
             {[
               ["Room Service Sales", "1142.80"],
@@ -609,6 +626,20 @@ function ResSales() {
                   width: "100%",
                   display: "flex",
                   justifyContent: "space-between",
+                  borderBottom: `${
+                    label === "Net Sales" ||
+                    label === "Total Collection" ||
+                    label === "Total Sales"
+                      ? "2px solid #000"
+                      : "2px solid transparent"
+                  }`,
+                  borderTop: `${
+                    label === "Net Sales" ||
+                    label === "Total Collection" ||
+                    label === "Total Sales"
+                      ? "2px solid #000"
+                      : "2px solid transparent"
+                  }`,
                 }}
               >
                 <div style={{ width: "49%" }}>{label}</div>
