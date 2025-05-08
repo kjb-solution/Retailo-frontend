@@ -6,6 +6,7 @@ import { Printer } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PrinterLoading from "../../assets/PrinterLoading.webm";
+import NoItemImg from '../../assets/NoItemImg.webp'
 
 import {
   faPlus,
@@ -19,7 +20,7 @@ import InvoicePrintView from "./InvoicePrintView";
 import { printReceipt } from "../../services/NodePrinter";
 import { Form, Button } from "react-bootstrap";
 
-const isMobile = window.innerWidth < 768;
+
 
 const Invoice = ({
   items,
@@ -36,6 +37,7 @@ const Invoice = ({
   const [selectedPayment, setSelectedPayment] = useState("UPI");
   const [isPrinting, setIsPrinting] = useState(false);
   const [showOthersFields, setShowOthersFields] = useState(true);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [billData, setBillData] = useState({
     total: 100,
     balance: 100,
@@ -43,13 +45,13 @@ const Invoice = ({
   const [activeMoreBillingOptions, setActiveMoreBillingOptions] =
     useState(false);
   const initialGuestDetails = {
-    pin1: null,
-    pin2: null,
+    pin1: 0,
+    pin2: 0,
     selectedOption: null,
     discount: 0,
     nc: 0,
   };
-   // State for Others fields
+  // State for Others fields
   const initialOthersFields = {
     cash: null,
     card: null,
@@ -62,15 +64,15 @@ const Invoice = ({
     total: billData.total,
     balance: billData.balance,
   };
- 
+
   const [guestDetails, setGuestDetails] = useState(initialGuestDetails);
   const [othersFields, setOthersFields] = useState(initialOthersFields);
   const [activeSettlement, setActiveSettlement] = useState(false);
- 
+
   // console.log(billData);
   const handleOthersFieldChange = (field, value) => {
     console.log(field, value);
-    
+
     setOthersFields((prev) => {
       return {
         ...prev,
@@ -79,17 +81,14 @@ const Invoice = ({
     });
   };
 
- 
-
   const handleSubmitSettlement = () => {
-   
     console.log("Settlement submitted with:", othersFields);
     setActiveSettlement(false);
     setSelectedPayment("");
     setShowOthersFields(false);
     // Reset Others fields
     setOthersFields(initialOthersFields);
-    setSelectedPayment("UPI")
+    setSelectedPayment("UPI");
   };
   const handlePaymentSelect = (paymentType) => {
     setSelectedPayment(paymentType);
@@ -229,7 +228,10 @@ const Invoice = ({
       <div className={`invoice-container ${showPrintView ? "print-mode" : ""}`}>
         {!showPrintView && !showPopup && (
           <>
+          <div style={{width:"100%",position:"relative"}}>
+
             <DataTable
+            
               columns={columns}
               data={items}
               highlightOnHover
@@ -278,13 +280,33 @@ const Invoice = ({
                 },
               }}
             />
+            {items && items.length === 0 && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "25%",
+                  left: isMobile ? "6%" : "0",
+                  opacity: "0.2",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <img
+                  src={NoItemImg}
+                  alt="No KOT"
+                  height={isMobile ? "fit-content" : "fit-content"}
+                  width={isMobile ? "90%" : "100%"}
+                />
+              </div>
+            )}
+          </div>
 
             <div className="invoice-footer">
-              <div className="invoice-summary">
-                <div className="summary-row">
+            <div className="invoice-summary">
+                {/* <div className="summary-row">
                   <span>Sub Total</span>
                   <span>₹{subtotal.toFixed(2)}</span>
-                </div>
+                </div> */}
                 <div className="summary-row">
                   <span>CGST/SGST</span>
                   <span>
@@ -292,6 +314,26 @@ const Invoice = ({
                     <span>₹{tax.toFixed(2)}</span>
                   </span>
                 </div>
+                {items && Array.isArray(items) && (
+                  <>
+                    <div className="summary-row">
+                      <span>Net</span>
+                      <span>
+                        ₹
+                        {items
+                          .reduce(
+                            (acc, item) => acc + item.price * item.quantity,
+                            0
+                          )
+                          .toFixed(2)}
+                      </span>
+                    </div>
+                    <div className="summary-row">
+                      <span>Qty</span>
+                      <span>{totalItems}</span>
+                    </div>
+                  </>
+                )}
                 <div className="summary-row total">
                   <span>Total Payment</span>
                   <span>₹{total.toFixed(2)}</span>
@@ -710,8 +752,6 @@ const Invoice = ({
               overflowY: "auto",
             }}
           >
-            
-
             <div style={{ marginBottom: "20px" }}>
               {/* <p
                 style={{
@@ -800,7 +840,6 @@ const Invoice = ({
                 flexWrap: isMobile ? "wrap" : "nowrap",
               }}
             >
-          
               <button
                 style={{
                   padding: "10px 15px",
@@ -918,7 +957,9 @@ const Invoice = ({
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <select
                     value={othersFields.bankName ?? ""}
-                    onChange={(e) => handleOthersFieldChange("bankName",e.target.value)}
+                    onChange={(e) =>
+                      handleOthersFieldChange("bankName", e.target.value)
+                    }
                     style={{
                       padding: "5px",
                       border: "1px solid #ccc",
@@ -976,7 +1017,9 @@ const Invoice = ({
                   <input
                     type="text"
                     value={othersFields.creditName ?? ""}
-                    onChange={(e) => handleOthersFieldChange("creditName",e.target.value)}
+                    onChange={(e) =>
+                      handleOthersFieldChange("creditName", e.target.value)
+                    }
                     style={{
                       padding: "5px",
                       border: "1px solid #ccc",
@@ -1004,7 +1047,9 @@ const Invoice = ({
                     type="number"
                     value={othersFields.creditAmount ?? ""}
                     placeholder="Amount"
-                    onChange={(e) => handleOthersFieldChange("creditAmount",e.target.value)}
+                    onChange={(e) =>
+                      handleOthersFieldChange("creditAmount", e.target.value)
+                    }
                     style={{
                       padding: "5px",
                       border: "1px solid #ccc",
@@ -1031,7 +1076,9 @@ const Invoice = ({
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <select
                     value={othersFields.roomName ?? ""}
-                    onChange={(e) => handleOthersFieldChange("roomName",e.target.value)}
+                    onChange={(e) =>
+                      handleOthersFieldChange("roomName", e.target.value)
+                    }
                     style={{
                       padding: "5px",
                       border: "1px solid #ccc",

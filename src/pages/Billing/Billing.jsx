@@ -23,9 +23,7 @@ function Billing() {
   const [isModelOpen, setIsModelOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isMobile] = useState(window.innerWidth <= 768);
-  useEffect(() => {
-    console.log(isModelOpen);
-  }, [isModelOpen]);
+ 
 
   const clearCart = () => {
     setProducts([]);

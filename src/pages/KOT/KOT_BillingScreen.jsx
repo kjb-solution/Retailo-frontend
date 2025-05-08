@@ -77,7 +77,6 @@ function KOT_BillingScreen() {
   };
 
   const updateQuantity = (productId, change) => {
-   
     setProducts((prevProducts) =>
       prevProducts
         .map((product) =>
@@ -89,7 +88,6 @@ function KOT_BillingScreen() {
     );
   };
   const deleteProduct = (productId) => {
-   
     setProducts((prevProducts) =>
       prevProducts.filter((product) => product.id !== productId)
     );
@@ -130,7 +128,9 @@ function KOT_BillingScreen() {
     (acc, item) => acc + item.quantity,
     0
   );
- 
+  useEffect(() => {
+    console.log(kOTBillingProducts);
+  }, [kOTBillingProducts]);
 
   const filteredProducts = selectedCategory
     ? menu
@@ -139,8 +139,6 @@ function KOT_BillingScreen() {
           product.name.toLowerCase().includes(searchTerm.toLowerCase())
         )
     : [];
-
- 
 
   return (
     <div id="billing-container">
@@ -179,13 +177,13 @@ function KOT_BillingScreen() {
         </div>
       </div>
       <div
-      className="element-only-sm"
+        className="element-only-sm"
         style={{
           fontSize: "19px",
           fontWeight: "600",
           color: "#fff",
           padding: "0px 5px",
-       
+
           borderTop: "0.5px solid white",
           textAlign: "center",
           backgroundColor: "var(--theme-bg-color)",
@@ -334,7 +332,6 @@ function KOT_BillingScreen() {
                 fontWeight: "600",
                 color: "#fff",
                 padding: "0px 5px",
-               
               }}
             >
               Table No : {tableNumber}

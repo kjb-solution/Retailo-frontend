@@ -1,3 +1,8 @@
+/* this class will remove no item data message */
+.RZGgn{
+  opacity: 0;
+  }
+  
 .invoice-container {
  background-color: #fff;;
   width: 100%;
@@ -43,7 +48,7 @@
 .invoice-footer{
  
   width: 100%;
- padding: 15px;
+ padding: 5px;
 }
 .invoice-container::-webkit-scrollbar {
   display: none;
@@ -75,7 +80,7 @@
 
 .summary-row.total {
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
 }
 
 .place-order-btn {

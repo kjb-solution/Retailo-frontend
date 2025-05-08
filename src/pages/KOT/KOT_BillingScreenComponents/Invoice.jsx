@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import "../../Billing/Invoice.css";
 import "./KOT-invoice.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,25 +6,20 @@ import {
   ListPlus,
   Printer,
   ReceiptText,
+  Save,
   UserRoundPen,
   UtensilsCrossed,
 } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Form, Button } from "react-bootstrap";
-import {
-  faPlus,
-  faMinus,
-  faTrashAlt,
-  faCreditCard,
-  faMoneyBillWave,
-  faClock,
-} from "@fortawesome/free-solid-svg-icons";
-import InvoicePrintView from "./InvoicePrintView";
+import { Form } from "react-bootstrap";
+import { faPlus, faMinus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import ReactDataTable from "./ReactDataTable";
 import { StaffSVG } from "../../../assets/image";
 import { printReceipt } from "../../../services/NodePrinter";
 import PrinterLoading from "../../../assets/PrinterLoading.webm";
+import NoKotImg from "../../../assets/NoKotImg.webp";
+import NoItemImg from "../../../assets/NoItemImg.webp";
 
 const Invoice = ({
   KOT_items,
@@ -181,7 +175,7 @@ const Invoice = ({
     },
     {
       name: "",
-      width: isMobile ? "3px" : "5%",
+      width: isMobile ? "20px" : "5%",
       style: {
         display: "flex",
         justifyContent: "flex-start", // shift it slightly to the left
@@ -238,7 +232,7 @@ const Invoice = ({
     },
     {
       name: "",
-      width: isMobile ? "3px" : "5%",
+      width: isMobile ? "20px" : "5%",
       style: {
         display: "flex",
         justifyContent: "flex-start", // shift it slightly to the left
@@ -463,7 +457,69 @@ const Invoice = ({
                     columns={kot_columns}
                     isMobile={isMobile}
                   />
+                  {KOT_items && KOT_items.length === 0 && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "10%",
+                        left: isMobile ? "2%" : "0",
+                        opacity: "0.2",
+                        width: "100%",
+                        // height: "100%",
+                      }}
+                    >
+                      <img
+                        src={NoKotImg}
+                        alt="No KOT"
+                        height={isMobile ? "60%" : "fit-content"}
+                        width={isMobile ? "100%" : "100%"}
+                      />
+                    </div>
+                  )}
+
                   <div className="KOT-create-btn-container">
+                    <div className="invoice-footer">
+                      <div className="invoice-summary">
+                        {/* <div className="summary-row">
+                          <span>CGST/SGST</span>
+                          <span>
+                            <span>₹{tax.toFixed(2) + "/"}</span>
+                            <span>₹{tax.toFixed(2)}</span>
+                          </span>
+                        </div> */}
+                        {kOTBillingProducts &&
+                          Array.isArray(kOTBillingProducts) && (
+                            <>
+                              <div className="summary-row">
+                                <span>Net</span>
+                                <span>
+                                  ₹
+                                  {KOT_items.reduce(
+                                    (acc, item) =>
+                                      acc + item.price * item.quantity,
+                                    0
+                                  ).toFixed(2)}
+                                </span>
+                              </div>
+                              <div className="summary-row">
+                                <span>Quantity</span>
+                                <span>{totalItems}</span>
+                              </div>
+                            </>
+                          )}
+                        <div className="summary-row total">
+                          <span>Total</span>
+                          <span>
+                            ₹
+                            {KOT_items.reduce(
+                              (acc, item) => acc + item.price * item.quantity,
+                              0
+                            ).toFixed(2)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
                     <button
                       onClick={handleKOTCreate}
                       className="KOT-create-btn"
@@ -482,13 +538,32 @@ const Invoice = ({
                     columns={columns}
                     isMobile={isMobile}
                   />
+                  {kOTBillingProducts && kOTBillingProducts.length === 0 && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "10%",
+                        left: isMobile ? "6%" : "0",
+                        opacity: "0.2",
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    >
+                      <img
+                        src={NoItemImg}
+                        alt="No KOT"
+                        height={isMobile ? "60%" : "fit-content"}
+                        width={isMobile ? "90%" : "100%"}
+                      />
+                    </div>
+                  )}
                   <span className="invoice-container-footer">
                     <div className="invoice-footer">
                       <div className="invoice-summary">
-                        <div className="summary-row">
+                        {/* <div className="summary-row">
                           <span>Sub Total</span>
                           <span>₹{subtotal.toFixed(2)}</span>
-                        </div>
+                        </div> */}
                         <div className="summary-row">
                           <span>CGST/SGST</span>
                           <span>
@@ -496,38 +571,35 @@ const Invoice = ({
                             <span>₹{tax.toFixed(2)}</span>
                           </span>
                         </div>
+                        {kOTBillingProducts &&
+                          Array.isArray(kOTBillingProducts) && (
+                            <>
+                              <div className="summary-row">
+                                <span>Net</span>
+                                <span>
+                                  ₹
+                                  {kOTBillingProducts
+                                    .reduce(
+                                      (acc, item) =>
+                                        acc + item.price * item.quantity,
+                                      0
+                                    )
+                                    .toFixed(2)}
+                                </span>
+                              </div>
+                              <div className="summary-row">
+                                <span>Qty</span>
+                                <span>{kOTBillingQuantity}</span>
+                              </div>
+                            </>
+                          )}
                         <div className="summary-row total">
                           <span>Total Payment</span>
                           <span>₹{total.toFixed(2)}</span>
                         </div>
                       </div>
                     </div>
-                    {/* <div className="payment-methods">
-                      <button
-                        className={`payment-button ${
-                          selectedPayment === "Cash Payout" ? "active" : ""
-                        }`}
-                        onClick={() => setSelectedPayment("Cash Payout")}
-                      >
-                        <FontAwesomeIcon icon={faMoneyBillWave} /> Cash
-                      </button>
-                      <button
-                        className={`payment-button ${
-                          selectedPayment === "UPI" ? "active" : ""
-                        }`}
-                        onClick={() => setSelectedPayment("UPI")}
-                      >
-                        <FontAwesomeIcon icon={faClock} /> UPI
-                      </button>
-                      <button
-                        className={`payment-button ${
-                          selectedPayment === "Card" ? "active" : ""
-                        }`}
-                        onClick={() => setSelectedPayment("Card")}
-                      >
-                        <FontAwesomeIcon icon={faCreditCard} /> Card
-                      </button>
-                    </div> */}
+
                     <div
                       style={{
                         display: "flex",
@@ -545,7 +617,7 @@ const Invoice = ({
                         }}
                         onClick={handleGenerateInvoice}
                       >
-                        <Printer />
+                        <Save />
                         <span>{isPrinting ? "Saving" : "Save"}</span>
                         {isPrinting ? (
                           <div
