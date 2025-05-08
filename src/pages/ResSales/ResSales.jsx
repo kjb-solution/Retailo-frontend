@@ -487,9 +487,7 @@ function ResSales() {
       </div>
 
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h3 className="res-sales-title" style={{ placeSelf: "flex-start" }}>
-          Restaurant Sales Report
-        </h3>
+        <h3 class="slider-header">Restaurant Sales Report</h3>
         <span style={{ display: "flex", alignItems: "center" }}>
           <div className="utility-buttons-container">
             <OverlayTrigger

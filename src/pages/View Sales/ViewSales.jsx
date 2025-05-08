@@ -353,7 +353,7 @@ function ViewSales() {
       </div>
 
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h3>View Sales</h3>
+        <h3 class="slider-header">View Sales</h3>
         <span style={{ display: "flex", alignItems: "center" }}>
           {/* <div className="utility-buttons-container">
             <OverlayTrigger

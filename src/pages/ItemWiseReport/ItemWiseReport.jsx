@@ -13,6 +13,8 @@ import { FaFileCsv, FaPrint } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { CSVLink } from "react-csv";
 import { X } from "lucide-react";
+import { CloseSVG } from "../../assets/image";
+
 const isMobile = window.innerWidth <= 768;
 
 const salesData = [
@@ -59,9 +61,9 @@ const ItemWiseReport = () => {
 
   const handlePrint = () => {
     // Create a new window for printing
-    const printWindow = window.open('', '_blank');
-    const tableContent = document.querySelector('.table-to-print').outerHTML;
-    
+    const printWindow = window.open("", "_blank");
+    const tableContent = document.querySelector(".table-to-print").outerHTML;
+
     // Write the print-specific HTML to the new window
     printWindow.document.write(`
       <html>
@@ -112,7 +114,7 @@ const ItemWiseReport = () => {
         </body>
       </html>
     `);
-    
+
     printWindow.document.close();
     printWindow.focus();
     printWindow.print();
@@ -152,15 +154,21 @@ const ItemWiseReport = () => {
   let itemCounter = 1;
 
   return (
-    <div className="p-3 item-wise-report-table position-relative">
-      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
-        <div className="utility-buttons-container d-flex gap-3">
+    <div className="">
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="slider-header">Item Sales Report</h3>
+        <div className="d-flex align-items-center gap-3">
           <OverlayTrigger
             placement="top"
             delay={{ show: 100, hide: 100 }}
             overlay={<Tooltip id="print-tooltip">Print Table</Tooltip>}
           >
-            <FaPrint size={25} color="rgb(58, 89, 209)" onClick={handlePrint} style={{ cursor: "pointer" }} />
+            <FaPrint
+              size={25}
+              color="rgb(58, 89, 209)"
+              onClick={handlePrint}
+              style={{ cursor: "pointer" }}
+            />
           </OverlayTrigger>
 
           <OverlayTrigger
@@ -184,15 +192,14 @@ const ItemWiseReport = () => {
               </CSVLink>
             </div>
           </OverlayTrigger>
+          <button
+            className="btn-create"
+            style={{ alignSelf: "center" }}
+            onClick={() => setSliderOpen(!sliderOpen)}
+          >
+            <FaSearch /> Search
+          </button>
         </div>
-
-        <button
-          className="filter-btn"
-          style={{ alignSelf: "center" }}
-          onClick={() => setSliderOpen(!sliderOpen)}
-        >
-          <FaSearch /> Search
-        </button>
       </div>
 
       {sliderOpen && (
@@ -206,14 +213,15 @@ const ItemWiseReport = () => {
           transition: "transform 0.3s ease",
         }}
       >
-        <div className="filter-header">
-          <h5>Search</h5>
-          <X size={24} onClick={handleCloseSlider} className="close-icon" />
+        <div className="drawer-header">
+          <h5 className="slider-header">Search</h5>
+          <button className="close-btn" onClick={handleCloseSlider}>
+            <CloseSVG />
+          </button>
         </div>
-        <hr />
         <Form className="p-3">
           <Row className="g-3">
-            <Col xs={12}>
+            <Col xs={6}>
               <Form.Group controlId="fromdate">
                 <Form.Label>From Date</Form.Label>
                 <Form.Control
@@ -223,7 +231,7 @@ const ItemWiseReport = () => {
                 />
               </Form.Group>
             </Col>
-            <Col xs={12}>
+            <Col xs={6}>
               <Form.Group controlId="todate">
                 <Form.Label>To Date</Form.Label>
                 <Form.Control
@@ -245,12 +253,12 @@ const ItemWiseReport = () => {
                 </Form.Select>
               </Form.Group>
             </Col>
-          
-            <Col xs={12} style={{ display: "flex", width: "100%", justifyContent: "flex-end" }}>
+
+            <div className="filter-buttons">
               <button className="theme-btn" onClick={handleItemSearch}>
                 Apply Search
               </button>
-            </Col>
+            </div>
           </Row>
         </Form>
       </div>

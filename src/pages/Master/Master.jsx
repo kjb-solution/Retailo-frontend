@@ -136,7 +136,7 @@ const MasterPage = () => {
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h3>Item Master</h3>
+        <h3 class="slider-header">Item Master</h3>
         <div className="d-flex gap-2">
           <button
             className="btn-create"

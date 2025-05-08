@@ -100,7 +100,7 @@ function KOT() {
   return (
     <span style={{ backgroundColor: "#f5f6fa" }}>
       <div className="kot-header-wrapper">
-        <h4 className="kot-header">Create KOT</h4>
+        <h3 class="slider-header">Create KOT</h3>
         <HeaderNavLinks
           data={[
             { name: "Home", link: "/" },
