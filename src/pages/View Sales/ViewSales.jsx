@@ -9,10 +9,13 @@ import Tooltip from "react-bootstrap/Tooltip";
 import "./ViewSales.css";
 import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 import { CloseSVG } from "../../assets/image";
+import BillViewModel from "./BillViewModel";
 
 function ViewSales() {
   const [showFilter, setShowFilter] = useState(false);
   const filterRef = useRef(null);
+  const [isModelOpen, setIsModelOpen] = useState(false);
+  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const initialFilters = {
     fromDate: "",
@@ -84,6 +87,11 @@ function ViewSales() {
         fontFamily: "Poppins, sans-serif",
         color: "#444",
         padding: "10px",
+      },
+    },
+    rows: {
+      style: {
+        cursor: "pointer",
       },
     },
   };
@@ -183,8 +191,9 @@ function ViewSales() {
   function actionIcons() {
     return (
       <span className="action-icons">
-        <FilePenLine size={16} color="green" />
-        <Printer size={16} color="#3A59D1" />
+        {/* <FilePenLine size={16} color="green" /> */}
+        Print
+        <Printer size={16}  />
       </span>
     );
   }
@@ -255,8 +264,23 @@ function ViewSales() {
     setShowFilter(false);
   };
 
+  const handleRowClick = (row) => {
+    setSelectedRowData(row);
+    setIsModelOpen(true);
+  };
+  const handleCloseModel = () => {
+    setIsModelOpen(false);
+  };
+
   return (
     <div className="">
+      <BillViewModel
+        handleCloseModel={handleCloseModel}
+        isModelOpen={isModelOpen}
+        setIsModelOpen={setIsModelOpen}
+        rowData={selectedRowData}
+      />
+
       {showFilter && (
         <div className="filter-overlay" onClick={() => setShowFilter(false)} />
       )}
@@ -408,6 +432,7 @@ function ViewSales() {
           responsive
           paginationPerPage={10}
           customStyles={customStyles}
+          onRowClicked={handleRowClick}
         />
       </div>
     </div>

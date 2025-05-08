@@ -270,13 +270,13 @@ const Invoice = ({
                   },
                 },
                 table: {
-                  style: {
-                    "&::-webkit-scrollbar": {},
-                    "&::-webkit-scrollbar-track": {
-                      background: "black",
-                    },
-                    overflowX: "hidden",
-                  },
+                  // style: {
+                  //   "&::-webkit-scrollbar": {},
+                  //   "&::-webkit-scrollbar-track": {
+                  //     background: "black",
+                  //   },
+                  //   overflowX: "hidden",
+                  // },
                 },
               }}
             />

@@ -49,3 +49,15 @@ body {
 .slider-header {
   font-family: "Poppins", sans-serif;
 }
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--theme-bg-color);
+  border-radius: 4px;
+}

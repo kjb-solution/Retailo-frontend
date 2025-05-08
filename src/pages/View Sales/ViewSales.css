@@ -115,11 +115,6 @@ hr {
   width: 60px;
   font-size: 10px;
 }
-/* Action icons */
-.action-icons {
-  display: flex;
-  gap: 5px;
-}
 
 .res-sales-container {
   position: relative;
@@ -153,7 +148,7 @@ hr {
   background-color: #fff;
   transform: translateX(100%);
   transition: transform 0.3s ease;
-  z-index: 1000;
+  z-index: 1010;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -178,7 +173,23 @@ hr {
 
 .action-icons {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 5px;
   gap: 5px;
+  border: 1px solid #3a59d1;
+}
+.action-icons svg {
+  color: #3a59d1;
+}
+.action-icons:hover {
+  background-color: #2144ce;
+  color: #fff;
+}
+
+.action-icons:hover svg {
+  color: #ffffff;
 }
 
 .paid-status {
@@ -308,4 +319,33 @@ hr {
   .res-sales-details-container div {
     width: 100%;
   }
+}
+
+/* billing view model css  */
+
+.bill-view-model {
+  position: fixed;
+  top: -10px;
+  right: 0;
+  height: 100%;
+  width: 0;
+  background-color: #fff;
+  overflow-x: hidden;
+  transition: width 0.3s ease;
+  z-index: 1000;
+}
+.open-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 580px;
+  background-color: #fff;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  z-index: 1010;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+}
+.open-panel.show {
+  transform: translateX(0%);
 }

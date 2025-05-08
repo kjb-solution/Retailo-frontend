@@ -33,7 +33,7 @@
   margin: 10px;
   overflow-x: hidden;
 }
-.invoice-items::-webkit-scrollbar {
+/* .invoice-items::-webkit-scrollbar {
   width: 8px;
 }
 
@@ -43,7 +43,7 @@
 .invoice-items::-webkit-scrollbar-thumb {
   background: var(--theme-bg-color);
   border-radius: 4px;
-}
+} */
 
 .invoice-footer{
  

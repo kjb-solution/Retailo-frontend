@@ -546,7 +546,7 @@ const Invoice = ({
                         left: isMobile ? "6%" : "0",
                         opacity: "0.2",
                         width: "100%",
-                        height: "100%",
+                        // height: "100%",
                       }}
                     >
                       <img

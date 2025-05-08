@@ -45,10 +45,10 @@ function ReactDataTable({columns,items,isMobile}) {
           },
           table: {
             style: {
-              "&::-webkit-scrollbar": {},
-              "&::-webkit-scrollbar-track": {
-                background: "black",
-              },
+              // "&::-webkit-scrollbar": {},
+              // "&::-webkit-scrollbar-track": {
+              //   background: "black",
+              // },
               minHeight: isMobile ? "60vh" : "70vh",
               overflowX: "hidden",
              borderTop: "1px solid #ccc",
