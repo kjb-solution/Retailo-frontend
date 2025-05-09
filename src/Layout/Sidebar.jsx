@@ -42,7 +42,15 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         { label: "Day Sales", path: "/reports/day-sales" },
       ],
     },
-    { icon: <FaBoxes />, label: "Inventory", path: "/inventory" },
+    {
+      icon: <FaBoxes />,
+      label: "Inventory",
+      path: "/inventory",
+      submenu: [
+        { label: "GRN", path: "/inventory/grn" },
+        { label: "GRN Report", path: "/inventory/grn-report" },
+      ],
+    },
   ];
 
   const handleNavClick = () => {
@@ -127,8 +135,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                       >
                         <ul>
                           {item.submenu.map((sub, idx) => {
-                            const isSubActive =
-                              location.pathname === sub.path;
+                            const isSubActive = location.pathname === sub.path;
                             return (
                               <li
                                 key={idx}

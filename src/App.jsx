@@ -13,6 +13,8 @@ import KOT_BillingScreen from "./pages/KOT/KOT_BillingScreen";
 import ResSales from "./pages/ResSales/ResSales";
 import ItemWiseReport from "./pages/ItemWiseReport/ItemWiseReport";
 import ViewSales from "./pages/View Sales/ViewSales";
+import GRN from "./pages/InventoryPages/GRN/GRN";
+import GRNReport from "./pages/InventoryPages/GRNReport/GRNReport";
 
 function App() {
   return (
@@ -34,6 +36,9 @@ function App() {
             element={<ItemWiseReport />}
           />
           <Route path="/restaurant/view-sales" element={<ViewSales />} />
+          {/* inventory routes  */}
+          <Route path="/inventory/grn" element={<GRN />} />
+          <Route path="/inventory/grn-report" element={<GRNReport/>}/>
         </Routes>
       </Layout>
     </Router>

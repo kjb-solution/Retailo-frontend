@@ -1,6 +1,6 @@
-import React, { useState } from "react";
 import DataTable from "react-data-table-component";
-import { CloseSVG } from "../../assets/image";
+import { CloseSVG } from "../../../assets/image";
+import React, { useState } from "react";
 
 
 // Custom styles for the DataTable to match the bill layout
@@ -100,8 +100,8 @@ function BillViewModel({
           </button>
         </div>
         <div className="bill-view-header">
-          <div>Bill No: {rowData?.billNo || "-"}</div>
-          <div>Date: {rowData?.billDate || "-"}</div>
+          <div>PO No: {rowData?.poNo || "-"}</div>
+          <div>Date: {rowData?.date || "-"}</div>
         </div>
         <div className="bill-view-container">
           {/* DataTable Section */}

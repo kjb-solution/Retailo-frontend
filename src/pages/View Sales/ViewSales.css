@@ -191,6 +191,27 @@ hr {
 .action-icons:hover svg {
   color: #ffffff;
 }
+.delete-action-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 5px;
+  gap: 5px;
+  border: 1px solid #d91e1e;
+}
+.delete-action-icons svg {
+  color: #d91e1e;
+}
+.delete-action-icons:hover {
+  background-color:#b91c1c;
+  color: #fff;
+}
+
+.delete-action-icons:hover svg {
+  color: #ffffff;
+}
+
 
 .paid-status {
   color: green;
@@ -313,6 +334,7 @@ hr {
   .filter-panel.show {
     width: 100%;
   }
+  
   .res-sales-details-container {
     flex-direction: column;
   }
@@ -322,7 +344,14 @@ hr {
 }
 
 /* billing view model css  */
-
+.bill-view-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
 .bill-view-model {
   position: fixed;
   top: -10px;
@@ -348,4 +377,15 @@ hr {
 }
 .open-panel.show {
   transform: translateX(0%);
+}
+.bill-view-container{
+  padding: 10px;
+}
+@media screen and (max-width: 768px) {
+  .open-panel.show {
+    width: 100%;
+  }
+  .bill-view-header {
+    font-size: 16px;
+  }
 }
